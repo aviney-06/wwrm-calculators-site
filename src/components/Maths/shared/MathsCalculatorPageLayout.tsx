@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Breadcrumbs } from "@/components/globals/Breadcrumbs";
 import { BreadcrumbSchema } from "@/components/Schema-Markup/BreadcrumbSchema";
+import { getSiteUrl } from "@/lib/siteUrl";
 
 type Props = {
   path: string;
@@ -17,8 +18,7 @@ export function MathsCalculatorPageLayout({
   breadcrumbLabel,
   children,
 }: Props) {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const baseUrl = getSiteUrl();
 
   return (
     <div className="w-full min-w-0">

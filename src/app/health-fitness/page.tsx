@@ -2,6 +2,7 @@ import { CategoryCalculatorIndex } from "@/components/globals/CategoryCalculator
 import { BreadcrumbSchema } from "@/components/Schema-Markup/BreadcrumbSchema";
 import { HEALTH_FITNESS_CALCULATOR_LINKS } from "@/data/calculatorCategoryLinks";
 import { buildPageMetadata } from "@/lib/metadata";
+import { getSiteUrl } from "@/lib/siteUrl";
 
 export const metadata = buildPageMetadata({
   title: "Health & Fitness Calculators",
@@ -11,8 +12,7 @@ export const metadata = buildPageMetadata({
 });
 
 export default function HealthFitnessIndexPage() {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const baseUrl = getSiteUrl();
 
   return (
     <>

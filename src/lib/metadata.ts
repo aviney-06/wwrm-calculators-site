@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getSiteUrl } from "@/lib/siteUrl";
 
 export const SITE_NAME = "AllOneCalculators";
 
@@ -14,9 +15,7 @@ export function buildPageMetadata({
   description,
   path,
 }: BuildPageMetadataInput): Metadata {
-  const origin = (
-    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
-  ).replace(/\/$/, "");
+  const origin = getSiteUrl();
   const normalized =
     path === "/" || path === ""
       ? "/"
