@@ -2,12 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 const calculatorLinks = [
-  { label: "Mortgage Calculator", href: "/finance/mortgage" },
-  { label: "Loan Calculator", href: "/finance/loan" },
   { label: "BMI Calculator", href: "/health-fitness/bmi-calculator" },
-  { label: "Body Fat Calculator", href: "/health-fitness/body-fat-calculator" },
   { label: "TDEE Calculator", href: "/health-fitness/tdee-calculator" },
-  { label: "Health calculators", href: "/health-fitness" },
+  { label: "Scientific Calculator", href: "/maths/scientific-calculator" },
+  { label: "Health & fitness", href: "/health-fitness" },
+  { label: "Finance calculators", href: "/finance" },
+  { label: "Maths calculators", href: "/maths" },
 ] as const;
 
 const companyLinks = [
