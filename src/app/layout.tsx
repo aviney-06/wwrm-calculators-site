@@ -4,6 +4,7 @@ import { AdsSidebar } from "@/components/globals/AdsSidebar";
 import { Footer } from "@/components/globals/Footer";
 import { Navbar } from "@/components/globals/Navbar";
 import { SITE_NAME } from "@/lib/metadata";
+import { getSiteUrl } from "@/lib/siteUrl";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -18,9 +19,7 @@ const geistMono = Geist_Mono({
 
 /** Minimal fallbacks only — each route should set its own metadata via {@code buildPageMetadata} in {@code page.tsx}. */
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
-  ),
+  metadataBase: new URL(getSiteUrl()),
   title: SITE_NAME,
   description: "Free online calculators for finance, health, and more.",
 };
