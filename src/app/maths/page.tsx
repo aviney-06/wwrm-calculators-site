@@ -1,4 +1,5 @@
 import { CategoryCalculatorIndex } from "@/components/globals/CategoryCalculatorIndex";
+import { MATHS_CALCULATOR_LINKS } from "@/data/calculatorCategoryLinks";
 import { buildPageMetadata } from "@/lib/metadata";
 
 export const metadata = buildPageMetadata({
@@ -7,18 +8,6 @@ export const metadata = buildPageMetadata({
     "Scientific, fraction, percentage, triangle, statistics, and more free maths tools.",
   path: "/maths",
 });
-
-const CALCULATORS: { href: string; label: string }[] = [
-  { href: "/maths/scientific-calculator", label: "Scientific Calculator" },
-  { href: "/maths/fraction-calculator", label: "Fraction Calculator" },
-  { href: "/maths/percentage-calculator", label: "Percentage Calculator" },
-  { href: "/maths/triangle-calculator", label: "Triangle Calculator" },
-  {
-    href: "/maths/standard-deviation-calculator",
-    label: "Standard Deviation Calculator",
-  },
-  { href: "/maths/random-number-generator", label: "Random Number Generator" },
-];
 
 export default function MathsIndexPage() {
   return (
@@ -29,7 +18,7 @@ export default function MathsIndexPage() {
       ]}
       title="Maths Calculator"
       description="Scientific, fractions, percentages, geometry, and more."
-      links={CALCULATORS}
+      links={MATHS_CALCULATOR_LINKS}
     />
   );
 }

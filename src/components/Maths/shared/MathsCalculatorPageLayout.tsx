@@ -4,7 +4,6 @@ import { BreadcrumbSchema } from "@/components/Schema-Markup/BreadcrumbSchema";
 import { getSiteUrl } from "@/lib/siteUrl";
 
 type Props = {
-  /** URL pathname for this page, e.g. {@code /health-fitness/bmi-calculator} */
   path: string;
   title: string;
   description: string;
@@ -12,7 +11,7 @@ type Props = {
   children: ReactNode;
 };
 
-export function HealthCalculatorPageLayout({
+export function MathsCalculatorPageLayout({
   path,
   title,
   description,
@@ -27,7 +26,7 @@ export function HealthCalculatorPageLayout({
         baseUrl={baseUrl}
         items={[
           { name: "Home", href: "/" },
-          { name: "Health calculator", href: "/health-fitness" },
+          { name: "Maths calculator", href: "/maths" },
           { name: title, href: path },
         ]}
       />
@@ -35,7 +34,7 @@ export function HealthCalculatorPageLayout({
         className="mb-3 max-md:mb-2 md:mb-5"
         items={[
           { label: "home", href: "/" },
-          { label: "health calculator", href: "/health-fitness" },
+          { label: "maths calculator", href: "/maths" },
           { label: breadcrumbLabel },
         ]}
       />

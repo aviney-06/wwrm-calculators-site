@@ -1,16 +1,11 @@
-import { HomeCategorySection } from "./component/CategorySection";
-import { homeCategorySections } from "./data";
+import { HomeExploreSection } from "@/components/Home/HomeExploreSection";
+import { ScientificCalculator } from "@/components/Maths/ScientificCalculator";
 
 export function HomePage() {
   return (
-    <div className="flex flex-col gap-12 pb-8">
-      {homeCategorySections.map((section, index) => (
-        <HomeCategorySection
-          key={section.title}
-          {...section}
-          imagePriority={index === 0}
-        />
-      ))}
+    <div className="pb-8">
+      <ScientificCalculator />
+      <HomeExploreSection />
     </div>
   );
 }
