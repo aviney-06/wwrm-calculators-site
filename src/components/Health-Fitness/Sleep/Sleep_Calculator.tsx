@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { btnCalculate } from "../shared/calculatorStyles";
+import { btnCalculate, fieldBase } from "../shared/calculatorStyles";
 import {
   CalculatorTwoPanel,
   scrollResultIntoViewMobile,
@@ -79,12 +79,12 @@ export function Sleep_Calculator() {
 
   const form = (
     <div className="flex flex-1 flex-col gap-3 sm:gap-4 md:gap-6">
-      <p className="text-[12px] leading-snug text-[#64748b]">
+      <p className="text-[12px] leading-snug text-neutral-1/70">
         Uses ~{CYCLE_MIN} min sleep cycles and ~{FALL_ASLEEP_MIN} min to fall
         asleep — illustrative only.
       </p>
       <div>
-        <p className="mb-1.5 text-[13px] font-medium text-[#334155] sm:text-[15px]">
+        <p className="mb-1.5 text-[12px] font-semibold uppercase tracking-[0.08em] text-neutral-1/75">
           I know my…
         </p>
         <CustomSelect<Mode>
@@ -98,14 +98,14 @@ export function Sleep_Calculator() {
         />
       </div>
       <div>
-        <p className="mb-1.5 text-[13px] font-medium text-[#334155] sm:text-[15px]">
+        <p className="mb-1.5 text-[12px] font-semibold uppercase tracking-[0.08em] text-neutral-1/75">
           Time
         </p>
         <input
           type="time"
           value={time}
           onChange={(e) => setTime(e.target.value)}
-          className="min-h-[44px] w-full max-w-[10rem] rounded border border-[#E0E0E0] bg-white px-3 text-[14px] outline-none focus:border-[#2374ac] focus:ring-2 focus:ring-[#2374ac]/30 sm:min-h-10"
+          className={`${fieldBase} w-full max-w-[10rem]`}
         />
       </div>
       <FormError message={error} />

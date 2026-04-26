@@ -16,7 +16,7 @@ export function InputWithSuffix({
     <div className={`relative inline-flex ${className}`}>
       <input {...inputProps} className={`${fieldBase} ${inputClassName}`} />
       <span
-        className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 select-none text-[11px] text-[#64748b] sm:right-2.5 sm:text-[12px]"
+        className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 select-none text-[12px] text-neutral-1/70"
         aria-hidden
       >
         {suffix}

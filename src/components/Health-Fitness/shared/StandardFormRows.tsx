@@ -5,21 +5,21 @@ import type { ReactNode } from "react";
 type Gender = "male" | "female";
 
 const ageLabelClass =
-  "min-w-[2rem] text-[13px] font-medium text-[#334155] sm:min-w-[2.5rem] sm:text-[15px]";
+  "min-w-[2rem] text-[12px] font-semibold uppercase tracking-[0.08em] text-neutral-1/75 sm:min-w-[2.5rem]";
 
 const ageInputClass =
-  "h-9 w-[4rem] rounded border border-[#E0E0E0] bg-white px-2 text-[14px] text-[#334155] outline-none focus:border-[#2374ac] focus:ring-1 focus:ring-[#2374ac] sm:h-10 sm:w-[4.5rem] sm:px-2.5 sm:text-[15px]";
+  "h-[44px] w-[4.5rem] rounded-md border border-neutral-3 bg-neutral-3 px-3 text-[14px] text-neutral-1 outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none focus:border-primary focus:ring-1 focus:ring-primary";
 
 const ageRangeHintClass =
-  "hidden text-[12px] italic text-[#9ca3af] sm:inline sm:text-[13px]";
+  "hidden text-[12px] italic text-neutral-1/45 sm:inline";
 
 const genderTitleClass =
-  "mb-1.5 text-[13px] font-medium text-[#334155] sm:mb-2.5 sm:text-[15px]";
+  "mb-2 text-[12px] font-semibold uppercase tracking-[0.08em] text-neutral-1/75";
 
 const radioLabelClass =
-  "flex cursor-pointer items-center gap-1.5 text-[13px] text-[#334155] sm:gap-2 sm:text-[15px]";
+  "flex cursor-pointer items-center gap-1.5 text-[14px] text-neutral-1 sm:gap-2";
 
-const radioInputClass = "h-3.5 w-3.5 accent-[#2374ac] sm:h-4 sm:w-4";
+const radioInputClass = "h-3.5 w-3.5 accent-primary sm:h-4 sm:w-4";
 
 /** Single age row — matches BMI calculator (inline label, compact input, range hint on sm+). */
 export function AgeField({
@@ -98,7 +98,7 @@ export function GenderField({
         </label>
       </div>
       {hint ? (
-        <p className="mt-1.5 text-[11px] leading-snug text-[#94a3b8] sm:text-[12px]">
+        <p className="mt-1.5 text-[11px] leading-snug text-neutral-1/55 sm:text-[12px]">
           {hint}
         </p>
       ) : null}
@@ -142,7 +142,7 @@ export function AgeGenderRow({
         namePrefix={ageId}
       />
       {ageHint ? (
-        <p className="text-[11px] leading-snug text-[#94a3b8] sm:text-[12px]">
+        <p className="text-[11px] leading-snug text-neutral-1/55 sm:text-[12px]">
           {ageHint}
         </p>
       ) : null}
@@ -175,7 +175,7 @@ export function UnitsRow({
     <div className="flex min-w-0 flex-col gap-1.5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-3 sm:gap-y-2">
       <label
         htmlFor={selectId}
-        className="shrink-0 text-[13px] font-medium text-[#334155] sm:min-w-[2.5rem] sm:text-[15px]"
+        className="shrink-0 text-[12px] font-semibold uppercase tracking-[0.08em] text-neutral-1/75 sm:min-w-[2.5rem]"
       >
         {label}
       </label>

@@ -20,7 +20,7 @@ export function CalculatorTwoPanel({
   result,
   resultRef,
   disclaimer = (
-    <p className="mt-4 text-center text-[11px] italic leading-snug text-[#9ca3af] sm:mt-8 sm:text-[13px] sm:leading-normal">
+    <p className="mt-4 text-center text-[11px] italic leading-snug text-neutral-1/45 sm:mt-8 sm:text-[13px] sm:leading-normal">
       Note — This result is an estimate. Talk to a healthcare provider for
       personalized guidance.
     </p>
@@ -33,7 +33,7 @@ export function CalculatorTwoPanel({
     <div className="w-full">
       <div className={twoPanelGridClass}>
         <section className={formSectionScroll}>
-          <h2 className="mb-3 text-center text-[15px] font-semibold text-[#334155] sm:mb-5 sm:text-[16px] md:mb-8 md:text-[17px]">
+          <h2 className="mb-3 text-center text-[15px] font-semibold text-neutral-1 sm:mb-5 sm:text-[16px] md:mb-8 md:text-[17px]">
             Enter Details
           </h2>
           {form}
@@ -43,7 +43,7 @@ export function CalculatorTwoPanel({
           className={resultSectionScroll}
           aria-live="polite"
         >
-          <h2 className="mb-2 text-center text-[15px] font-semibold text-[#334155] sm:mb-5 sm:text-[16px] md:mb-8 md:text-[17px]">
+          <h2 className="mb-2 text-center text-[15px] font-semibold text-neutral-1 sm:mb-5 sm:text-[16px] md:mb-8 md:text-[17px]">
             Result
           </h2>
           <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-2 sm:gap-4 md:gap-6">

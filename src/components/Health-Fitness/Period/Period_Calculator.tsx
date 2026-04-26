@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { btnCalculate } from "../shared/calculatorStyles";
+import { btnCalculate, fieldBase } from "../shared/calculatorStyles";
 import {
   CalculatorTwoPanel,
   scrollResultIntoViewMobile,
@@ -59,7 +59,7 @@ export function Period_Calculator() {
       <div>
         <label
           htmlFor="per-lmp"
-          className="mb-1.5 block text-[13px] font-medium text-[#334155] sm:text-[15px]"
+          className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[0.08em] text-neutral-1/75"
         >
           First day of last period
         </label>
@@ -68,13 +68,13 @@ export function Period_Calculator() {
           type="date"
           value={lmp}
           onChange={(e) => setLmp(e.target.value)}
-          className="min-h-[44px] w-full max-w-[12rem] rounded border border-[#E0E0E0] bg-white px-3 text-[14px] outline-none focus:border-[#2374ac] focus:ring-2 focus:ring-[#2374ac]/30 sm:min-h-10"
+          className={`${fieldBase} w-full max-w-[12rem]`}
         />
       </div>
       <div>
         <label
           htmlFor="per-cycle"
-          className="mb-1.5 block text-[13px] font-medium text-[#334155] sm:text-[15px]"
+          className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[0.08em] text-neutral-1/75"
         >
           Average cycle (days)
         </label>
@@ -85,7 +85,7 @@ export function Period_Calculator() {
           max={45}
           value={cycle}
           onChange={(e) => setCycle(e.target.value)}
-          className="min-h-[44px] w-full max-w-[6rem] rounded border border-[#E0E0E0] bg-white px-3 text-[14px] outline-none focus:border-[#2374ac] focus:ring-2 focus:ring-[#2374ac]/30 sm:min-h-10"
+          className={`${fieldBase} w-full max-w-[6rem]`}
         />
       </div>
       <FormError message={error} />

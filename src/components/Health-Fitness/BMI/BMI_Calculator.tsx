@@ -1,156 +1,55 @@
 "use client";
 
-import {
-  useCallback,
-  useEffect,
-  useId,
-  useMemo,
-  useRef,
-  useState,
-  type ComponentProps,
-} from "react";
-import { AgeGenderRow } from "../shared/StandardFormRows";
+import { useCallback, useMemo, useState, type ComponentProps } from "react";
 
 type Gender = "male" | "female";
 type Unit = "imperial" | "metric";
 
-/** Reference: thin #E0E0E0 borders; slightly compact on small screens */
+/**
+ * Design tokens mapped from the shared UI board (colors/components only).
+ * Note: keeping typography untouched per request.
+ */
+const DESIGN_COLORS = {
+  primary: "#1B5E20",
+  secondary: "#455A64",
+  tertiary: "#1976D2",
+  neutral: "#F5F5F5",
+  surface: "#FFFFFF",
+  border: "#E5E7EB",
+  textMuted: "#6B7280",
+  semantic: {
+    underweight: "#B9DDEE",
+    normal: "#1B5E20",
+    overweight: "#F59E0B",
+    obese: "#EF4444",
+  },
+} as const;
+
 const fieldBase =
-  "h-9 rounded border border-[#E0E0E0] bg-white pl-2 pr-8 text-[14px] text-[#334155] outline-none transition-shadow focus:border-[#2374ac] focus:ring-1 focus:ring-[#2374ac] sm:h-10 sm:pl-2.5 sm:pr-9 sm:text-[15px]";
+  "h-[44px] w-full rounded-md border border-neutral-3 bg-neutral-3 pl-3.5 pr-9 text-[14px] font-semibold text-neutral-1 outline-none transition-colors placeholder:text-neutral-1/45 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none focus:border-primary focus:ring-1 focus:ring-primary";
 
-/** Mobile: no min-height (fits split view); md+: match reference */
-const panelInner =
-  "flex min-h-0 flex-col p-3 sm:p-5 md:min-h-[500px] md:p-7";
+const labelClass =
+  "text-[12px] font-semibold uppercase tracking-[0.08em] text-neutral-1/75";
 
-const btnCalculate =
-  "mt-auto w-full rounded-md bg-[#4CAF50] py-2.5 text-center text-[14px] font-semibold text-white shadow-sm hover:brightness-[1.02] active:brightness-95 sm:py-3 sm:text-[15px]";
+const toggleBase =
+  "flex h-[44px] flex-1 items-center justify-center rounded-md border text-[14px] font-semibold transition-colors";
 
-const resultTerracotta = "#d66844";
+const inputSuffixClass =
+  "pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-[12px] font-medium text-neutral-1/70";
 
-/** Matches text inputs: #E0E0E0 border, blue focus ring; full width in narrow split column */
-const unitsTriggerClass =
-  "flex h-9 w-full min-w-0 max-w-full items-center justify-between gap-1.5 rounded border border-[#E0E0E0] bg-white pl-2 pr-1.5 text-left text-[13px] text-[#334155] outline-none transition-shadow hover:border-[#cbd5e1] focus:border-[#2374ac] focus:ring-1 focus:ring-[#2374ac] sm:h-10 sm:gap-2 sm:pl-2.5 sm:pr-2 sm:text-[15px]";
-
-const UNIT_OPTIONS: { value: Unit; label: string }[] = [
-  { value: "imperial", label: "Standard (US)" },
-  { value: "metric", label: "Metric" },
-];
-
-function ChevronDownIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 20 20"
-      className={className}
-      fill="currentColor"
-      aria-hidden
-    >
-      <path
-        fillRule="evenodd"
-        d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
-        clipRule="evenodd"
-      />
-    </svg>
-  );
-}
-
-function UnitsSelect({
-  id,
-  value,
-  onChange,
-}: {
-  id: string;
-  value: Unit;
-  onChange: (u: Unit) => void;
-}) {
-  const [open, setOpen] = useState(false);
-  const rootRef = useRef<HTMLDivElement>(null);
-  const listId = useId().replace(/:/g, "");
-
-  useEffect(() => {
-    function handleDoc(e: MouseEvent) {
-      if (!rootRef.current?.contains(e.target as Node)) setOpen(false);
-    }
-    function handleKey(e: KeyboardEvent) {
-      if (e.key === "Escape") setOpen(false);
-    }
-    document.addEventListener("mousedown", handleDoc);
-    document.addEventListener("keydown", handleKey);
-    return () => {
-      document.removeEventListener("mousedown", handleDoc);
-      document.removeEventListener("keydown", handleKey);
-    };
-  }, []);
-
-  const current =
-    UNIT_OPTIONS.find((o) => o.value === value) ?? UNIT_OPTIONS[0];
-
-  return (
-    <div className="relative w-full min-w-0 sm:min-w-[12rem]" ref={rootRef}>
-      <button
-        type="button"
-        id={id}
-        aria-haspopup="listbox"
-        aria-expanded={open}
-        aria-controls={listId}
-        className={unitsTriggerClass}
-        onClick={() => setOpen((o) => !o)}
-        onKeyDown={(e) => {
-          if (e.key === "ArrowDown" || e.key === "ArrowUp") {
-            e.preventDefault();
-            setOpen(true);
-          }
-        }}
-      >
-        <span className="truncate">{current.label}</span>
-        <ChevronDownIcon
-          className={`h-4 w-4 shrink-0 text-[#64748b] transition-transform ${open ? "rotate-180" : ""}`}
-        />
-      </button>
-      {open ? (
-        <ul
-          id={listId}
-          role="listbox"
-          aria-labelledby={id}
-          className="absolute left-0 right-0 z-50 mt-1 overflow-hidden rounded border border-[#E0E0E0] bg-white py-1 shadow-[0_4px_14px_rgba(15,23,42,0.08)]"
-        >
-          {UNIT_OPTIONS.map((opt) => (
-            <li key={opt.value} role="presentation">
-              <button
-                type="button"
-                role="option"
-                aria-selected={value === opt.value}
-                className={`flex w-full items-center px-2.5 py-2 text-left text-[15px] text-[#334155] transition-colors hover:bg-[#f8fafc] ${value === opt.value ? "bg-[#f1f5f9] font-medium" : ""}`}
-                onClick={() => {
-                  onChange(opt.value);
-                  setOpen(false);
-                }}
-              >
-                {opt.label}
-              </button>
-            </li>
-          ))}
-        </ul>
-      ) : null}
-    </div>
-  );
-}
+const panelClass =
+  "rounded-lg border border-neutral-3 bg-neutral-2 p-5 sm:p-6 md:p-10";
 
 function InputWithSuffix({
   suffix,
-  className = "",
-  inputClassName = "",
   ...inputProps
 }: ComponentProps<"input"> & {
   suffix: string;
-  inputClassName?: string;
 }) {
   return (
-    <div className={`relative inline-flex ${className}`}>
-      <input {...inputProps} className={`${fieldBase} ${inputClassName}`} />
-      <span
-        className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 select-none text-[11px] text-[#64748b] sm:right-2.5 sm:text-[12px]"
-        aria-hidden
-      >
+    <div className="relative w-full">
+      <input {...inputProps} className={fieldBase} />
+      <span className={inputSuffixClass} aria-hidden>
         {suffix}
       </span>
     </div>
@@ -185,14 +84,25 @@ function bmiCategory(bmi: number): string {
   return "Obese";
 }
 
-function bmiToNeedleAngle(bmi: number) {
+function getCategorySummary(category: string): string {
+  if (category === "Underweight") {
+    return "Your BMI is below the healthy range. Consider discussing nutrition and activity with a healthcare professional.";
+  }
+  if (category === "Normal") {
+    return "Your BMI falls within the healthy range. Maintaining a balanced diet and consistent physical activity is recommended.";
+  }
+  if (category === "Overweight") {
+    return "Your BMI is above the healthy range. Gradual lifestyle adjustments can support better long-term metabolic health.";
+  }
+  return "Your BMI falls in the obese range. A clinician can help create a sustainable plan tailored to your health profile.";
+}
+
+function bmiToBarPositionPercent(bmi: number) {
   const clamped = Math.min(40, Math.max(15, bmi));
-  const t = (clamped - 15) / 25;
-  return Math.PI * (1 - t);
+  return ((clamped - 15) / 25) * 100;
 }
 
 export function BMI_Calculator() {
-  const gaugeGradId = useId().replace(/:/g, "");
   const [unit, setUnit] = useState<Unit>("imperial");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState<Gender>("male");
@@ -274,225 +184,242 @@ export function BMI_Calculator() {
     () => (bmi != null ? bmiCategory(bmi) : ""),
     [bmi],
   );
-
-  const needleAngle = bmi != null ? bmiToNeedleAngle(bmi) : Math.PI * 0.65;
-  const cx = 100;
-  const cy = 100;
-  const r = 78;
-  const nx = cx + r * Math.cos(needleAngle);
-  const ny = cy - r * Math.sin(needleAngle);
+  const markerPosition = bmi != null ? bmiToBarPositionPercent(bmi) : 40;
+  const isMale = gender === "male";
+  const isMetric = unit === "metric";
 
   return (
     <div className="w-full">
-      {/*
-        Mobile: stacked rows with capped height so form + result stay in view;
-        md+: two columns like reference.
-      */}
-      <div
-        className={[
-          "grid overflow-hidden rounded-md border border-[#E0E0E0] bg-white",
-          "max-md:h-[min(72dvh,34rem)] max-md:grid-rows-2 max-md:divide-y max-md:divide-[#E0E0E0]",
-          "md:min-h-[500px] md:grid-cols-2 md:grid-rows-1 md:divide-x md:divide-y-0 md:divide-[#E0E0E0]",
-        ].join(" ")}
-      >
-        {/* Enter Details */}
-        <section
-          className={`${panelInner} max-md:overflow-y-auto max-md:overscroll-contain`}
-        >
-          <h2 className="mb-3 text-center text-[15px] font-semibold text-[#334155] sm:mb-5 sm:text-[16px] md:mb-8 md:text-[17px]">
-            Enter Details
-          </h2>
-
-          <div className="flex flex-1 flex-col gap-3 sm:gap-4 md:gap-6">
-            <AgeGenderRow
-              age={age}
-              setAge={setAge}
-              gender={gender}
-              setGender={setGender}
-              ageId="bmi-age"
-              ageMin={2}
-              ageMax={65}
-            />
-
-            <div className="flex min-w-0 flex-col gap-1.5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-3 sm:gap-y-2">
-              <label
-                htmlFor="bmi-units"
-                className="shrink-0 text-[13px] font-medium text-[#334155] sm:min-w-[2.5rem] sm:text-[15px]"
+      <div className="grid gap-5 md:grid-cols-2 md:gap-8">
+        <section className={`${panelClass} flex flex-col gap-5`}>
+          <div>
+            <p className={labelClass}>Biological Sex</p>
+            <div className="mt-3 flex gap-3">
+              <button
+                type="button"
+                className={`${toggleBase} ${isMale ? "border-primary bg-primary text-neutral-2" : "border-transparent bg-neutral-3 text-neutral-1/80"}`}
+                onClick={() => setGender("male")}
               >
-                Units
-              </label>
-              <UnitsSelect
-                id="bmi-units"
-                value={unit}
-                onChange={handleUnitChange}
+                <span aria-hidden className="mr-2">
+                  ♂
+                </span>
+                Male
+              </button>
+              <button
+                type="button"
+                className={`${toggleBase} ${!isMale ? "border-primary bg-primary text-neutral-2" : "border-transparent bg-neutral-3 text-neutral-1/80"}`}
+                onClick={() => setGender("female")}
+              >
+                <span aria-hidden className="mr-2">
+                  ♀
+                </span>
+                Female
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="bmi-age" className={labelClass}>
+              Age
+            </label>
+            <div className="mt-2.5">
+              <InputWithSuffix
+                id="bmi-age"
+                type="number"
+                min={2}
+                max={65}
+                inputMode="numeric"
+                value={age}
+                onChange={(e) => setAge(e.target.value)}
+                suffix="years"
+                aria-label="Age in years"
               />
             </div>
+          </div>
 
-            <div className="grid grid-cols-2 gap-2 sm:gap-4 md:gap-6">
-              <div className="min-w-0">
-                <p className="mb-1.5 text-[13px] font-medium text-[#334155] sm:mb-2.5 sm:text-[15px]">
-                  Height
-                </p>
-                <div className="flex flex-wrap items-center gap-1 sm:gap-2">
-                  {unit === "imperial" ? (
-                    <>
-                      <InputWithSuffix
-                        type="number"
-                        min={0}
-                        inputMode="decimal"
-                        value={ft}
-                        onChange={(e) => setFt(e.target.value)}
-                        suffix="ft"
-                        inputClassName="w-[3rem] min-w-0 sm:w-[3.75rem]"
-                        aria-label="Feet"
-                      />
-                      <InputWithSuffix
-                        type="number"
-                        min={0}
-                        max={11.9}
-                        step={0.1}
-                        inputMode="decimal"
-                        value={inch}
-                        onChange={(e) => setInch(e.target.value)}
-                        suffix="in"
-                        inputClassName="w-[3rem] min-w-0 sm:w-[3.75rem]"
-                        aria-label="Inches"
-                      />
-                    </>
-                  ) : (
-                    <InputWithSuffix
-                      type="number"
-                      min={0}
-                      step={0.1}
-                      inputMode="decimal"
-                      value={cm}
-                      onChange={(e) => setCm(e.target.value)}
-                      suffix="cm"
-                      inputClassName="w-full min-w-0 max-w-[7.5rem] sm:w-[7.5rem]"
-                      aria-label="Centimeters"
-                    />
-                  )}
-                </div>
-              </div>
+          <div>
+            <p className={labelClass}>Unit</p>
+            <div className="mt-2.5 flex gap-3">
+              <button
+                type="button"
+                className={`${toggleBase} ${isMetric ? "border-primary bg-primary text-neutral-2" : "border-transparent bg-neutral-3 text-neutral-1/80"}`}
+                onClick={() => handleUnitChange("metric")}
+              >
+                Metric
+              </button>
+              <button
+                type="button"
+                className={`${toggleBase} ${!isMetric ? "border-primary bg-primary text-neutral-2" : "border-transparent bg-neutral-3 text-neutral-1/80"}`}
+                onClick={() => handleUnitChange("imperial")}
+              >
+                Standard (US)
+              </button>
+            </div>
+          </div>
 
-              <div className="min-w-0">
-                <p className="mb-1.5 text-[13px] font-medium text-[#334155] sm:mb-2.5 sm:text-[15px]">
-                  Weight
-                </p>
-                <div className="flex flex-wrap items-center gap-1 sm:gap-2">
-                  {unit === "imperial" ? (
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className={labelClass}>Height ({isMetric ? "cm" : "ft/in"})</p>
+              <div className="mt-2.5 flex gap-2">
+                {isMetric ? (
+                  <InputWithSuffix
+                    type="number"
+                    min={0}
+                    step={0.1}
+                    inputMode="decimal"
+                    value={cm}
+                    onChange={(e) => setCm(e.target.value)}
+                    suffix="cm"
+                    aria-label="Height in centimeters"
+                  />
+                ) : (
+                  <>
                     <InputWithSuffix
                       type="number"
                       min={0}
-                      step={0.1}
                       inputMode="decimal"
-                      value={lbs}
-                      onChange={(e) => setLbs(e.target.value)}
-                      suffix="lbs"
-                      inputClassName="w-full min-w-0 max-w-[7.5rem] sm:w-[7.5rem]"
-                      aria-label="Pounds"
+                      value={ft}
+                      onChange={(e) => setFt(e.target.value)}
+                      suffix="ft"
+                      aria-label="Feet"
                     />
-                  ) : (
                     <InputWithSuffix
                       type="number"
                       min={0}
+                      max={11.9}
                       step={0.1}
                       inputMode="decimal"
-                      value={kg}
-                      onChange={(e) => setKg(e.target.value)}
-                      suffix="kg"
-                      inputClassName="w-full min-w-0 max-w-[7.5rem] sm:w-[7.5rem]"
-                      aria-label="Kilograms"
+                      value={inch}
+                      onChange={(e) => setInch(e.target.value)}
+                      suffix="in"
+                      aria-label="Inches"
                     />
-                  )}
-                </div>
+                  </>
+                )}
               </div>
             </div>
 
-            <button type="button" onClick={compute} className={btnCalculate}>
-              Calculate
-            </button>
+            <div>
+              <p className={labelClass}>Weight ({isMetric ? "kg" : "lbs"})</p>
+              <div className="mt-2.5">
+                {isMetric ? (
+                  <InputWithSuffix
+                    type="number"
+                    min={0}
+                    step={0.1}
+                    inputMode="decimal"
+                    value={kg}
+                    onChange={(e) => setKg(e.target.value)}
+                    suffix="kg"
+                    aria-label="Weight in kilograms"
+                  />
+                ) : (
+                  <InputWithSuffix
+                    type="number"
+                    min={0}
+                    step={0.1}
+                    inputMode="decimal"
+                    value={lbs}
+                    onChange={(e) => setLbs(e.target.value)}
+                    suffix="lbs"
+                    aria-label="Weight in pounds"
+                  />
+                )}
+              </div>
+            </div>
           </div>
+
+          <button
+            type="button"
+            onClick={compute}
+            className="mt-auto h-[44px] rounded-md bg-primary text-sm font-semibold text-neutral-2 transition-opacity hover:opacity-95"
+          >
+            Calculate Result
+          </button>
         </section>
 
-        {/* Result */}
-        <section
-          className={`${panelInner} max-md:overflow-y-auto max-md:overscroll-contain`}
-        >
-          <h2 className="mb-2 text-center text-[15px] font-semibold text-[#334155] sm:mb-5 sm:text-[16px] md:mb-8 md:text-[17px]">
-            Result
-          </h2>
+        <section className={`${panelClass} flex flex-col`}>
+          <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-neutral-1/75">
+            Your Calculated Index
+          </p>
 
-          <div className="flex flex-1 flex-col items-center justify-center gap-2 sm:gap-4 md:gap-6">
-            <div className="w-full max-w-[140px] sm:max-w-[200px] md:max-w-[260px]">
-              <svg viewBox="0 0 200 110" className="w-full" aria-hidden>
-                <defs>
-                  <linearGradient
-                    id={gaugeGradId}
-                    x1="0%"
-                    y1="0%"
-                    x2="100%"
-                    y2="0%"
-                  >
-                    <stop offset="0%" stopColor="#ef4444" />
-                    <stop offset="30%" stopColor="#fb923c" />
-                    <stop offset="55%" stopColor="#eab308" />
-                    <stop offset="100%" stopColor="#22c55e" />
-                  </linearGradient>
-                </defs>
-                <path
-                  d="M 22 100 A 78 78 0 0 1 178 100"
-                  fill="none"
-                  stroke={`url(#${gaugeGradId})`}
-                  strokeWidth={20}
-                  strokeLinecap="round"
-                />
-                <line
-                  x1={cx}
-                  y1={cy}
-                  x2={nx}
-                  y2={ny}
-                  stroke="#1f2937"
-                  strokeWidth={2.5}
-                  strokeLinecap="round"
-                />
-                <circle cx={cx} cy={cy} r={5} fill="#1f2937" />
-              </svg>
-            </div>
-
-            {bmi != null ? (
-              <>
-                <div
-                  className="flex h-16 w-16 flex-col items-center justify-center rounded-full border-[3px] border-double bg-white sm:h-20 sm:w-20 sm:border-4 md:h-24 md:w-24"
-                  style={{
-                    borderColor: resultTerracotta,
-                    color: resultTerracotta,
-                  }}
-                >
-                  <span className="text-xl font-bold tabular-nums leading-none sm:text-2xl md:text-[2rem]">
-                    {bmi}
-                  </span>
-                </div>
-                <p
-                  className="text-center text-xs font-bold uppercase tracking-wide sm:text-base md:text-lg"
-                  style={{ color: resultTerracotta }}
-                >
-                  {category}
-                </p>
-              </>
-            ) : (
-              <p className="max-w-[11rem] px-1 text-center text-[11px] leading-snug text-[#9ca3af] sm:max-w-[220px] sm:text-[14px] sm:leading-relaxed">
-                Enter your details and tap Calculate to see your BMI.
-              </p>
-            )}
+          <div className="mt-4 flex items-end gap-1">
+            <span className="text-[68px] font-extrabold leading-none text-primary">
+              {bmi != null ? bmi.toFixed(1) : "--"}
+            </span>
+            <span className="pb-2 text-[18px] font-normal text-neutral-1/75">
+              kg/m²
+            </span>
           </div>
+
+          <div className="mt-7">
+            <div className="relative h-[8px] overflow-hidden rounded-full bg-neutral-3">
+              <div
+                className="absolute inset-y-0 left-0 w-[22%]"
+                style={{ backgroundColor: DESIGN_COLORS.semantic.underweight }}
+              />
+              <div
+                className="absolute inset-y-0 left-[22%] w-[22%]"
+                style={{ backgroundColor: DESIGN_COLORS.semantic.normal }}
+              />
+              <div
+                className="absolute inset-y-0 left-[44%] w-[25%]"
+                style={{ backgroundColor: DESIGN_COLORS.semantic.overweight }}
+              />
+              <div
+                className="absolute inset-y-0 right-0 w-[31%]"
+                style={{ backgroundColor: DESIGN_COLORS.semantic.obese }}
+              />
+              <span
+                className="absolute -top-1 h-4 w-[2px] rounded-full bg-neutral-1"
+                style={{ left: `calc(${markerPosition}% - 1px)` }}
+                aria-hidden
+              />
+            </div>
+            <div className="mt-4 grid grid-cols-4 text-center text-[10px] font-semibold uppercase tracking-[0.08em] text-neutral-1/60">
+              <span>Underweight</span>
+              <span>Normal</span>
+              <span>Overweight</span>
+              <span>Obese</span>
+            </div>
+          </div>
+
+          <div className="mt-12 rounded-md border border-neutral-3 bg-neutral-2 p-5 shadow-xs">
+            <div className="flex gap-3">
+              <span className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none">
+                  <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
+                  <path
+                    d="M8 12.5l2.6 2.7L16 10"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
+              <div>
+                <p className="text-[16px] font-semibold leading-tight text-neutral-1">
+                  Health Category: {category || "Pending"}
+                </p>
+                <p className="mt-2 text-[14px] leading-relaxed text-neutral-1/80">
+                  {category
+                    ? getCategorySummary(category)
+                    : "Enter your details and select Calculate Result to view your category and guidance."}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            className="mt-auto inline-flex items-center gap-2 pt-8 text-xs font-semibold text-primary hover:underline"
+          >
+            Detailed clinical breakdown
+            <span aria-hidden>→</span>
+          </button>
         </section>
       </div>
-
-      <p className="mt-4 text-center text-[11px] italic leading-snug text-[#9ca3af] sm:mt-8 sm:text-[13px] sm:leading-normal">
-        Note - This result is an estimate. Talk to a healthcare provider for
-        personalized guidance.
-      </p>
     </div>
   );
 }

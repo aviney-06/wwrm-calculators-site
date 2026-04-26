@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { btnCalculate } from "../shared/calculatorStyles";
+import { btnCalculate, fieldBase } from "../shared/calculatorStyles";
 import {
   CalculatorTwoPanel,
   scrollResultIntoViewMobile,
@@ -53,7 +53,7 @@ export function Conception_Calculator() {
       <div>
         <label
           htmlFor="conc-due"
-          className="mb-1.5 block text-[13px] font-medium text-[#334155] sm:text-[15px]"
+          className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[0.08em] text-neutral-1/75"
         >
           Estimated due date
         </label>
@@ -62,7 +62,7 @@ export function Conception_Calculator() {
           type="date"
           value={due}
           onChange={(e) => setDue(e.target.value)}
-          className="min-h-[44px] w-full max-w-[12rem] rounded border border-[#E0E0E0] bg-white px-3 text-[14px] outline-none focus:border-[#2374ac] focus:ring-2 focus:ring-[#2374ac]/30 sm:min-h-10"
+          className={`${fieldBase} w-full max-w-[12rem]`}
         />
       </div>
       <FormError message={error} />

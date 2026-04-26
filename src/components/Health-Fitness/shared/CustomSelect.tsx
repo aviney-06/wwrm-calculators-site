@@ -74,7 +74,7 @@ export function CustomSelect<T extends string>({
       >
         <span className="truncate">{current.label}</span>
         <ChevronDownIcon
-          className={`h-4 w-4 shrink-0 text-[#64748b] transition-transform ${open ? "rotate-180" : ""}`}
+          className={`h-4 w-4 shrink-0 text-neutral-1/60 transition-transform ${open ? "rotate-180" : ""}`}
         />
       </button>
       {open ? (
@@ -82,7 +82,7 @@ export function CustomSelect<T extends string>({
           id={listId}
           role="listbox"
           aria-labelledby={id}
-          className="absolute left-0 right-0 z-50 mt-1 overflow-hidden rounded border border-[#E0E0E0] bg-white py-1 shadow-[0_4px_14px_rgba(15,23,42,0.08)]"
+          className="absolute left-0 right-0 z-50 mt-1 overflow-hidden rounded-md border border-neutral-3 bg-neutral-2 py-1 shadow-[0_4px_14px_rgba(31,41,51,0.08)]"
         >
           {options.map((opt) => (
             <li key={opt.value} role="presentation">
@@ -90,7 +90,7 @@ export function CustomSelect<T extends string>({
                 type="button"
                 role="option"
                 aria-selected={value === opt.value}
-                className={`flex min-h-[44px] w-full items-center px-3 py-2.5 text-left text-[15px] text-[#334155] transition-colors hover:bg-[#f8fafc] active:bg-[#f1f5f9] ${value === opt.value ? "bg-[#f1f5f9] font-medium" : ""}`}
+                className={`flex min-h-[44px] w-full items-center px-3 py-2.5 text-left text-[14px] text-neutral-1 transition-colors hover:bg-neutral-3 active:bg-neutral-3 ${value === opt.value ? "bg-neutral-3 font-medium" : ""}`}
                 onClick={() => {
                   onChange(opt.value);
                   setOpen(false);
