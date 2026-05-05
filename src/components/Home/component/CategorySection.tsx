@@ -23,10 +23,7 @@ export function HomeCategorySection({
   const bulletClass = disabled ? "text-neutral-1/35" : "text-secondary";
 
   return (
-    <section
-      className={`flex flex-col gap-5 ${disabled ? "opacity-[0.92]" : ""}`}
-      aria-disabled={disabled || undefined}
-    >
+    <section className={`flex flex-col gap-5 ${disabled ? "opacity-[0.92]" : ""}`}>
       <div className="relative aspect-[21/9] w-full overflow-hidden rounded-lg bg-neutral-3">
         <Image
           src={imageSrc}

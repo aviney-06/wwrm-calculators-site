@@ -25,14 +25,14 @@ export function CompanyPageLayout({
       <BreadcrumbSchema
         baseUrl={baseUrl}
         items={[
-          { name: "Home", href: "/" },
+          { name: "Calculators", href: "/" },
           { name: title, href: path },
         ]}
       />
       <Breadcrumbs
         className="mb-3 max-md:mb-2 md:mb-5"
         items={[
-          { label: "home", href: "/" },
+          { label: "calculators", href: "/" },
           { label: breadcrumbLabel },
         ]}
       />

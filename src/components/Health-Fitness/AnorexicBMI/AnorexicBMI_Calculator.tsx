@@ -1,19 +1,19 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import { btnCalculate } from "../shared/calculatorStyles";
+import { btnCalculate } from "@/components/Health-Fitness/shared/calculatorStyles";
 import {
   CalculatorTwoPanel,
   scrollResultIntoViewMobile,
-} from "../shared/CalculatorTwoPanel";
-import { CustomSelect } from "../shared/CustomSelect";
-import { InputWithSuffix } from "../shared/InputWithSuffix";
-import { AgeGenderRow, FormError, UnitsRow } from "../shared/StandardFormRows";
-import { fromCmToFtIn, toCm } from "../shared/healthConversions";
+} from "@/components/Health-Fitness/shared/CalculatorTwoPanel";
+import { CustomSelect } from "@/components/Health-Fitness/shared/CustomSelect";
+import { InputWithSuffix } from "@/components/Health-Fitness/shared/InputWithSuffix";
+import { AgeGenderRow, FormError, UnitsRow } from "@/components/Health-Fitness/shared/StandardFormRows";
+import { fromCmToFtIn, toCm } from "@/components/Health-Fitness/shared/healthConversions";
 import {
   bmiFromImperial,
   bmiFromMetric,
-} from "../shared/healthConversions";
+} from "@/components/Health-Fitness/shared/healthConversions";
 
 type Unit = "imperial" | "metric";
 type Gender = "male" | "female";

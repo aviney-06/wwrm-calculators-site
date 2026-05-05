@@ -1,18 +1,24 @@
-import { buildPageMetadata } from "@/lib/metadata";
 import { Calorie_Calculator } from "@/components/Health-Fitness/Calorie/Calorie_Calculator";
 import { HealthCalculatorPageLayout } from "@/components/Health-Fitness/shared/HealthCalculatorPageLayout";
+import { generateCalculatorPageMetadata } from "@/lib/calculatorPageMetadata";
 
-export const metadata = buildPageMetadata({
-  title: "Calorie Calculator",
-  description:
-    "Daily maintenance calories from your stats and activity level.",
-  path: "/health-fitness/calorie-calculator",
-});
+const PATH = "/health-fitness/calorie-calculator";
+const FALLBACK_TITLE = "Calorie Calculator";
+const FALLBACK_DESCRIPTION =
+  "Daily maintenance calories from your stats and activity level.";
+
+export async function generateMetadata() {
+  return generateCalculatorPageMetadata({
+    path: PATH,
+    fallbackTitle: FALLBACK_TITLE,
+    fallbackDescription: FALLBACK_DESCRIPTION,
+  });
+}
 
 export default function Page() {
   return (
     <HealthCalculatorPageLayout
-      path="/health-fitness/calorie-calculator"
+      path={PATH}
       title="Calorie Calculator"
       description="Estimate how many calories you burn per day at maintenance (same method as TDEE)."
       breadcrumbLabel="calorie calculator"

@@ -22,6 +22,10 @@ export function Breadcrumbs({ items, className = "" }: Props) {
       <ol className="m-0 flex list-none flex-wrap items-baseline gap-0 p-0 text-sm italic text-secondary">
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
+          const displayLabel =
+            item.href === "/" && item.label.toLowerCase() === "home"
+              ? "calculators"
+              : item.label;
           return (
             <li key={`${item.label}-${index}`} className="flex items-baseline">
               {index > 0 ? (
@@ -34,14 +38,14 @@ export function Breadcrumbs({ items, className = "" }: Props) {
                   className="text-secondary"
                   {...(isLast ? { "aria-current": "page" as const } : {})}
                 >
-                  {item.label}
+                  {displayLabel}
                 </span>
               ) : (
                 <Link
                   href={item.href}
                   className="text-secondary transition-colors hover:underline"
                 >
-                  {item.label}
+                  {displayLabel}
                 </Link>
               )}
             </li>

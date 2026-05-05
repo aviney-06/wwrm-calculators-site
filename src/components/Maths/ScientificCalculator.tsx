@@ -52,7 +52,10 @@ export function ScientificCalculator() {
   const [freshResult, setFreshResult] = useState(false);
   const [mobileFunctionsOpen, setMobileFunctionsOpen] = useState(false);
   const angleRef = useRef<AngleMode>(angleMode);
-  angleRef.current = angleMode;
+
+  useEffect(() => {
+    angleRef.current = angleMode;
+  }, [angleMode]);
 
   useEffect(() => {
     math.import(
