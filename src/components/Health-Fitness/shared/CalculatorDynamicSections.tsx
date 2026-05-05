@@ -233,9 +233,9 @@ function renderElement(element: CalculatorContentElement, key: string): ReactNod
         <Image
           src={element.src}
           alt={element.alt}
-          width={1200}
-          height={800}
-          unoptimized
+          width={800}
+          height={533}
+          sizes="(max-width: 640px) 100vw, 26rem"
           className="h-auto max-h-[22rem] w-full max-w-[26rem] object-contain"
         />
         {element.caption ? (
