@@ -60,6 +60,22 @@ function textFromRichTextNodes(nodes?: RichTextNode[]): string {
     .trim();
 }
 
+/**
+ * SSG by default (`false` = cache forever until redeploy).
+ * Set `STRAPI_REVALIDATE_SECONDS` to a positive integer for ISR (e.g. `3600`).
+ */
+function strapiFetchRevalidate(): false | number {
+  const raw = process.env.STRAPI_REVALIDATE_SECONDS?.trim();
+  if (!raw || raw === "false" || raw === "0") {
+    return false;
+  }
+  const sec = Number.parseInt(raw, 10);
+  if (Number.isFinite(sec) && sec > 0) {
+    return sec;
+  }
+  return false;
+}
+
 async function fetchCalculatorPageContentBySlug(
   slug: string,
 ): Promise<CalculatorPageContent | null> {
@@ -72,11 +88,12 @@ async function fetchCalculatorPageContentBySlug(
   endpoint.searchParams.set("filters[slug][$eq]", slug);
   endpoint.searchParams.set("populate[sections][populate]", "*");
 
+  const revalidate = strapiFetchRevalidate();
   const response = await fetch(endpoint.toString(), {
     headers: {
       Authorization: `Bearer ${strapiToken}`,
     },
-    cache: "no-store",
+    next: { revalidate },
   });
 
   if (!response.ok) return null;
