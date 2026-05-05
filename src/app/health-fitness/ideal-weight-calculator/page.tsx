@@ -1,17 +1,24 @@
-import { buildPageMetadata } from "@/lib/metadata";
 import { IdealWeight_Calculator } from "@/components/Health-Fitness/IdealWeight/IdealWeight_Calculator";
 import { HealthCalculatorPageLayout } from "@/components/Health-Fitness/shared/HealthCalculatorPageLayout";
+import { generateCalculatorPageMetadata } from "@/lib/calculatorPageMetadata";
 
-export const metadata = buildPageMetadata({
-  title: "Ideal Weight Calculator",
-  description: "Devine formula ideal body weight from height and sex.",
-  path: "/health-fitness/ideal-weight-calculator",
-});
+const PATH = "/health-fitness/ideal-weight-calculator";
+const FALLBACK_TITLE = "Ideal Weight Calculator";
+const FALLBACK_DESCRIPTION =
+  "Devine formula ideal body weight from height and sex.";
+
+export async function generateMetadata() {
+  return generateCalculatorPageMetadata({
+    path: PATH,
+    fallbackTitle: FALLBACK_TITLE,
+    fallbackDescription: FALLBACK_DESCRIPTION,
+  });
+}
 
 export default function Page() {
   return (
     <HealthCalculatorPageLayout
-      path="/health-fitness/ideal-weight-calculator"
+      path={PATH}
       title="Ideal Weight Calculator"
       description="Classic Devine (1974) estimate — one of many ways people discuss “ideal” weight."
       breadcrumbLabel="ideal weight calculator"

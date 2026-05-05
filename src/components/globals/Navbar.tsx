@@ -47,8 +47,12 @@ export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
+    if (!menuOpen) return;
+    const timer = window.setTimeout(() => {
+      setMenuOpen(false);
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [pathname, menuOpen]);
 
   useEffect(() => {
     if (!menuOpen) return;

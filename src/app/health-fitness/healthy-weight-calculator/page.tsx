@@ -1,18 +1,24 @@
-import { buildPageMetadata } from "@/lib/metadata";
 import { HealthyWeight_Calculator } from "@/components/Health-Fitness/HealthyWeight/HealthyWeight_Calculator";
 import { HealthCalculatorPageLayout } from "@/components/Health-Fitness/shared/HealthCalculatorPageLayout";
+import { generateCalculatorPageMetadata } from "@/lib/calculatorPageMetadata";
 
-export const metadata = buildPageMetadata({
-  title: "Healthy Weight Calculator",
-  description:
-    "Approximate weight range for BMI 18.5–24.9 at your height.",
-  path: "/health-fitness/healthy-weight-calculator",
-});
+const PATH = "/health-fitness/healthy-weight-calculator";
+const FALLBACK_TITLE = "Healthy Weight Calculator";
+const FALLBACK_DESCRIPTION =
+  "Approximate weight range for BMI 18.5–24.9 at your height.";
+
+export async function generateMetadata() {
+  return generateCalculatorPageMetadata({
+    path: PATH,
+    fallbackTitle: FALLBACK_TITLE,
+    fallbackDescription: FALLBACK_DESCRIPTION,
+  });
+}
 
 export default function Page() {
   return (
     <HealthCalculatorPageLayout
-      path="/health-fitness/healthy-weight-calculator"
+      path={PATH}
       title="Healthy Weight Calculator"
       description="See a typical weight range that corresponds to a BMI between 18.5 and 24.9."
       breadcrumbLabel="healthy weight calculator"
