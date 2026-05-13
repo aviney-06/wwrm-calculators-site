@@ -4,7 +4,7 @@ import { buildPageMetadata } from "@/lib/metadata";
 export const metadata = buildPageMetadata({
   title: "Contact",
   description:
-    "Get in touch with AllOneCalculators for feedback, questions, or support.",
+    "Get in touch with All1Calculators for feedback, questions, or support.",
   path: "/contact",
 });
 
@@ -21,8 +21,8 @@ export default function ContactPage() {
         issue, send an email to:
       </p>
       <p>
-        <a href="mailto:contact@allonecalculators.com">
-          contact@allonecalculators.com
+        <a href="mailto:contact@All1Calculators.com">
+          contact@All1Calculators.com
         </a>
       </p>
     </CompanyPageLayout>

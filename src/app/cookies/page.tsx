@@ -4,7 +4,7 @@ import { buildPageMetadata } from "@/lib/metadata";
 export const metadata = buildPageMetadata({
   title: "Cookie Policy",
   description:
-    "How AllOneCalculators uses cookies and similar technologies.",
+    "How All1Calculators uses cookies and similar technologies.",
   path: "/cookies",
 });
 

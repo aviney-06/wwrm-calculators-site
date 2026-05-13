@@ -4,7 +4,7 @@ import { buildPageMetadata } from "@/lib/metadata";
 export const metadata = buildPageMetadata({
   title: "Terms of Service",
   description:
-    "Terms governing your use of AllOneCalculators and our calculator tools.",
+    "Terms governing your use of All1Calculators and our calculator tools.",
   path: "/terms",
 });
 
@@ -20,7 +20,7 @@ export default function TermsPage() {
       <p className="text-[13px] text-[#64748b]">Last updated {year}.</p>
       <h2>Use of the service</h2>
       <p>
-        AllOneCalculators is provided &ldquo;as is&rdquo; for personal,
+        All1Calculators is provided &ldquo;as is&rdquo; for personal,
         non-commercial use. We may change or discontinue features at any time.
       </p>
       <h2>Not professional advice</h2>

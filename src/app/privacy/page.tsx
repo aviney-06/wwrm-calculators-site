@@ -4,7 +4,7 @@ import { buildPageMetadata } from "@/lib/metadata";
 export const metadata = buildPageMetadata({
   title: "Privacy Policy",
   description:
-    "How AllOneCalculators handles information when you use our website and calculators.",
+    "How All1Calculators handles information when you use our website and calculators.",
   path: "/privacy",
 });
 

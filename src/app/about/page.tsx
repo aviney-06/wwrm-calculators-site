@@ -4,7 +4,7 @@ import { buildPageMetadata } from "@/lib/metadata";
 export const metadata = buildPageMetadata({
   title: "About Us",
   description:
-    "Learn about AllOneCalculators — free online calculators for health, finance, maths, and more.",
+    "Learn about All1Calculators — free online calculators for health, finance, maths, and more.",
   path: "/about",
 });
 
@@ -17,7 +17,7 @@ export default function AboutPage() {
       breadcrumbLabel="about"
     >
       <p>
-        AllOneCalculators offers fast, free online calculators across health &
+        All1Calculators offers fast, free online calculators across health &
         fitness, finance, maths, and general topics. Our goal is to make
         reliable estimates and conversions easy to use in your browser—no
         sign-up required.
