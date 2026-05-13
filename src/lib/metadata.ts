@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getSiteUrl } from "@/lib/siteUrl";
 
-export const SITE_NAME = "AllOneCalculators";
+export const SITE_NAME = "All1Calculators";
 
 export type BuildPageMetadataInput = {
   title: string;

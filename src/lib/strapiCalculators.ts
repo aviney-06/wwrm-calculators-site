@@ -76,6 +76,13 @@ function strapiFetchRevalidate(): false | number {
   return false;
 }
 
+function strapiFetchTimeoutMs(): number {
+  const raw = process.env.STRAPI_FETCH_TIMEOUT_MS?.trim();
+  const n = raw ? Number.parseInt(raw, 10) : 8000;
+  if (!Number.isFinite(n) || n < 1000) return 8000;
+  return Math.min(n, 55_000);
+}
+
 async function fetchCalculatorPageContentBySlug(
   slug: string,
 ): Promise<CalculatorPageContent | null> {
@@ -89,28 +96,42 @@ async function fetchCalculatorPageContentBySlug(
   endpoint.searchParams.set("populate[sections][populate]", "*");
 
   const revalidate = strapiFetchRevalidate();
-  const response = await fetch(endpoint.toString(), {
-    headers: {
-      Authorization: `Bearer ${strapiToken}`,
-    },
-    next: { revalidate },
-  });
+  const timeoutMs = strapiFetchTimeoutMs();
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
 
-  if (!response.ok) return null;
+  try {
+    const response = await fetch(endpoint.toString(), {
+      headers: {
+        Authorization: `Bearer ${strapiToken}`,
+      },
+      next: { revalidate },
+      signal: controller.signal,
+    });
 
-  const json = (await response.json()) as StrapiResponse;
-  const first = json.data?.[0];
-  if (!first) return null;
-  // Strapi v4 returns fields in attributes; v5 returns them directly on each data item.
-  const attrs: StrapiCalculatorAttributes = first.attributes ?? first;
+    if (!response.ok) return null;
 
-  return {
-    title: attrs.title ?? "",
-    description: textFromRichTextNodes(attrs.subTitle),
-    dynamicSections: mapCmsSectionsToDynamicSections(attrs.sections),
-    metaTitle: attrs.metaTitle,
-    metaDescription: attrs.metaDescription,
-  };
+    const json = (await response.json()) as StrapiResponse;
+    const first = json.data?.[0];
+    if (!first) return null;
+    // Strapi v4 returns fields in attributes; v5 returns them directly on each data item.
+    const attrs: StrapiCalculatorAttributes = first.attributes ?? first;
+
+    return {
+      title: attrs.title ?? "",
+      description: textFromRichTextNodes(attrs.subTitle),
+      dynamicSections: mapCmsSectionsToDynamicSections(attrs.sections),
+      metaTitle: attrs.metaTitle,
+      metaDescription: attrs.metaDescription,
+    };
+  } catch (e) {
+    const name = e instanceof Error ? e.name : "";
+    if (name === "AbortError") return null;
+    console.warn(`[strapi] calculators fetch failed slug=${slug}:`, e);
+    return null;
+  } finally {
+    clearTimeout(timeoutId);
+  }
 }
 
 /** Per-request dedupe: safe to call from both `generateMetadata` and a server layout. */

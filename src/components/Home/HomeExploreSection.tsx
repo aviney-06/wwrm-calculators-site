@@ -45,6 +45,7 @@ export function HomeExploreSection() {
   return (
     <>
       <div className="mx-auto mt-6 max-w-5xl md:mt-7">
+        <h1 className="text-2xl font-bold tracking-tight text-center text-neutral-1 mb-2 md:text-4xl md:mb-4 md:text-left">Free Online Calculators</h1>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
           <div className="min-w-0 flex-1 text-center sm:text-left">
             <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#94a3b8]">

@@ -5,7 +5,7 @@ import { generateCalculatorPageMetadata } from "@/lib/calculatorPageMetadata";
 const PATH = "/health-fitness/target-heart-rate-calculator";
 const FALLBACK_TITLE = "Target Heart Rate Calculator";
 const FALLBACK_DESCRIPTION =
-  "Training zones from age and optional resting heart rate.";
+  "Light through maximum zones from 220 − age, plus optional Karvonen (resting HR).";
 
 export async function generateMetadata() {
   return generateCalculatorPageMetadata({
@@ -20,7 +20,7 @@ export default function Page() {
     <HealthCalculatorPageLayout
       path={PATH}
       title="Target Heart Rate Calculator"
-      description="Heart rate zones using 220 − age, or Karvonen if you add resting HR."
+      description="Five standard zones (50–100% intensity) from max HR = 220 − age, with Karvonen bpm ranges when you add resting HR."
       breadcrumbLabel="target heart rate calculator"
     >
       <TargetHeartRate_Calculator />

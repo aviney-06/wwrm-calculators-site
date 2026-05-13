@@ -32,8 +32,11 @@ export const HEALTH_FITNESS_CALCULATOR_LINKS: CalculatorLink[] = [
   { href: "/health-fitness/pregnancy-weight-gain-calculator", label: "Pregnancy Weight Gain Calculator" },
   { href: "/health-fitness/protein-calculator", label: "Protein Calculator" },
   { href: "/health-fitness/sleep-calculator", label: "Sleep Calculator" },
+  { href: "/health-fitness/steps-to-calories-calculator", label: "Steps to Calories Calculator" },
   { href: "/health-fitness/target-heart-rate-calculator", label: "Target Heart Rate Calculator" },
   { href: "/health-fitness/tdee-calculator", label: "TDEE Calculator" },
+  { href: "/health-fitness/walking-calorie-calculator", label: "Walking Calorie Calculator" },
+  { href: "/health-fitness/weight-calculator", label: "Weight Calculator" },
   { href: "/health-fitness/weight-watchers-calculator", label: "Weight Watchers Points Calculator" },
 ];
 

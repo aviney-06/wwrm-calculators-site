@@ -88,7 +88,7 @@ export function Navbar() {
             >
               <Image
                 src="/AllOneCalc_Logo(1).png"
-                alt="AllOneCalculators logo"
+                alt="All1Calculators logo"
                 width={200}
                 height={40}
                 className="h-13 w-auto object-contain"

@@ -29,7 +29,7 @@ export function Footer() {
             <Link href="/" className="inline-block w-fit" aria-label="Home">
               <Image
                 src="/AllOneCalc_Logo.png"
-                alt="AllOneCalculators"
+                alt="All1Calculators"
                 width={200}
                 height={44}
                 className="h-10 w-auto object-contain object-left"
@@ -78,7 +78,7 @@ export function Footer() {
         </div>
 
         <div className="mt-10 border-t border-white/20 pt-6 text-center text-sm text-white/75">
-          © {new Date().getFullYear()} AllOneCalculators. All rights reserved.
+          © {new Date().getFullYear()} All1Calculators. All rights reserved.
         </div>
       </div>
     </footer>
