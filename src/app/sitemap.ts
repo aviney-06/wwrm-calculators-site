@@ -4,7 +4,7 @@ import healthFitnessSitemap from "@/app/health-fitness/sitemap";
 export default function sitemap(): MetadataRoute.Sitemap {
     return [
         {
-            url: "https://www.wwrm.com",
+            url: "https://www.all1calculators.com",
             // lastModified: new Date(),
             // changeFrequency: "yearly",
             // priority: 1,
