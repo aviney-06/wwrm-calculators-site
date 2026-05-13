@@ -28,10 +28,14 @@ export async function generateCalculatorPageMetadata({
     "";
   const pageContent = slug ? await getCalculatorPageContentBySlug(slug) : null;
 
-  return buildPageMetadata({
-    title: pageContent?.metaTitle || pageContent?.title || fallbackTitle,
-    description:
-      pageContent?.metaDescription || pageContent?.description || fallbackDescription,
-    path,
-  });
+  return {
+    ...buildPageMetadata({
+      title: pageContent?.metaTitle || pageContent?.title || fallbackTitle,
+      description:
+        pageContent?.metaDescription || pageContent?.description || fallbackDescription,
+      path,
+    }),
+    robots:
+      "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  };
 }
