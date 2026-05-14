@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
 
 const navItems: {
@@ -32,7 +32,11 @@ function isActive(href: string, pathname: string | null) {
 function navLinkClass(href: string, pathname: string | null) {
   return isActive(href, pathname)
     ? "text-primary font-medium"
-    : "text-neutral-1 hover:opacity-80 dark:text-zinc-300 dark:hover:opacity-90";
+    : "font-medium text-neutral-1 hover:text-secondary";
+}
+
+function navDisabledClass() {
+  return "cursor-not-allowed whitespace-nowrap text-sm font-normal text-neutral-1/35 md:text-[15px]";
 }
 
 function drawerLinkClass(href: string, pathname: string | null) {
@@ -45,13 +49,12 @@ function drawerLinkClass(href: string, pathname: string | null) {
 export function Navbar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const prevPathnameRef = useRef(pathname);
 
   useEffect(() => {
-    if (!menuOpen) return;
-    const timer = window.setTimeout(() => {
-      setMenuOpen(false);
-    }, 0);
-    return () => window.clearTimeout(timer);
+    if (prevPathnameRef.current === pathname) return;
+    prevPathnameRef.current = pathname;
+    setMenuOpen(false);
   }, [pathname, menuOpen]);
 
   useEffect(() => {
@@ -104,7 +107,7 @@ export function Navbar() {
                 disabled ? (
                   <span
                     key={href}
-                    className="cursor-not-allowed whitespace-nowrap text-sm font-normal text-neutral-1/45 md:text-[15px]"
+                    className={navDisabledClass()}
                     aria-disabled
                   >
                     {label}
@@ -163,7 +166,7 @@ export function Navbar() {
                     >
                       {disabled ? (
                         <span
-                          className="block min-h-12 w-full cursor-not-allowed rounded-none py-4 pl-6 pr-5 text-lg leading-snug tracking-tight text-neutral-1/45 sm:text-[1.35rem]"
+                          className="block min-h-12 w-full cursor-not-allowed rounded-none py-4 pl-6 pr-5 text-lg font-normal leading-snug tracking-tight text-neutral-1/35 sm:text-[1.35rem]"
                           aria-disabled
                         >
                           {label}

@@ -9,6 +9,8 @@ type Props = {
   description?: string;
   breadcrumbLabel: string;
   children: ReactNode;
+  /** Use full main column width (e.g. HTML sitemap with many inline links). */
+  contentWidth?: "narrow" | "wide";
 };
 
 export function CompanyPageLayout({
@@ -17,6 +19,7 @@ export function CompanyPageLayout({
   description,
   breadcrumbLabel,
   children,
+  contentWidth = "narrow",
 }: Props) {
   const baseUrl = getSiteUrl();
 
@@ -46,7 +49,9 @@ export function CompanyPageLayout({
           </p>
         ) : null}
       </header>
-      <div className="max-w-2xl space-y-4 text-[15px] leading-relaxed text-[#334155] [&_a]:font-medium [&_a]:text-[#2374ac] [&_a]:underline-offset-2 [&_a]:hover:underline [&_h2]:mb-2 [&_h2]:mt-8 [&_h2]:text-base [&_h2]:font-semibold [&_h2]:text-[#1e293b] [&_h2]:first:mt-0 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5">
+      <div
+        className={`${contentWidth === "wide" ? "max-w-none w-full" : "max-w-2xl"} space-y-4 text-[15px] leading-relaxed text-[#334155] [&_a]:font-medium [&_a]:text-[#2374ac] [&_a]:underline-offset-2 [&_a]:hover:underline [&_h2]:mb-2 [&_h2]:mt-8 [&_h2]:text-base [&_h2]:font-semibold [&_h2]:text-[#1e293b] [&_h2]:first:mt-0 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5`}
+      >
         {children}
       </div>
     </div>
