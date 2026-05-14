@@ -6,7 +6,7 @@ import { buildPageMetadata } from "@/lib/metadata";
 const PATH = "/html-sitemap";
 
 export const metadata = buildPageMetadata({
-  title: "Site Map",
+  title: "All online calculators site map",
   description:
     "All All1Calculators pages: health & fitness, finance, math, other tools, and site links.",
   path: PATH,
