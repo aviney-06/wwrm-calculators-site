@@ -571,8 +571,4 @@ export function SurfaceAreaCylinder_Calculator() {{
 }}
 ''')
 
-# Aliases
-alias_page("longmultiplication-calculator", "LongMultiplication", "LongMultiplication_Calculator",
-    "Long Multiplication Calculator", "Multiply two integers.", "long multiplication calculator")
-
 print("batch5 done")

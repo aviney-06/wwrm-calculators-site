@@ -138,7 +138,6 @@ export const MATHS_CALCULATOR_LINKS: CalculatorLink[] = [
   { href: "/maths/percentile-calculator", label: "Percentile Calculator" },
   { href: "/maths/fraction-equivalent-calculator", label: "Equivalent Fraction Calculator" },
   { href: "/maths/long-multiplication-calculator", label: "Long Multiplication Calculator" },
-  { href: "/maths/longmultiplication-calculator", label: "Long Multiplication Calculator" },
   { href: "/maths/surface-area-of-cylinder-calculator", label: "Surface Area of a Cylinder Calculator" },
 ];
 

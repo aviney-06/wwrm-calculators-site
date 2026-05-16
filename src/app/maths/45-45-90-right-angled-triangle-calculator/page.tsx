@@ -18,8 +18,8 @@ export default function Page() {
   return (
     <MathsCalculatorPageLayout
       path={PATH}
-      title="45-45-90 Triangle Calculator"
-      description="Sides of a 45°-45°-90° triangle from one known side."
+      title="45-45-90 Right Angled Triangle Calculator"
+      description="Sides of a 45°-45°-90° right angled triangle from one known side."
       breadcrumbLabel="45 45 90 triangle calculator"
     >
       <Triangle454590_Calculator />
