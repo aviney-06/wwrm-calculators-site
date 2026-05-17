@@ -13,14 +13,24 @@ export const unitsTriggerClass =
 
 export const resultAccent = "#d66844";
 
-export const twoPanelGridClass = [
-  "rounded-md border border-[#E0E0E0] bg-white",
-  "max-md:block max-md:overflow-x-hidden",
-  "md:grid md:min-h-[500px] md:grid-cols-2 md:divide-x md:divide-[#E0E0E0] md:overflow-hidden",
-].join(" ");
+/** Outer card shell — same on server and client (no grid here). */
+export const twoPanelShellClass =
+  "overflow-hidden rounded-md border border-[#E0E0E0] bg-white max-md:overflow-x-hidden";
+
+/** Mobile: horizontal track. Desktop: 2 columns with a 1px hairline gap. */
+export const twoPanelTrackClass =
+  "flex w-[200%] max-md:transition-transform max-md:duration-300 max-md:ease-out motion-reduce:max-md:transition-none md:grid md:w-full md:min-h-[500px] md:grid-cols-2 md:gap-px md:bg-[#eef1f4] md:translate-x-0 md:transition-none";
+
+export const formPanelClass = `${panelInner} md:bg-white`;
+export const resultPanelClass = `${panelInner} md:bg-[#fafbfc]`;
 
 export const formSectionScroll = panelInner;
 export const resultSectionScroll = panelInner;
 
 export const cardGroup =
   "rounded-md border border-[#E8ECF0] bg-[#f8fafc] p-3";
+
+/** Imperial ft/in row — fills the height column on mobile (avoid fixed 3rem inputs). */
+export const imperialHeightRowClass = "flex w-full min-w-0 gap-1.5 sm:gap-2";
+export const imperialHeightFieldClass = "min-w-0 flex-1";
+export const imperialHeightInputClass = "w-full";

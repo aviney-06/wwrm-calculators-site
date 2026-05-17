@@ -2,8 +2,10 @@
 
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import {
-  panelInner,
-  twoPanelGridClass,
+  formPanelClass,
+  resultPanelClass,
+  twoPanelShellClass,
+  twoPanelTrackClass,
 } from "./calculatorStyles";
 
 const MOBILE_SHOW_RESULT_EVENT = "calculator-mobile-show-result";
@@ -11,7 +13,6 @@ const MOBILE_SHOW_RESULT_EVENT = "calculator-mobile-show-result";
 type Props = {
   form: ReactNode;
   result: ReactNode;
-  /** Optional ref attached to result section for scroll-into-view after calculate */
   resultRef?: React.RefObject<HTMLElement | null>;
   disclaimer?: ReactNode;
 };
@@ -57,32 +58,24 @@ export function CalculatorTwoPanel({
       node.removeEventListener(MOBILE_SHOW_RESULT_EVENT, onShowResult);
   }, []);
 
-  const mobileTrackClass =
+  const trackClassName =
     mobileView === "result"
-      ? "max-md:-translate-x-1/2"
-      : "max-md:translate-x-0";
+      ? `${twoPanelTrackClass} max-md:-translate-x-1/2`
+      : `${twoPanelTrackClass} max-md:translate-x-0`;
 
   return (
     <div ref={panelRef} className="w-full">
-      <div
-        className={twoPanelGridClass}
-        aria-live="polite"
-      >
-        {/* One form + one result: carousel on mobile, grid on md+ (md:contents) */}
-        <div
-          className={[
-            "flex w-[200%] max-md:transition-transform max-md:duration-300 max-md:ease-out motion-reduce:max-md:transition-none",
-            mobileTrackClass,
-            "md:contents md:w-auto md:translate-x-0",
-          ].join(" ")}
-        >
-          <section className={`w-1/2 shrink-0 ${panelInner} md:w-auto md:min-h-0`}>
+      <div className={twoPanelShellClass}>
+        <div className={trackClassName}>
+          <section className={`w-1/2 shrink-0 md:w-auto ${formPanelClass}`}>
             <FormHeading />
             {form}
           </section>
           <section
             ref={ref}
-            className={`w-1/2 shrink-0 ${panelInner} md:w-auto md:min-h-0`}
+            className={`w-1/2 shrink-0 md:w-auto ${resultPanelClass}`}
+            aria-live="polite"
+            aria-atomic="true"
           >
             <button
               type="button"
@@ -104,7 +97,6 @@ export function CalculatorTwoPanel({
   );
 }
 
-/** On mobile, slide to the result panel after a successful calculation. */
 export function scrollResultIntoViewMobile(el: HTMLElement | null) {
   if (typeof window === "undefined" || !el) return;
   if (!window.matchMedia("(max-width: 767px)").matches) return;
