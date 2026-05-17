@@ -14,13 +14,13 @@ export const unitsTriggerClass =
 export const resultAccent = "#d66844";
 
 export const twoPanelGridClass = [
-  "grid overflow-hidden rounded-md border border-[#E0E0E0] bg-white",
-  "max-md:h-[min(72dvh,34rem)] max-md:grid-rows-2 max-md:divide-y max-md:divide-[#E0E0E0]",
-  "md:min-h-[500px] md:grid-cols-2 md:grid-rows-1 md:divide-x md:divide-y-0 md:divide-[#E0E0E0]",
+  "rounded-md border border-[#E0E0E0] bg-white",
+  "max-md:block max-md:overflow-x-hidden",
+  "md:grid md:min-h-[500px] md:grid-cols-2 md:divide-x md:divide-[#E0E0E0] md:overflow-hidden",
 ].join(" ");
 
-export const formSectionScroll = `${panelInner} max-md:overflow-y-auto max-md:overscroll-contain`;
-export const resultSectionScroll = `${panelInner} max-md:overflow-y-auto max-md:overscroll-contain`;
+export const formSectionScroll = panelInner;
+export const resultSectionScroll = panelInner;
 
 export const cardGroup =
   "rounded-md border border-[#E8ECF0] bg-[#f8fafc] p-3";
