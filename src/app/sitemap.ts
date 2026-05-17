@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import healthFitnessSitemap from "@/app/health-fitness/sitemap";
+import mathsSitemap from "@/app/maths/sitemap";
 
 export default function sitemap(): MetadataRoute.Sitemap {
     return [
@@ -10,5 +11,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
             // priority: 1,
         },
         ...healthFitnessSitemap(),
+        ...mathsSitemap(),
     ];
 }

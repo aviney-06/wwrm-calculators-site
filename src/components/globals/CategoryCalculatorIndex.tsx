@@ -15,7 +15,7 @@ type Props = {
 
 /**
  * Directory layout for category landing pages (Finance, Health & Fitness, etc.):
- * italic blue breadcrumb trail, black title + subtitle, bulleted list of blue links.
+ * italic blue breadcrumb trail, black title + subtitle, bulleted blue links (2 columns on desktop).
  */
 export function CategoryCalculatorIndex({
   breadcrumbItems,
@@ -34,9 +34,9 @@ export function CategoryCalculatorIndex({
           {description}
         </p>
       </header>
-      <ul className="list-outside list-disc space-y-2.5 pl-6 text-[15px] marker:text-secondary">
+      <ul className="list-outside list-disc space-y-2.5 pl-6 text-[15px] marker:text-secondary md:grid md:grid-cols-2 md:gap-x-10 md:gap-y-2.5 md:space-y-0">
         {links.map(({ href, label }) => (
-          <li key={href} className="pl-1">
+          <li key={href} className="min-w-0 pl-1">
             <Link
               href={href}
               className="text-secondary underline-offset-2 hover:underline"

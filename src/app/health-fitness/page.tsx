@@ -20,16 +20,16 @@ export default function HealthFitnessIndexPage() {
         baseUrl={baseUrl}
         items={[
           { name: "Home", href: "/" },
-          { name: "Health calculator", href: "/health-fitness" },
+          { name: "health calculator", href: "/health-fitness" },
         ]}
       />
       <CategoryCalculatorIndex
         breadcrumbItems={[
           { label: "Home", href: "/" },
-          { label: "Health calculator" },
+          { label: "health calculator" },
         ]}
         title="Health & Fitness Calculator"
-        description="BMI, calories, pregnancy, sleep, and more."
+        description="Free online health calculators for BMI, calories, pregnancy, sleep, and more."
         links={HEALTH_FITNESS_CALCULATOR_LINKS}
       />
     </>

@@ -14,7 +14,7 @@ const navItems: {
   { href: "/", label: "Home" },
   { href: "/health-fitness", label: "Health & Fitness" },
   { href: "/finance", label: "Finance", disabled: true },
-  { href: "/maths", label: "Maths", disabled: true },
+  { href: "/maths", label: "Maths" },
   { href: "/other", label: "Other", disabled: true },
 ];
 

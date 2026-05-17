@@ -43,8 +43,8 @@ export const homeCategorySections: HomeCategorySectionData[] = [
     links: [
       { label: "Scientific Calculator", href: "/maths/scientific-calculator" },
       { label: "Fraction Calculator", href: "/maths/fraction-calculator" },
-      { label: "Percentage Calculator", href: "/maths/percentage-calculator" },
-      { label: "Triangle Calculator", href: "/maths/triangle-calculator" },
+      { label: "Math Calculator", href: "/maths/math-calculator" },
+      { label: "45-45-90 Right Angled Triangle Calculator", href: "/maths/45-45-90-right-angled-triangle-calculator" },
       {
         label: "Standard Deviation Calculator",
         href: "/maths/standard-deviation-calculator",
@@ -52,7 +52,7 @@ export const homeCategorySections: HomeCategorySectionData[] = [
       { label: "Random Number Generator", href: "/maths/random-number-generator" },
     ],
     exploreHref: "/maths",
-    disabled: true,
+    disabled: false,
   },
   {
     title: "Other Calculators",
