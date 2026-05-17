@@ -1,18 +1,17 @@
 import { CategoryCalculatorIndex } from "@/components/globals/CategoryCalculatorIndex";
-import { OTHER_CALCULATOR_LINKS } from "@/data/calculatorCategoryLinks";
-import { buildPageMetadata } from "@/lib/metadata";
-
 import { BreadcrumbSchema } from "@/components/Schema-Markup/BreadcrumbSchema";
+import { VEHICLES_CALCULATOR_LINKS } from "@/data/calculatorCategoryLinks";
+import { buildPageMetadata } from "@/lib/metadata";
 import { getSiteUrl } from "@/lib/siteUrl";
 
 export const metadata = buildPageMetadata({
-  title: "Other Calculators",
+  title: "Vehicles Calculators",
   description:
-    "Holiday countdowns, dice roller, random card picker, and more fun everyday tools.",
-  path: "/other",
+    "Tire size comparison, fuel mileage (MPG), and other free automotive calculators.",
+  path: "/vehicles",
 });
 
-export default function OtherIndexPage() {
+export default function VehiclesIndexPage() {
   const baseUrl = getSiteUrl();
 
   return (
@@ -21,17 +20,17 @@ export default function OtherIndexPage() {
         baseUrl={baseUrl}
         items={[
           { name: "calculators", href: "/" },
-          { name: "other calculators", href: "/other" },
+          { name: "vehicles calculator", href: "/vehicles" },
         ]}
       />
       <CategoryCalculatorIndex
         breadcrumbItems={[
           { label: "calculators", href: "/" },
-          { label: "other calculators" },
+          { label: "vehicles calculator" },
         ]}
-        title="Other Calculators"
-        description="Holiday countdowns, dice, cards, and other fun everyday calculators."
-        links={OTHER_CALCULATOR_LINKS}
+        title="Vehicles Calculator"
+        description="Free online vehicle calculators for tire size, fuel mileage, and more."
+        links={VEHICLES_CALCULATOR_LINKS}
       />
     </>
   );

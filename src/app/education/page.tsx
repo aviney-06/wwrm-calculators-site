@@ -1,18 +1,17 @@
 import { CategoryCalculatorIndex } from "@/components/globals/CategoryCalculatorIndex";
-import { OTHER_CALCULATOR_LINKS } from "@/data/calculatorCategoryLinks";
-import { buildPageMetadata } from "@/lib/metadata";
-
 import { BreadcrumbSchema } from "@/components/Schema-Markup/BreadcrumbSchema";
+import { EDUCATION_CALCULATOR_LINKS } from "@/data/calculatorCategoryLinks";
+import { buildPageMetadata } from "@/lib/metadata";
 import { getSiteUrl } from "@/lib/siteUrl";
 
 export const metadata = buildPageMetadata({
-  title: "Other Calculators",
+  title: "Education Calculators",
   description:
-    "Holiday countdowns, dice roller, random card picker, and more fun everyday tools.",
-  path: "/other",
+    "GPA, grade, and test score calculators for students and teachers.",
+  path: "/education",
 });
 
-export default function OtherIndexPage() {
+export default function EducationIndexPage() {
   const baseUrl = getSiteUrl();
 
   return (
@@ -21,17 +20,17 @@ export default function OtherIndexPage() {
         baseUrl={baseUrl}
         items={[
           { name: "calculators", href: "/" },
-          { name: "other calculators", href: "/other" },
+          { name: "education calculator", href: "/education" },
         ]}
       />
       <CategoryCalculatorIndex
         breadcrumbItems={[
           { label: "calculators", href: "/" },
-          { label: "other calculators" },
+          { label: "education calculator" },
         ]}
-        title="Other Calculators"
-        description="Holiday countdowns, dice, cards, and other fun everyday calculators."
-        links={OTHER_CALCULATOR_LINKS}
+        title="Education Calculator"
+        description="Free online education calculators for GPA, course grades, and test scores."
+        links={EDUCATION_CALCULATOR_LINKS}
       />
     </>
   );

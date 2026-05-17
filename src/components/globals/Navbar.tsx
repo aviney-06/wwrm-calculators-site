@@ -15,7 +15,11 @@ const navItems: {
   { href: "/health-fitness", label: "Health & Fitness" },
   { href: "/finance", label: "Finance", disabled: true },
   { href: "/maths", label: "Maths" },
-  { href: "/other", label: "Other", disabled: true },
+  { href: "/technology", label: "Technology" },
+  { href: "/conversion", label: "Conversion" },
+  { href: "/vehicles", label: "Vehicles" },
+  { href: "/education", label: "Education" },
+  { href: "/other", label: "Other" },
 ];
 
 const drawerFooterLinks = [
