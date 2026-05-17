@@ -126,7 +126,7 @@ export const MATHS_CALCULATOR_LINKS: CalculatorLink[] = [
   { href: "/maths/trigonometry-calculator", label: "Trigonometry Calculator" },
   { href: "/maths/fraction-to-percent-calculator", label: "Fraction to Percent Calculator" },
   { href: "/maths/factors-calculator", label: "Factors Calculator" },
-  { href: "/maths/triangle-45-45-90-calculator", label: "45-45-90 Triangle Calculator" },
+  { href: "/maths/45-45-90-right-angled-triangle-calculator", label: "45-45-90 Right Angled Triangle Calculator" },
   { href: "/maths/square-footage-circle-calculator", label: "Square Footage of a Circle Calculator" },
   { href: "/maths/significant-figures-calculator", label: "Significant Figures Calculator" },
   { href: "/maths/remainder-calculator", label: "Remainder Calculator" },

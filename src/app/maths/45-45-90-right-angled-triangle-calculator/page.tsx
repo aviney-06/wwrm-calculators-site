@@ -2,8 +2,8 @@ import { Triangle454590_Calculator } from "@/components/Maths/Triangle454590/Tri
 import { MathsCalculatorPageLayout } from "@/components/Maths/shared/MathsCalculatorPageLayout";
 import { generateCalculatorPageMetadata } from "@/lib/calculatorPageMetadata";
 
-const PATH = "/maths/triangle-45-45-90-calculator";
-const FALLBACK_TITLE = "45-45-90 Triangle Calculator";
+const PATH = "/maths/45-45-90-right-angled-triangle-calculator";
+const FALLBACK_TITLE = "45-45-90 Right Angled Triangle Calculator";
 const FALLBACK_DESCRIPTION = "Sides of a 45°-45°-90° triangle from one known side.";
 
 export async function generateMetadata() {

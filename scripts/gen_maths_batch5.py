@@ -127,8 +127,8 @@ export function Factors_Calculator() {{
 ''')
 
 # 45-45-90 triangle
-add("Triangle454590", "Triangle454590_Calculator", "triangle-45-45-90-calculator", "45-45-90 Triangle Calculator",
-    "Sides of a 45°-45°-90° triangle from one known side.", "45 45 90 triangle calculator",
+add("Triangle454590", "Triangle454590_Calculator", "45-45-90-right-angled-triangle-calculator", "45-45-90 Right Angled Triangle Calculator",
+    "Sides of a 45°-45°-90° right angled triangle from one known side.", "45 45 90 right angled triangle calculator",
     HS + HI + HF + FN + f'''
 type Known = "leg" | "hyp";
 export function Triangle454590_Calculator() {{
