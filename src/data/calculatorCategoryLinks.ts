@@ -1,6 +1,10 @@
 /** Full calculator lists per category — same as each category index page (`/health-fitness`, `/finance`, etc.). */
 
+import { CONVERSION_CALCULATOR_LINKS } from "@/data/conversionCalculators";
+
 export type CalculatorLink = { href: string; label: string };
+
+export { CONVERSION_CALCULATOR_LINKS };
 
 export const HEALTH_FITNESS_CALCULATOR_LINKS: CalculatorLink[] = [
   { href: "/health-fitness/anorexic-bmi-calculator", label: "Anorexic BMI Calculator" },
@@ -141,13 +145,48 @@ export const MATHS_CALCULATOR_LINKS: CalculatorLink[] = [
   { href: "/maths/surface-area-of-cylinder-calculator", label: "Surface Area of a Cylinder Calculator" },
 ];
 
+export const VEHICLES_CALCULATOR_LINKS: CalculatorLink[] = [
+  {
+    href: "/vehicles/tire-size-calculator",
+    label: "Tire Size Calculator",
+  },
+  {
+    href: "/vehicles/mileage-calculator",
+    label: "Mileage Calculator",
+  },
+];
+
+export const TECHNOLOGY_CALCULATOR_LINKS: CalculatorLink[] = [
+  {
+    href: "/technology/ip-subnet-calculator",
+    label: "IP Subnet Calculator",
+  },
+];
+
+export const EDUCATION_CALCULATOR_LINKS: CalculatorLink[] = [
+  { href: "/education/grade-calculator", label: "Grade Calculator" },
+  { href: "/education/gpa-calculator", label: "GPA Calculator" },
+  { href: "/education/test-grade-calculator", label: "Test Grade Calculator" },
+];
+
 export const OTHER_CALCULATOR_LINKS: CalculatorLink[] = [
-  { href: "/other/age-calculator", label: "Age Calculator" },
-  { href: "/other/date-calculator", label: "Date Calculator" },
-  { href: "/other/time-calculator", label: "Time Calculator" },
-  { href: "/other/hours-calculator", label: "Hours Calculator" },
-  { href: "/other/gpa-calculator", label: "GPA Calculator" },
-  { href: "/other/grade-calculator", label: "Grade Calculator" },
+  {
+    href: "/other/days-until-christmas-calculator",
+    label: "Days Until Christmas",
+  },
+  {
+    href: "/other/days-until-halloween-calculator",
+    label: "Days Until Halloween",
+  },
+  {
+    href: "/other/days-until-new-year-calculator",
+    label: "Days Until New Year",
+  },
+  { href: "/other/dice-roller-calculator", label: "Dice Roller" },
+  {
+    href: "/other/random-card-picker-calculator",
+    label: "Random Card Picker",
+  },
 ];
 
 /** Maps `exploreHref` from home / category metadata to the full link list for that index. */
@@ -155,5 +194,9 @@ export const CALCULATOR_LINKS_BY_EXPLORE_HREF: Record<string, CalculatorLink[]> 
   "/health-fitness": HEALTH_FITNESS_CALCULATOR_LINKS,
   "/finance": FINANCE_CALCULATOR_LINKS,
   "/maths": MATHS_CALCULATOR_LINKS,
+  "/technology": TECHNOLOGY_CALCULATOR_LINKS,
+  "/conversion": CONVERSION_CALCULATOR_LINKS,
+  "/vehicles": VEHICLES_CALCULATOR_LINKS,
+  "/education": EDUCATION_CALCULATOR_LINKS,
   "/other": OTHER_CALCULATOR_LINKS,
 };
