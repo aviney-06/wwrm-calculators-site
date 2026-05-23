@@ -1,13 +1,11 @@
 import { notFound } from "next/navigation";
-import { Annuity_Calculator } from "@/components/Finance/Annuity/Annuity_Calculator";
-import { ProfitMargin_Calculator } from "@/components/Finance/ProfitMargin/ProfitMargin_Calculator";
-import { RentalProperty_Calculator } from "@/components/Finance/RentalProperty/RentalProperty_Calculator";
 import { FinanceCalculatorPageLayout } from "@/components/Finance/shared/FinanceCalculatorPageLayout";
+import { FinanceToolRenderer } from "@/components/Finance/shared/FinanceToolRenderer";
 import {
-  FINANCE_EXTRA_BY_SLUG,
-  FINANCE_EXTRA_CALCULATORS,
-  type FinanceExtraCalculator,
-} from "@/data/financeExtraCalculators";
+  FINANCE_BY_SLUG,
+  FINANCE_CALCULATORS,
+  type FinanceCalculator,
+} from "@/data/financeCalculators";
 import { generateCalculatorPageMetadata } from "@/lib/calculatorPageMetadata";
 
 type PageProps = {
@@ -15,12 +13,12 @@ type PageProps = {
 };
 
 export function generateStaticParams() {
-  return FINANCE_EXTRA_CALCULATORS.map(({ slug }) => ({ slug }));
+  return FINANCE_CALCULATORS.map(({ slug }) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
-  const config = FINANCE_EXTRA_BY_SLUG[slug];
+  const config = FINANCE_BY_SLUG[slug];
   if (!config) return {};
 
   return generateCalculatorPageMetadata({
@@ -31,22 +29,9 @@ export async function generateMetadata({ params }: PageProps) {
   });
 }
 
-function FinanceTool({ config }: { config: FinanceExtraCalculator }) {
-  switch (config.toolKey) {
-    case "profit-margin":
-      return <ProfitMargin_Calculator />;
-    case "annuity":
-      return <Annuity_Calculator />;
-    case "rental-property":
-      return <RentalProperty_Calculator />;
-    default:
-      return null;
-  }
-}
-
-export default async function FinanceExtraCalculatorPage({ params }: PageProps) {
+export default async function FinanceCalculatorPage({ params }: PageProps) {
   const { slug } = await params;
-  const config = FINANCE_EXTRA_BY_SLUG[slug];
+  const config: FinanceCalculator | undefined = FINANCE_BY_SLUG[slug];
   if (!config) notFound();
 
   const path = `/finance/${slug}`;
@@ -58,7 +43,7 @@ export default async function FinanceExtraCalculatorPage({ params }: PageProps) 
       description={config.description}
       breadcrumbLabel={config.breadcrumbLabel}
     >
-      <FinanceTool config={config} />
+      <FinanceToolRenderer config={config} />
     </FinanceCalculatorPageLayout>
   );
 }

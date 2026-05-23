@@ -1,7 +1,7 @@
 /** Full calculator lists per category — same as each category index page (`/health-fitness`, `/finance`, etc.). */
 
 import { CONVERSION_CALCULATOR_LINKS } from "@/data/conversionCalculators";
-import { FINANCE_EXTRA_CALCULATORS } from "@/data/financeExtraCalculators";
+import { FINANCE_CALCULATORS } from "@/data/financeCalculators";
 import { MATHS_EXTRA_CALCULATORS } from "@/data/mathsExtraCalculators";
 import { OTHER_EXTRA_CALCULATORS } from "@/data/otherExtraCalculators";
 import { TECHNOLOGY_EXTRA_CALCULATORS } from "@/data/technologyExtraCalculators";
@@ -48,27 +48,12 @@ export const HEALTH_FITNESS_CALCULATOR_LINKS: CalculatorLink[] = [
   { href: "/health-fitness/weight-watchers-calculator", label: "Weight Watchers Points Calculator" },
 ];
 
-export const FINANCE_CALCULATOR_LINKS: CalculatorLink[] = [
-  { href: "/finance/mortgage", label: "Mortgage Calculator" },
-  { href: "/finance/loan", label: "Loan Calculator" },
-  { href: "/finance/auto-loan", label: "Auto Loan Calculator" },
-  { href: "/finance/inflation", label: "Inflation Calculator" },
-  { href: "/finance/general", label: "Finance Calculator" },
-  { href: "/finance/income-tax", label: "Income Tax Calculator" },
-  { href: "/finance/interest", label: "Interest Calculator" },
-  { href: "/finance/payment", label: "Payment Calculator" },
-  { href: "/finance/retirement", label: "Retirement Calculator" },
-  { href: "/finance/amortization", label: "Amortization Calculator" },
-  { href: "/finance/investment", label: "Investment Calculator" },
-  { href: "/finance/compound-interest", label: "Compound Interest Calculator" },
-  { href: "/finance/salary", label: "Salary Calculator" },
-  { href: "/finance/interest-rate", label: "Interest Rate Calculator" },
-  { href: "/finance/sales-tax", label: "Sales Tax Calculator" },
-  ...FINANCE_EXTRA_CALCULATORS.map((c) => ({
+export const FINANCE_CALCULATOR_LINKS: CalculatorLink[] = FINANCE_CALCULATORS.map(
+  (c) => ({
     href: `/finance/${c.slug}`,
     label: c.title,
-  })),
-];
+  }),
+);
 
 export const MATHS_CALCULATOR_LINKS: CalculatorLink[] = [
   { href: "/maths/scientific-calculator", label: "Scientific Calculator" },
@@ -227,6 +212,12 @@ export const FOOTER_CALCULATOR_CATEGORIES: FooterCalculatorCategory[] = [
     label: "Health & Fitness",
     exploreHref: "/health-fitness",
     links: HEALTH_FITNESS_CALCULATOR_LINKS,
+  },
+  {
+    id: "finance",
+    label: "Finance",
+    exploreHref: "/finance",
+    links: FINANCE_CALCULATOR_LINKS,
   },
   {
     id: "maths",

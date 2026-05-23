@@ -13,7 +13,7 @@ const navItems: {
 }[] = [
   { href: "/", label: "Home" },
   { href: "/health-fitness", label: "Health & Fitness" },
-  { href: "/finance", label: "Finance", disabled: true },
+  { href: "/finance", label: "Finance" },
   { href: "/maths", label: "Maths" },
   { href: "/conversion", label: "Conversion" },
 ];

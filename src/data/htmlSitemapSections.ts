@@ -24,10 +24,10 @@ export const HTML_SITEMAP_SECTIONS: HtmlSitemapSection[] = [
       ...HEALTH_FITNESS_CALCULATOR_LINKS,
     ],
   },
-  // {
-  //   title: "Finance",
-  //   links: [{ href: "/finance", label: "Finance" }, ...FINANCE_CALCULATOR_LINKS],
-  // },
+  {
+    title: "Finance",
+    links: [{ href: "/finance", label: "Finance" }, ...FINANCE_CALCULATOR_LINKS],
+  },
   {
     title: "Math",
     links: [{ href: "/maths", label: "Math" }, ...MATHS_CALCULATOR_LINKS],

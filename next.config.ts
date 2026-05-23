@@ -52,12 +52,35 @@ if (strapiPattern) {
 }
 remotePatterns.push(...extraImageHosts());
 
+const financeLegacyRedirects = [
+  ["mortgage", "mortgage-calculator"],
+  ["loan", "loan-calculator"],
+  ["auto-loan", "auto-loan-calculator"],
+  ["inflation", "inflation-calculator"],
+  ["general", "finance-calculator"],
+  ["income-tax", "income-tax-calculator"],
+  ["interest", "interest-calculator"],
+  ["payment", "payment-calculator"],
+  ["retirement", "retirement-calculator"],
+  ["amortization", "amortization-calculator"],
+  ["investment", "investment-calculator"],
+  ["compound-interest", "compound-interest-calculator"],
+  ["salary", "salary-calculator"],
+  ["interest-rate", "interest-rate-calculator"],
+  ["sales-tax", "sales-tax-calculator"],
+].map(([from, to]) => ({
+  source: `/finance/${from}`,
+  destination: `/finance/${to}`,
+  permanent: true,
+}));
+
 const nextConfig: NextConfig = {
   reactCompiler: true,
   images: {
     remotePatterns,
     formats: ["image/avif", "image/webp"],
   },
+  redirects: async () => financeLegacyRedirects,
 };
 
 export default nextConfig;
