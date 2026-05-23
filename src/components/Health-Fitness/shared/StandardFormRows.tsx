@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { numberInputNoSpinnerClass } from "./calculatorStyles";
 
 type Gender = "male" | "female";
 
@@ -8,7 +9,7 @@ const ageLabelClass =
   "min-w-[2rem] text-[13px] font-medium text-[#334155] sm:min-w-[2.5rem] sm:text-[15px]";
 
 const ageInputClass =
-  "h-9 w-[4rem] rounded border border-[#E0E0E0] bg-white px-2 text-[14px] text-[#334155] outline-none focus:border-[#2374ac] focus:ring-1 focus:ring-[#2374ac] sm:h-10 sm:w-[4.5rem] sm:px-2.5 sm:text-[15px]";
+  `h-9 w-[4rem] rounded border border-[#E0E0E0] bg-white px-2 text-[14px] text-[#334155] outline-none focus:border-[#2374ac] focus:ring-1 focus:ring-[#2374ac] sm:h-10 sm:w-[4.5rem] sm:px-2.5 sm:text-[15px] ${numberInputNoSpinnerClass}`;
 
 const ageRangeHintClass =
   "hidden text-[12px] italic text-[#9ca3af] sm:inline sm:text-[13px]";

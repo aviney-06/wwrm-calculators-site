@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { btnCalculate, fieldBase } from "@/components/Health-Fitness/shared/calculatorStyles";
+import { btnCalculate, numberFieldClass } from "@/components/Health-Fitness/shared/calculatorStyles";
 import {
   CalculatorTwoPanel,
   scrollResultIntoViewMobile,
@@ -177,7 +177,7 @@ export function TestGrade_Calculator() {
               min={0}
               value={correct}
               onChange={(e) => setCorrect(e.target.value)}
-              className={`${fieldBase} w-full font-mono`}
+              className={`${numberFieldClass} w-full font-mono`}
             />
           </div>
           <div>
@@ -193,7 +193,7 @@ export function TestGrade_Calculator() {
               min={1}
               value={total}
               onChange={(e) => setTotal(e.target.value)}
-              className={`${fieldBase} w-full font-mono`}
+              className={`${numberFieldClass} w-full font-mono`}
             />
           </div>
         </div>

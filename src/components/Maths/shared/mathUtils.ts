@@ -171,3 +171,25 @@ export function statsFromList(values: number[]) {
   const populationSd = Math.sqrt(populationVariance);
   return { mean, median, mode, sampleSd, populationSd, n, sum };
 }
+
+function medianOfSorted(sorted: number[]): number {
+  const n = sorted.length;
+  if (n === 0) return NaN;
+  const mid = Math.floor(n / 2);
+  return n % 2 === 0
+    ? (sorted[mid - 1]! + sorted[mid]!) / 2
+    : sorted[mid]!;
+}
+
+export function quartilesFromList(values: number[]) {
+  const sorted = [...values].sort((a, b) => a - b);
+  const n = sorted.length;
+  if (n < 1) return null;
+  const q2 = medianOfSorted(sorted);
+  const mid = Math.floor(n / 2);
+  const lower = n % 2 === 0 ? sorted.slice(0, mid) : sorted.slice(0, mid);
+  const upper = n % 2 === 0 ? sorted.slice(mid) : sorted.slice(mid + 1);
+  const q1 = lower.length ? medianOfSorted(lower) : q2;
+  const q3 = upper.length ? medianOfSorted(upper) : q2;
+  return { q1, q2, q3, min: sorted[0]!, max: sorted[n - 1]!, n };
+}

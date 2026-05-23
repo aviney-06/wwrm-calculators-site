@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { btnCalculate, fieldBase } from "@/components/Health-Fitness/shared/calculatorStyles";
+import { btnCalculate, numberFieldClass } from "@/components/Health-Fitness/shared/calculatorStyles";
 import {
   CalculatorTwoPanel,
   scrollResultIntoViewMobile,
@@ -100,7 +100,7 @@ export function Gpa_Calculator() {
                 step="0.5"
                 value={course.credits}
                 onChange={(e) => updateCourse(i, "credits", e.target.value)}
-                className={`${fieldBase} w-full font-mono`}
+                className={`${numberFieldClass} w-full font-mono`}
               />
             </div>
           </div>

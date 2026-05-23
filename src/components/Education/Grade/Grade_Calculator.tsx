@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { btnCalculate, fieldBase } from "@/components/Health-Fitness/shared/calculatorStyles";
+import { btnCalculate, numberFieldClass } from "@/components/Health-Fitness/shared/calculatorStyles";
 import {
   CalculatorTwoPanel,
   scrollResultIntoViewMobile,
@@ -80,7 +80,7 @@ export function Grade_Calculator() {
               max={100}
               value={row.score}
               onChange={(e) => updateRow(i, "score", e.target.value)}
-              className={`${fieldBase} w-full font-mono`}
+              className={`${numberFieldClass} w-full font-mono`}
               aria-label={`Assignment ${i + 1} score`}
             />
             <input
@@ -88,7 +88,7 @@ export function Grade_Calculator() {
               min={0}
               value={row.weight}
               onChange={(e) => updateRow(i, "weight", e.target.value)}
-              className={`${fieldBase} w-full font-mono`}
+              className={`${numberFieldClass} w-full font-mono`}
               aria-label={`Assignment ${i + 1} weight`}
             />
           </div>

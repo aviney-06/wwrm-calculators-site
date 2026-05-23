@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { btnCalculate, fieldBase } from "@/components/Health-Fitness/shared/calculatorStyles";
+import { btnCalculate, numberFieldClass } from "@/components/Health-Fitness/shared/calculatorStyles";
 import {
   CalculatorTwoPanel,
   scrollResultIntoViewMobile,
@@ -64,7 +64,7 @@ export function IpSubnet_Calculator() {
           value={ip}
           onChange={(e) => setIp(e.target.value)}
           placeholder="192.168.1.10"
-          className={`${fieldBase} w-full font-mono`}
+          className={`${numberFieldClass} w-full font-mono`}
         />
       </div>
       <div>
@@ -83,7 +83,7 @@ export function IpSubnet_Calculator() {
             max={32}
             value={cidr}
             onChange={(e) => setCidr(e.target.value)}
-            className={`${fieldBase} w-full max-w-[5rem] font-mono`}
+            className={`${numberFieldClass} w-full max-w-[5rem] font-mono`}
           />
           <span className="text-[12px] text-[#94a3b8]">(0–32)</span>
         </div>

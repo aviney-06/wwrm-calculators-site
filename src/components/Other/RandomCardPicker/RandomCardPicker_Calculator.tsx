@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { btnCalculate, fieldBase } from "@/components/Health-Fitness/shared/calculatorStyles";
+import { btnCalculate, numberFieldClass } from "@/components/Health-Fitness/shared/calculatorStyles";
 import {
   CalculatorTwoPanel,
   scrollResultIntoViewMobile,
@@ -46,7 +46,7 @@ export function RandomCardPicker_Calculator() {
           max={52}
           value={count}
           onChange={(e) => setCount(e.target.value)}
-          className={`${fieldBase} w-full max-w-[6rem] font-mono`}
+          className={`${numberFieldClass} w-full max-w-[6rem] font-mono`}
         />
         <p className="mt-1 text-[11px] text-[#94a3b8] sm:text-[12px]">
           Standard 52-card deck, no duplicates.

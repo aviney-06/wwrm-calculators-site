@@ -1,11 +1,9 @@
 "use client";
 
 import type { ComponentProps } from "react";
-import { fieldBase } from "./calculatorStyles";
+import { fieldBase, numberInputNoSpinnerClass } from "./calculatorStyles";
 
-/** Hide browser steppers; calculators use typed values, not spin buttons. */
-const numberInputClass =
-  "[appearance:textfield] [-moz-appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none";
+export { numberInputNoSpinnerClass };
 
 export function InputWithSuffix({
   suffix,
@@ -28,7 +26,7 @@ export function InputWithSuffix({
         className={[
           fieldBase,
           !hasSuffix && "!pr-2 sm:!pr-2.5",
-          isNumber && numberInputClass,
+          isNumber && numberInputNoSpinnerClass,
           inputClassName,
         ]
           .filter(Boolean)

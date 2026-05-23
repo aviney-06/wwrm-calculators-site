@@ -2,18 +2,26 @@ import { notFound } from "next/navigation";
 import { CmToFtInConverter } from "@/components/Conversion/shared/CmToFtInConverter";
 import { FtInToCmConverter } from "@/components/Conversion/shared/FtInToCmConverter";
 import { ConversionCalculatorPageLayout } from "@/components/Conversion/shared/ConversionCalculatorPageLayout";
+import { GramsToCupsConverter } from "@/components/Conversion/shared/GramsToCupsConverter";
 import { MgToMlConverter } from "@/components/Conversion/shared/MgToMlConverter";
+import { MlToGramsConverter } from "@/components/Conversion/shared/MlToGramsConverter";
 import { PixelsToInchesConverter } from "@/components/Conversion/shared/PixelsToInchesConverter";
 import { RomanNumeralConverter } from "@/components/Conversion/shared/RomanNumeralConverter";
+import { TbspToGramsConverter } from "@/components/Conversion/shared/TbspToGramsConverter";
+import { TimeToDecimalConverter } from "@/components/Conversion/shared/TimeToDecimalConverter";
 import { UnitConverter } from "@/components/Conversion/shared/UnitConverter";
 import {
   CONVERSION_BY_SLUG,
   CONVERSION_CALCULATORS,
+  isGramsToCupsConversion,
   isHeightCmToFtInConversion,
   isHeightFtInToCmConversion,
   isMgToMlConversion,
+  isMlToGramsConversion,
   isPixelsToInchesConversion,
   isRomanNumeralConversion,
+  isTbspToGramsConversion,
+  isTimeToDecimalConversion,
   isUnitConversion,
 } from "@/data/conversionCalculators";
 import { generateCalculatorPageMetadata } from "@/lib/calculatorPageMetadata";
@@ -69,6 +77,18 @@ function ConversionTool({
   }
   if (isMgToMlConversion(config)) {
     return <MgToMlConverter emptyHint={config.emptyHint} />;
+  }
+  if (isTimeToDecimalConversion(config)) {
+    return <TimeToDecimalConverter emptyHint={config.emptyHint} />;
+  }
+  if (isMlToGramsConversion(config)) {
+    return <MlToGramsConverter emptyHint={config.emptyHint} />;
+  }
+  if (isGramsToCupsConversion(config)) {
+    return <GramsToCupsConverter emptyHint={config.emptyHint} />;
+  }
+  if (isTbspToGramsConversion(config)) {
+    return <TbspToGramsConverter emptyHint={config.emptyHint} />;
   }
   if (isUnitConversion(config)) {
     return (

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { btnCalculate, fieldBase } from "@/components/Health-Fitness/shared/calculatorStyles";
+import { btnCalculate, numberFieldClass } from "@/components/Health-Fitness/shared/calculatorStyles";
 import {
   CalculatorTwoPanel,
   scrollResultIntoViewMobile,
@@ -60,7 +60,7 @@ export function CmToFtInConverter({
             step="any"
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            className={`${fieldBase} w-full font-mono`}
+            className={`${numberFieldClass} w-full font-mono`}
           />
           <span className="shrink-0 text-[14px] text-[#64748b]">cm</span>
         </div>

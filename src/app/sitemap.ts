@@ -6,6 +6,7 @@ import conversionSitemap from "@/app/conversion/sitemap";
 import vehiclesSitemap from "@/app/vehicles/sitemap";
 import educationSitemap from "@/app/education/sitemap";
 import otherSitemap from "@/app/other/sitemap";
+import financeSitemap from "@/app/finance/sitemap";
 
 export default function sitemap(): MetadataRoute.Sitemap {
     return [
@@ -22,5 +23,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         ...vehiclesSitemap(),
         ...educationSitemap(),
         ...otherSitemap(),
+        ...financeSitemap(),
     ];
 }

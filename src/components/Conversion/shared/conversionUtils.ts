@@ -9,6 +9,15 @@ const FL_OZ_PER_CUP = 8;
 const OZ_PER_LB = 16;
 const GRAMS_PER_OZ = 28.349523125;
 const ML_PER_US_FL_OZ = 29.5735295625;
+const ML_PER_US_CUP = 236.5882365;
+const ML_PER_TBSP = 14.7867647813;
+const ML_PER_TSP = 4.92892159375;
+const SQ_FT_PER_ACRE = 43560;
+const SQ_FT_PER_SQ_M = 10.763910416709722;
+const LB_PER_US_GALLON_WATER = 8.345404452;
+const M_PER_FT = 3.280839895;
+const M_PER_MILE = 1609.344;
+const PSI_PER_BAR = 14.503773773;
 
 export const conversionFunctions = {
   poundsToKilograms: (lb: number) => lb * LB_TO_KG,
@@ -30,6 +39,25 @@ export const conversionFunctions = {
   mcgToMg: (mcg: number) => mcg / 1000,
   celsiusToKelvin: (c: number) => c + 273.15,
   nmToFtLb: (nm: number) => nm * 0.7375621492787279,
+  quartsToCups: (qt: number) => qt * 4,
+  knotsToMph: (knots: number) => knots * 1.150779448,
+  acresToSquareFeet: (acres: number) => acres * SQ_FT_PER_ACRE,
+  tbspToMl: (tbsp: number) => tbsp * ML_PER_TBSP,
+  tspToMl: (tsp: number) => tsp * ML_PER_TSP,
+  mlToTsp: (ml: number) => ml / ML_PER_TSP,
+  squareMetersToSquareFeet: (sqm: number) => sqm * SQ_FT_PER_SQ_M,
+  squareFeetToSquareMeters: (sqft: number) => sqft / SQ_FT_PER_SQ_M,
+  kelvinToCelsius: (k: number) => k - 273.15,
+  gallonsToPounds: (gal: number) => gal * LB_PER_US_GALLON_WATER,
+  minutesToSeconds: (min: number) => min * 60,
+  hoursToSeconds: (hr: number) => hr * 3600,
+  penniesToDollars: (pennies: number) => pennies / 100,
+  barToPsi: (bar: number) => bar * PSI_PER_BAR,
+  cmToInches: (cm: number) => cm / CM_PER_INCH,
+  metersToFeet: (m: number) => m * M_PER_FT,
+  metersToMiles: (m: number) => m / M_PER_MILE,
+  kelvinToFahrenheit: (k: number) => ((k - 273.15) * 9) / 5 + 32,
+  fahrenheitToKelvin: (f: number) => ((f - 32) * 5) / 9 + 273.15,
 } as const;
 
 export type ConversionKey = keyof typeof conversionFunctions;
@@ -58,6 +86,32 @@ export function pixelsToInches(pixels: number, dpi: number): number | null {
 export function mgToMl(mg: number, densityMgPerMl: number): number | null {
   if (densityMgPerMl <= 0) return null;
   return mg / densityMgPerMl;
+}
+
+/** Mass (g) from volume (ml) at density in g/ml (water ≈ 1). */
+export function mlToGrams(ml: number, densityGPerMl: number): number | null {
+  if (densityGPerMl <= 0) return null;
+  return ml * densityGPerMl;
+}
+
+/** US cups from mass (g) at density in g/ml (water ≈ 1). */
+export function gramsToCups(grams: number, densityGPerMl: number): number | null {
+  if (densityGPerMl <= 0) return null;
+  const ml = grams / densityGPerMl;
+  return ml / ML_PER_US_CUP;
+}
+
+/** Grams from US tablespoons at density in g/ml (water ≈ 1). */
+export function tbspToGrams(tbsp: number, densityGPerMl: number): number | null {
+  if (densityGPerMl <= 0) return null;
+  return tbsp * ML_PER_TBSP * densityGPerMl;
+}
+
+/** Decimal hours from whole hours and minutes (e.g. 1h 30m → 1.5). */
+export function timeToDecimalHours(hours: number, minutes: number): number {
+  const h = Number.isFinite(hours) ? hours : 0;
+  const m = Number.isFinite(minutes) ? minutes : 0;
+  return h + m / 60;
 }
 
 const ROMAN_VALUES = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1] as const;

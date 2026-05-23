@@ -8,6 +8,7 @@ import {
 } from "../shared/CalculatorTwoPanel";
 import { CustomSelect } from "../shared/CustomSelect";
 import { InputWithSuffix } from "../shared/InputWithSuffix";
+import { ImperialFtInFields } from "../shared/ImperialFtInFields";
 import {
   AgeGenderRow,
   FormError,
@@ -201,30 +202,21 @@ export function BodyFat_Calculator() {
           <p className="mb-1.5 text-[13px] font-medium text-[#334155] sm:mb-2.5 sm:text-[15px]">
             Height
           </p>
-          <div className="flex flex-wrap gap-1 sm:gap-2">
+          <div className="flex w-full min-w-0 flex-wrap items-center gap-1 sm:gap-2">
             {unit === "imperial" ? (
-              <>
-                <InputWithSuffix
-                  type="number"
-                  min={0}
-                  value={ft}
-                  onChange={(e) => setFt(e.target.value)}
-                  suffix="ft"
-                  inputClassName="w-[3rem] min-w-0 sm:w-[3.75rem]"
-                  aria-label="Feet"
-                />
-                <InputWithSuffix
-                  type="number"
-                  min={0}
-                  max={11.9}
-                  step={0.1}
-                  value={inch}
-                  onChange={(e) => setInch(e.target.value)}
-                  suffix="in"
-                  inputClassName="w-[3rem] min-w-0 sm:w-[3.75rem]"
-                  aria-label="Inches"
-                />
-              </>
+              <ImperialFtInFields
+                ft={ft}
+                inch={inch}
+                onFtChange={setFt}
+                onInchChange={setInch}
+                ftInputProps={{ min: 0, "aria-label": "Feet" }}
+                inInputProps={{
+                  min: 0,
+                  max: 11.9,
+                  step: 0.1,
+                  "aria-label": "Inches",
+                }}
+              />
             ) : (
               <InputWithSuffix
                 type="number"
