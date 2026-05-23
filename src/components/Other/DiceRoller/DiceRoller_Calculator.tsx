@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { btnCalculate, fieldBase } from "@/components/Health-Fitness/shared/calculatorStyles";
+import { btnCalculate, numberFieldClass } from "@/components/Health-Fitness/shared/calculatorStyles";
 import {
   CalculatorTwoPanel,
   scrollResultIntoViewMobile,
@@ -58,7 +58,7 @@ export function DiceRoller_Calculator() {
           max={20}
           value={diceCount}
           onChange={(e) => setDiceCount(e.target.value)}
-          className={`${fieldBase} w-full max-w-[6rem] font-mono`}
+          className={`${numberFieldClass} w-full max-w-[6rem] font-mono`}
         />
       </div>
       <div>

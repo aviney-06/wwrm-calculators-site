@@ -7,23 +7,18 @@ import {
   useMemo,
   useRef,
   useState,
-  type ComponentProps,
 } from "react";
+import { btnCalculate } from "../shared/calculatorStyles";
+import {
+  CalculatorTwoPanel,
+  scrollResultIntoViewMobile,
+} from "../shared/CalculatorTwoPanel";
+import { ImperialFtInFields } from "../shared/ImperialFtInFields";
+import { InputWithSuffix } from "../shared/InputWithSuffix";
 import { AgeGenderRow } from "../shared/StandardFormRows";
 
 type Gender = "male" | "female";
 type Unit = "imperial" | "metric";
-
-/** Reference: thin #E0E0E0 borders; slightly compact on small screens */
-const fieldBase =
-  "h-9 rounded border border-[#E0E0E0] bg-white pl-2 pr-8 text-[14px] text-[#334155] outline-none transition-shadow focus:border-[#2374ac] focus:ring-1 focus:ring-[#2374ac] sm:h-10 sm:pl-2.5 sm:pr-9 sm:text-[15px]";
-
-/** Mobile: no min-height (fits split view); md+: match reference */
-const panelInner =
-  "flex min-h-0 flex-col p-3 sm:p-5 md:min-h-[500px] md:p-7";
-
-const btnCalculate =
-  "mt-auto w-full rounded-md bg-[#4CAF50] py-2.5 text-center text-[14px] font-semibold text-white shadow-sm hover:brightness-[1.02] active:brightness-95 sm:py-3 sm:text-[15px]";
 
 const resultTerracotta = "#d66844";
 
@@ -135,28 +130,6 @@ function UnitsSelect({
   );
 }
 
-function InputWithSuffix({
-  suffix,
-  className = "",
-  inputClassName = "",
-  ...inputProps
-}: ComponentProps<"input"> & {
-  suffix: string;
-  inputClassName?: string;
-}) {
-  return (
-    <div className={`relative inline-flex ${className}`}>
-      <input {...inputProps} className={`${fieldBase} ${inputClassName}`} />
-      <span
-        className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 select-none text-[11px] text-[#64748b] sm:right-2.5 sm:text-[12px]"
-        aria-hidden
-      >
-        {suffix}
-      </span>
-    </div>
-  );
-}
-
 function toKg(lbs: number) {
   return lbs * 0.45359237;
 }
@@ -192,6 +165,7 @@ function bmiToNeedleAngle(bmi: number) {
 }
 
 export function BMI_Calculator() {
+  const resultRef = useRef<HTMLElement>(null);
   const gaugeGradId = useId().replace(/:/g, "");
   const [unit, setUnit] = useState<Unit>("imperial");
   const [age, setAge] = useState("");
@@ -268,6 +242,7 @@ export function BMI_Calculator() {
     }
 
     setBmi(Math.round(value * 10) / 10);
+    scrollResultIntoViewMobile(resultRef.current);
   };
 
   const category = useMemo(
@@ -282,217 +257,192 @@ export function BMI_Calculator() {
   const nx = cx + r * Math.cos(needleAngle);
   const ny = cy - r * Math.sin(needleAngle);
 
-  return (
-    <div className="w-full">
-      {/*
-        Mobile: stacked rows with capped height so form + result stay in view;
-        md+: two columns like reference.
-      */}
-      <div
-        className={[
-          "grid overflow-hidden rounded-md border border-[#E0E0E0] bg-white",
-          "max-md:h-[min(72dvh,34rem)] max-md:grid-rows-2 max-md:divide-y max-md:divide-[#E0E0E0]",
-          "md:min-h-[500px] md:grid-cols-2 md:grid-rows-1 md:divide-x md:divide-y-0 md:divide-[#E0E0E0]",
-        ].join(" ")}
-      >
-        {/* Enter Details */}
-        <section
-          className={`${panelInner} max-md:overflow-y-auto max-md:overscroll-contain`}
+  const form = (
+    <div className="flex flex-1 flex-col gap-3 sm:gap-4 md:gap-6">
+      <AgeGenderRow
+        age={age}
+        setAge={setAge}
+        gender={gender}
+        setGender={setGender}
+        ageId="bmi-age"
+        ageMin={2}
+        ageMax={65}
+      />
+
+      <div className="flex min-w-0 flex-col gap-1.5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-3 sm:gap-y-2">
+        <label
+          htmlFor="bmi-units"
+          className="shrink-0 text-[13px] font-medium text-[#334155] sm:min-w-[2.5rem] sm:text-[15px]"
         >
-          <h2 className="mb-3 text-center text-[15px] font-semibold text-[#334155] sm:mb-5 sm:text-[16px] md:mb-8 md:text-[17px]">
-            Enter Details
-          </h2>
-
-          <div className="flex flex-1 flex-col gap-3 sm:gap-4 md:gap-6">
-            <AgeGenderRow
-              age={age}
-              setAge={setAge}
-              gender={gender}
-              setGender={setGender}
-              ageId="bmi-age"
-              ageMin={2}
-              ageMax={65}
-            />
-
-            <div className="flex min-w-0 flex-col gap-1.5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-3 sm:gap-y-2">
-              <label
-                htmlFor="bmi-units"
-                className="shrink-0 text-[13px] font-medium text-[#334155] sm:min-w-[2.5rem] sm:text-[15px]"
-              >
-                Units
-              </label>
-              <UnitsSelect
-                id="bmi-units"
-                value={unit}
-                onChange={handleUnitChange}
-              />
-            </div>
-
-            <div className="grid grid-cols-2 gap-2 sm:gap-4 md:gap-6">
-              <div className="min-w-0">
-                <p className="mb-1.5 text-[13px] font-medium text-[#334155] sm:mb-2.5 sm:text-[15px]">
-                  Height
-                </p>
-                <div className="flex flex-wrap items-center gap-1 sm:gap-2">
-                  {unit === "imperial" ? (
-                    <>
-                      <InputWithSuffix
-                        type="number"
-                        min={0}
-                        inputMode="decimal"
-                        value={ft}
-                        onChange={(e) => setFt(e.target.value)}
-                        suffix="ft"
-                        inputClassName="w-[3rem] min-w-0 sm:w-[3.75rem]"
-                        aria-label="Feet"
-                      />
-                      <InputWithSuffix
-                        type="number"
-                        min={0}
-                        max={11.9}
-                        step={0.1}
-                        inputMode="decimal"
-                        value={inch}
-                        onChange={(e) => setInch(e.target.value)}
-                        suffix="in"
-                        inputClassName="w-[3rem] min-w-0 sm:w-[3.75rem]"
-                        aria-label="Inches"
-                      />
-                    </>
-                  ) : (
-                    <InputWithSuffix
-                      type="number"
-                      min={0}
-                      step={0.1}
-                      inputMode="decimal"
-                      value={cm}
-                      onChange={(e) => setCm(e.target.value)}
-                      suffix="cm"
-                      inputClassName="w-full min-w-0 max-w-[7.5rem] sm:w-[7.5rem]"
-                      aria-label="Centimeters"
-                    />
-                  )}
-                </div>
-              </div>
-
-              <div className="min-w-0">
-                <p className="mb-1.5 text-[13px] font-medium text-[#334155] sm:mb-2.5 sm:text-[15px]">
-                  Weight
-                </p>
-                <div className="flex flex-wrap items-center gap-1 sm:gap-2">
-                  {unit === "imperial" ? (
-                    <InputWithSuffix
-                      type="number"
-                      min={0}
-                      step={0.1}
-                      inputMode="decimal"
-                      value={lbs}
-                      onChange={(e) => setLbs(e.target.value)}
-                      suffix="lbs"
-                      inputClassName="w-full min-w-0 max-w-[7.5rem] sm:w-[7.5rem]"
-                      aria-label="Pounds"
-                    />
-                  ) : (
-                    <InputWithSuffix
-                      type="number"
-                      min={0}
-                      step={0.1}
-                      inputMode="decimal"
-                      value={kg}
-                      onChange={(e) => setKg(e.target.value)}
-                      suffix="kg"
-                      inputClassName="w-full min-w-0 max-w-[7.5rem] sm:w-[7.5rem]"
-                      aria-label="Kilograms"
-                    />
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <button type="button" onClick={compute} className={btnCalculate}>
-              Calculate
-            </button>
-          </div>
-        </section>
-
-        {/* Result */}
-        <section
-          className={`${panelInner} max-md:overflow-y-auto max-md:overscroll-contain`}
-        >
-          <h2 className="mb-2 text-center text-[15px] font-semibold text-[#334155] sm:mb-5 sm:text-[16px] md:mb-8 md:text-[17px]">
-            Result
-          </h2>
-
-          <div className="flex flex-1 flex-col items-center justify-center gap-2 sm:gap-4 md:gap-6">
-            <div className="w-full max-w-[140px] sm:max-w-[200px] md:max-w-[260px]">
-              <svg viewBox="0 0 200 110" className="w-full" aria-hidden>
-                <defs>
-                  <linearGradient
-                    id={gaugeGradId}
-                    x1="0%"
-                    y1="0%"
-                    x2="100%"
-                    y2="0%"
-                  >
-                    <stop offset="0%" stopColor="#ef4444" />
-                    <stop offset="30%" stopColor="#fb923c" />
-                    <stop offset="55%" stopColor="#eab308" />
-                    <stop offset="100%" stopColor="#22c55e" />
-                  </linearGradient>
-                </defs>
-                <path
-                  d="M 22 100 A 78 78 0 0 1 178 100"
-                  fill="none"
-                  stroke={`url(#${gaugeGradId})`}
-                  strokeWidth={20}
-                  strokeLinecap="round"
-                />
-                <line
-                  x1={cx}
-                  y1={cy}
-                  x2={nx}
-                  y2={ny}
-                  stroke="#1f2937"
-                  strokeWidth={2.5}
-                  strokeLinecap="round"
-                />
-                <circle cx={cx} cy={cy} r={5} fill="#1f2937" />
-              </svg>
-            </div>
-
-            {bmi != null ? (
-              <>
-                <div
-                  className="flex h-16 w-16 flex-col items-center justify-center rounded-full border-[3px] border-double bg-white sm:h-20 sm:w-20 sm:border-4 md:h-24 md:w-24"
-                  style={{
-                    borderColor: resultTerracotta,
-                    color: resultTerracotta,
-                  }}
-                >
-                  <span className="text-xl font-bold tabular-nums leading-none sm:text-2xl md:text-[2rem]">
-                    {bmi}
-                  </span>
-                </div>
-                <p
-                  className="text-center text-xs font-bold uppercase tracking-wide sm:text-base md:text-lg"
-                  style={{ color: resultTerracotta }}
-                >
-                  {category}
-                </p>
-              </>
-            ) : (
-              <p className="max-w-[11rem] px-1 text-center text-[11px] leading-snug text-[#9ca3af] sm:max-w-[220px] sm:text-[14px] sm:leading-relaxed">
-                Enter your details and tap Calculate to see your BMI.
-              </p>
-            )}
-          </div>
-        </section>
+          Units
+        </label>
+        <UnitsSelect
+          id="bmi-units"
+          value={unit}
+          onChange={handleUnitChange}
+        />
       </div>
 
-      <p className="mt-4 text-center text-[11px] italic leading-snug text-[#9ca3af] sm:mt-8 sm:text-[13px] sm:leading-normal">
-        Note - This result is an estimate. Talk to a healthcare provider for
-        personalized guidance.
-      </p>
+      <div className="grid grid-cols-2 gap-2 sm:gap-4 md:gap-6">
+        <div className="min-w-0">
+          <p className="mb-1.5 text-[13px] font-medium text-[#334155] sm:mb-2.5 sm:text-[15px]">
+            Height
+          </p>
+          <div className="flex flex-wrap items-center gap-1 sm:gap-2">
+            {unit === "imperial" ? (
+              <ImperialFtInFields
+                ft={ft}
+                inch={inch}
+                onFtChange={setFt}
+                onInchChange={setInch}
+                ftInputProps={{
+                  min: 0,
+                  inputMode: "decimal",
+                  "aria-label": "Feet",
+                }}
+                inInputProps={{
+                  min: 0,
+                  max: 11.9,
+                  step: 0.1,
+                  inputMode: "decimal",
+                  "aria-label": "Inches",
+                }}
+              />
+            ) : (
+              <InputWithSuffix
+                type="number"
+                min={0}
+                step={0.1}
+                inputMode="decimal"
+                value={cm}
+                onChange={(e) => setCm(e.target.value)}
+                suffix="cm"
+                inputClassName="w-full min-w-0 max-w-[7.5rem] sm:w-[7.5rem]"
+                aria-label="Centimeters"
+              />
+            )}
+          </div>
+        </div>
+
+        <div className="min-w-0">
+          <p className="mb-1.5 text-[13px] font-medium text-[#334155] sm:mb-2.5 sm:text-[15px]">
+            Weight
+          </p>
+          <div className="flex flex-wrap items-center gap-1 sm:gap-2">
+            {unit === "imperial" ? (
+              <InputWithSuffix
+                type="number"
+                min={0}
+                step={0.1}
+                inputMode="decimal"
+                value={lbs}
+                onChange={(e) => setLbs(e.target.value)}
+                suffix="lbs"
+                inputClassName="w-full min-w-0 max-w-[7.5rem] sm:w-[7.5rem]"
+                aria-label="Pounds"
+              />
+            ) : (
+              <InputWithSuffix
+                type="number"
+                min={0}
+                step={0.1}
+                inputMode="decimal"
+                value={kg}
+                onChange={(e) => setKg(e.target.value)}
+                suffix="kg"
+                inputClassName="w-full min-w-0 max-w-[7.5rem] sm:w-[7.5rem]"
+                aria-label="Kilograms"
+              />
+            )}
+          </div>
+        </div>
+      </div>
+
+      <button type="button" onClick={compute} className={btnCalculate}>
+        Calculate
+      </button>
     </div>
+  );
+
+  const result = (
+    <>
+      <div className="w-full max-w-[140px] sm:max-w-[200px] md:max-w-[260px]">
+        <svg viewBox="0 0 200 110" className="w-full" aria-hidden>
+          <defs>
+            <linearGradient
+              id={gaugeGradId}
+              x1="0%"
+              y1="0%"
+              x2="100%"
+              y2="0%"
+            >
+              <stop offset="0%" stopColor="#38bdf8" />
+              <stop offset="14%" stopColor="#22c55e" />
+              <stop offset="40%" stopColor="#22c55e" />
+              <stop offset="58%" stopColor="#eab308" />
+              <stop offset="72%" stopColor="#fb923c" />
+              <stop offset="100%" stopColor="#ef4444" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M 22 100 A 78 78 0 0 1 178 100"
+            fill="none"
+            stroke={`url(#${gaugeGradId})`}
+            strokeWidth={20}
+            strokeLinecap="round"
+          />
+          <line
+            x1={cx}
+            y1={cy}
+            x2={nx}
+            y2={ny}
+            stroke="#1f2937"
+            strokeWidth={2.5}
+            strokeLinecap="round"
+          />
+          <circle cx={cx} cy={cy} r={5} fill="#1f2937" />
+        </svg>
+      </div>
+
+      {bmi != null ? (
+        <>
+          <div
+            className="flex h-16 w-16 flex-col items-center justify-center rounded-full border-[3px] border-double bg-white sm:h-20 sm:w-20 sm:border-4 md:h-24 md:w-24"
+            style={{
+              borderColor: resultTerracotta,
+              color: resultTerracotta,
+            }}
+          >
+            <span className="text-xl font-bold tabular-nums leading-none sm:text-2xl md:text-[2rem]">
+              {bmi}
+            </span>
+          </div>
+          <p
+            className="text-center text-xs font-bold uppercase tracking-wide sm:text-base md:text-lg"
+            style={{ color: resultTerracotta }}
+          >
+            {category}
+          </p>
+        </>
+      ) : (
+        <p className="max-w-[14rem] text-center text-[11px] text-[#9ca3af] sm:text-[14px]">
+          Enter your details and tap Calculate to see your BMI.
+        </p>
+      )}
+    </>
+  );
+
+  return (
+    <CalculatorTwoPanel
+      form={form}
+      result={result}
+      resultRef={resultRef}
+      disclaimer={
+        <p className="mt-4 text-center text-[11px] italic leading-snug text-[#9ca3af] sm:mt-8 sm:text-[13px] sm:leading-normal">
+          Note — This result is an estimate. Talk to a healthcare provider for
+          personalized guidance.
+        </p>
+      }
+    />
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { btnCalculate, fieldBase } from "@/components/Health-Fitness/shared/calculatorStyles";
+import { btnCalculate, numberFieldClass } from "@/components/Health-Fitness/shared/calculatorStyles";
 import {
   CalculatorTwoPanel,
   scrollResultIntoViewMobile,
@@ -61,7 +61,7 @@ export function PixelsToInchesConverter({ emptyHint }: Props) {
           step="any"
           value={pixels}
           onChange={(e) => setPixels(e.target.value)}
-          className={`${fieldBase} w-full font-mono`}
+          className={`${numberFieldClass} w-full font-mono`}
         />
       </div>
       <div>
@@ -78,7 +78,7 @@ export function PixelsToInchesConverter({ emptyHint }: Props) {
           step="any"
           value={dpi}
           onChange={(e) => setDpi(e.target.value)}
-          className={`${fieldBase} w-full max-w-[8rem] font-mono`}
+          className={`${numberFieldClass} w-full max-w-[8rem] font-mono`}
         />
         <p className="mt-1 text-[11px] text-[#94a3b8] sm:text-[12px]">
           Screen default is often 96 DPI; print may use 300 DPI.

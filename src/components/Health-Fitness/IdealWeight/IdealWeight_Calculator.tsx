@@ -8,6 +8,7 @@ import {
 } from "../shared/CalculatorTwoPanel";
 import { CustomSelect } from "../shared/CustomSelect";
 import { InputWithSuffix } from "../shared/InputWithSuffix";
+import { ImperialFtInFields } from "../shared/ImperialFtInFields";
 import { AgeGenderRow, FormError, UnitsRow } from "../shared/StandardFormRows";
 import { fromCmToFtIn, toCm } from "../shared/healthConversions";
 import { idealWeightDevineKg } from "../shared/bodyComposition";
@@ -111,26 +112,14 @@ export function IdealWeight_Calculator() {
         <p className="mb-1.5 text-[13px] font-medium text-[#334155] sm:text-[15px]">
           Height
         </p>
-        <div className="flex flex-wrap gap-1 sm:gap-2">
+        <div className="flex w-full min-w-0 flex-wrap items-center gap-1 sm:gap-2">
           {unit === "imperial" ? (
-            <>
-              <InputWithSuffix
-                type="number"
-                value={ft}
-                onChange={(e) => setFt(e.target.value)}
-                suffix="ft"
-                inputClassName="w-[3rem] sm:w-[3.75rem]"
-              />
-              <InputWithSuffix
-                type="number"
-                max={11.9}
-                step={0.1}
-                value={inch}
-                onChange={(e) => setInch(e.target.value)}
-                suffix="in"
-                inputClassName="w-[3rem] sm:w-[3.75rem]"
-              />
-            </>
+            <ImperialFtInFields
+              ft={ft}
+              inch={inch}
+              onFtChange={setFt}
+              onInchChange={setInch}
+            />
           ) : (
             <InputWithSuffix
               type="number"

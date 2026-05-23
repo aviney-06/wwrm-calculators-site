@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FooterHealthFitnessSection } from "@/components/globals/FooterHealthFitnessSection";
+import { FooterCalculatorCategoriesSection } from "@/components/globals/FooterCalculatorCategoriesSection";
 
 const calculatorLinks = [
   { label: "BMI Calculator", href: "/health-fitness/bmi-calculator" },
@@ -79,7 +79,7 @@ export function Footer() {
             </div>
           </div>
 
-        <FooterHealthFitnessSection />
+        <FooterCalculatorCategoriesSection />
 
         <div className="mt-6 border-t border-white/20 pt-6 text-center text-sm text-white/75">
           © {new Date().getFullYear()} All1Calculators. All rights reserved.

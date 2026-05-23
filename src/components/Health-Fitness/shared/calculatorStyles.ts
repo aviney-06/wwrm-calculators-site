@@ -2,6 +2,14 @@
 export const fieldBase =
   "min-h-[44px] rounded border border-[#E0E0E0] bg-white pl-2 pr-8 text-[14px] text-[#334155] outline-none transition-shadow focus:border-[#2374ac] focus:ring-2 focus:ring-[#2374ac]/30 sm:min-h-0 sm:h-10 sm:pl-2.5 sm:pr-9 sm:text-[15px] sm:focus:ring-1";
 
+/** Hide browser steppers on number inputs — use with fieldBase. */
+export const numberInputNoSpinnerClass =
+  "[appearance:textfield] [-moz-appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-outer-spin-button]:m-0";
+
+export function numberFieldClass(extra = ""): string {
+  return [fieldBase, numberInputNoSpinnerClass, extra].filter(Boolean).join(" ");
+}
+
 export const panelInner =
   "flex min-h-0 flex-col p-3 sm:p-5 md:min-h-[500px] md:p-7";
 

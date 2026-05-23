@@ -71,8 +71,8 @@ export const homeCategorySections: HomeCategorySectionData[] = [
   {
     title: "Conversion Calculator",
     imageSrc:
-      "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=1400&q=85",
-    imageAlt: "Measuring scales and conversion tools",
+      "https://images.unsplash.com/photo-1550985543-49bee3167284?auto=format&fit=crop&w=1400&q=85",
+    imageAlt: "Gray and yellow measuring tapes",
     links: [
       {
         label: "Pounds to Kilograms",

@@ -42,13 +42,33 @@ export type MgToMlConfig = BaseConfig & {
   variant: "mgToMl";
 };
 
+export type TimeToDecimalConfig = BaseConfig & {
+  variant: "timeToDecimal";
+};
+
+export type MlToGramsConfig = BaseConfig & {
+  variant: "mlToGrams";
+};
+
+export type GramsToCupsConfig = BaseConfig & {
+  variant: "gramsToCups";
+};
+
+export type TbspToGramsConfig = BaseConfig & {
+  variant: "tbspToGrams";
+};
+
 export type ConversionCalculatorConfig =
   | UnitConversionConfig
   | HeightCmFtInConfig
   | HeightFtInToCmConfig
   | RomanNumeralConfig
   | PixelsToInchesConfig
-  | MgToMlConfig;
+  | MgToMlConfig
+  | TimeToDecimalConfig
+  | MlToGramsConfig
+  | GramsToCupsConfig
+  | TbspToGramsConfig;
 
 export function isHeightCmToFtInConversion(
   config: ConversionCalculatorConfig,
@@ -87,6 +107,30 @@ export function isUnitConversion(
   config: ConversionCalculatorConfig,
 ): config is UnitConversionConfig {
   return !config.variant || config.variant === "unit";
+}
+
+export function isTimeToDecimalConversion(
+  config: ConversionCalculatorConfig,
+): config is TimeToDecimalConfig {
+  return config.variant === "timeToDecimal";
+}
+
+export function isMlToGramsConversion(
+  config: ConversionCalculatorConfig,
+): config is MlToGramsConfig {
+  return config.variant === "mlToGrams";
+}
+
+export function isGramsToCupsConversion(
+  config: ConversionCalculatorConfig,
+): config is GramsToCupsConfig {
+  return config.variant === "gramsToCups";
+}
+
+export function isTbspToGramsConversion(
+  config: ConversionCalculatorConfig,
+): config is TbspToGramsConfig {
+  return config.variant === "tbspToGrams";
 }
 
 export const CONVERSION_CALCULATORS: ConversionCalculatorConfig[] = [
@@ -422,6 +466,327 @@ export const CONVERSION_CALCULATORS: ConversionCalculatorConfig[] = [
     decimals: 2,
     converterKey: "celsiusToKelvin",
     emptyHint: "Enter °C to convert to K.",
+  },
+  {
+    slug: "quarts-to-cups-calculator",
+    title: "Quarts to Cups Converter",
+    description:
+      "Convert US liquid quarts to cups. One quart equals 4 US cups.",
+    breadcrumbLabel: "quarts to cups",
+    fromLabel: "Quarts",
+    toLabel: "Cups",
+    fromUnit: "qt",
+    toUnit: "cups",
+    defaultValue: "1",
+    decimals: 4,
+    converterKey: "quartsToCups",
+    emptyHint: "Enter quarts to convert to cups.",
+  },
+  {
+    slug: "time-to-decimal-calculator",
+    title: "Time to Decimal Converter",
+    description:
+      "Convert hours and minutes into decimal hours for payroll, billing, and time tracking.",
+    breadcrumbLabel: "time to decimal",
+    variant: "timeToDecimal",
+    emptyHint: "Enter hours and minutes to get decimal hours.",
+  },
+  {
+    slug: "knots-to-mph-calculator",
+    title: "Knots to Mph Converter",
+    description:
+      "Convert speed from knots (nautical miles per hour) to miles per hour (mph).",
+    breadcrumbLabel: "knots to mph",
+    fromLabel: "Knots",
+    toLabel: "Miles per hour",
+    fromUnit: "kn",
+    toUnit: "mph",
+    defaultValue: "10",
+    decimals: 4,
+    converterKey: "knotsToMph",
+    emptyHint: "Enter knots to convert to mph.",
+  },
+  {
+    slug: "tbsp-to-grams-calculator",
+    title: "Tbsp to Grams Converter",
+    description:
+      "Convert US tablespoons to grams using ingredient density (g/ml). Default assumes water.",
+    breadcrumbLabel: "tbsp to grams",
+    variant: "tbspToGrams",
+    emptyHint: "Enter tablespoons and density to estimate grams.",
+  },
+  {
+    slug: "ml-to-tsp-calculator",
+    title: "Ml to Tsp Converter",
+    description:
+      "Convert milliliters (ml) to US teaspoons (tsp) for cooking and baking.",
+    breadcrumbLabel: "ml to tsp",
+    fromLabel: "Milliliters",
+    toLabel: "Teaspoons",
+    fromUnit: "ml",
+    toUnit: "tsp",
+    defaultValue: "5",
+    decimals: 4,
+    converterKey: "mlToTsp",
+    emptyHint: "Enter milliliters to convert to teaspoons.",
+  },
+  {
+    slug: "grams-to-cups-calculator",
+    title: "Grams to Cups Converter",
+    description:
+      "Convert grams to US cups using density (g/ml). Adjust density for different ingredients.",
+    breadcrumbLabel: "grams to cups",
+    variant: "gramsToCups",
+    emptyHint: "Enter grams and density to estimate cups.",
+  },
+  {
+    slug: "ml-to-grams-calculator",
+    title: "Ml to Grams Converter",
+    description:
+      "Convert milliliters (ml) to grams (g) using density (g/ml). Default assumes water.",
+    breadcrumbLabel: "ml to grams",
+    variant: "mlToGrams",
+    emptyHint: "Enter ml and density to estimate grams.",
+  },
+  {
+    slug: "tsp-to-ml-calculator",
+    title: "Tsp to Ml Converter",
+    description:
+      "Convert US teaspoons (tsp) to milliliters (ml) for recipes and kitchen measure.",
+    breadcrumbLabel: "tsp to ml",
+    fromLabel: "Teaspoons",
+    toLabel: "Milliliters",
+    fromUnit: "tsp",
+    toUnit: "ml",
+    defaultValue: "1",
+    decimals: 4,
+    converterKey: "tspToMl",
+    emptyHint: "Enter teaspoons to convert to milliliters.",
+  },
+  {
+    slug: "acres-to-square-feet-calculator",
+    title: "Acres to Square Feet Converter",
+    description:
+      "Convert land area from acres to square feet. One acre equals 43,560 square feet.",
+    breadcrumbLabel: "acres to square feet",
+    fromLabel: "Acres",
+    toLabel: "Square feet",
+    fromUnit: "acres",
+    toUnit: "sq ft",
+    defaultValue: "1",
+    decimals: 4,
+    converterKey: "acresToSquareFeet",
+    emptyHint: "Enter acres to convert to square feet.",
+  },
+  {
+    slug: "tbsp-to-ml-calculator",
+    title: "Tbsp to Ml Converter",
+    description:
+      "Convert US tablespoons (tbsp) to milliliters (ml) for cooking measurements.",
+    breadcrumbLabel: "tbsp to ml",
+    fromLabel: "Tablespoons",
+    toLabel: "Milliliters",
+    fromUnit: "tbsp",
+    toUnit: "ml",
+    defaultValue: "1",
+    decimals: 4,
+    converterKey: "tbspToMl",
+    emptyHint: "Enter tablespoons to convert to milliliters.",
+  },
+  {
+    slug: "gallons-to-pounds-calculator",
+    title: "Gallons to Pounds Converter",
+    description:
+      "Estimate weight in pounds for US liquid gallons of water. Other liquids need different density.",
+    breadcrumbLabel: "gallons to pounds",
+    fromLabel: "US gallons",
+    toLabel: "Pounds",
+    fromUnit: "gal",
+    toUnit: "lb",
+    defaultValue: "1",
+    decimals: 4,
+    converterKey: "gallonsToPounds",
+    emptyHint: "Enter gallons (water equivalent) to convert to pounds.",
+  },
+  {
+    slug: "square-meters-to-square-feet-calculator",
+    title: "Square Meters to Square Feet Converter",
+    description:
+      "Convert floor area from square meters (m²) to square feet (sq ft).",
+    breadcrumbLabel: "square meters to square feet",
+    fromLabel: "Square meters",
+    toLabel: "Square feet",
+    fromUnit: "m²",
+    toUnit: "sq ft",
+    defaultValue: "10",
+    decimals: 4,
+    converterKey: "squareMetersToSquareFeet",
+    emptyHint: "Enter square meters to convert to square feet.",
+  },
+  {
+    slug: "square-feet-to-square-meters-calculator",
+    title: "Square Feet to Square Meters Converter",
+    description:
+      "Convert floor area from square feet (sq ft) to square meters (m²).",
+    breadcrumbLabel: "square feet to square meters",
+    fromLabel: "Square feet",
+    toLabel: "Square meters",
+    fromUnit: "sq ft",
+    toUnit: "m²",
+    defaultValue: "100",
+    decimals: 4,
+    converterKey: "squareFeetToSquareMeters",
+    emptyHint: "Enter square feet to convert to square meters.",
+  },
+  {
+    slug: "kelvin-to-celsius-calculator",
+    title: "Kelvin to Celsius Converter",
+    description:
+      "Convert temperature from kelvin (K) to degrees Celsius (°C).",
+    breadcrumbLabel: "kelvin to celsius",
+    fromLabel: "Kelvin",
+    toLabel: "Celsius",
+    fromUnit: "K",
+    toUnit: "°C",
+    defaultValue: "273.15",
+    decimals: 2,
+    converterKey: "kelvinToCelsius",
+    emptyHint: "Enter K to convert to °C.",
+  },
+  {
+    slug: "minutes-to-seconds-calculator",
+    title: "Minutes to Seconds Converter",
+    description:
+      "Convert time from minutes to seconds. One minute equals 60 seconds.",
+    breadcrumbLabel: "minutes to seconds",
+    fromLabel: "Minutes",
+    toLabel: "Seconds",
+    fromUnit: "min",
+    toUnit: "sec",
+    defaultValue: "1",
+    decimals: 2,
+    converterKey: "minutesToSeconds",
+    emptyHint: "Enter minutes to convert to seconds.",
+  },
+  {
+    slug: "hours-to-seconds-calculator",
+    title: "Hours to Seconds Converter",
+    description:
+      "Convert time from hours to seconds. One hour equals 3,600 seconds.",
+    breadcrumbLabel: "hours to seconds",
+    fromLabel: "Hours",
+    toLabel: "Seconds",
+    fromUnit: "hr",
+    toUnit: "sec",
+    defaultValue: "1",
+    decimals: 2,
+    converterKey: "hoursToSeconds",
+    emptyHint: "Enter hours to convert to seconds.",
+  },
+  {
+    slug: "pennies-to-dollars-calculator",
+    title: "Pennies to Dollars Converter",
+    description:
+      "Convert US cents (pennies) to dollars. One hundred pennies equal one dollar.",
+    breadcrumbLabel: "pennies to dollars",
+    fromLabel: "Pennies",
+    toLabel: "Dollars",
+    fromUnit: "¢",
+    toUnit: "$",
+    defaultValue: "100",
+    decimals: 2,
+    converterKey: "penniesToDollars",
+    emptyHint: "Enter pennies to convert to dollars.",
+  },
+  {
+    slug: "bar-to-psi-calculator",
+    title: "Bar to PSI Converter",
+    description:
+      "Convert pressure from bar to pounds per square inch (psi) for tires and hydraulics.",
+    breadcrumbLabel: "bar to psi",
+    fromLabel: "Bar",
+    toLabel: "PSI",
+    fromUnit: "bar",
+    toUnit: "psi",
+    defaultValue: "1",
+    decimals: 4,
+    converterKey: "barToPsi",
+    emptyHint: "Enter bar to convert to psi.",
+  },
+  {
+    slug: "cm-to-inches-calculator",
+    title: "Cm to Inches Converter",
+    description:
+      "Convert length from centimeters (cm) to inches (in) using the standard inch definition.",
+    breadcrumbLabel: "cm to inches",
+    fromLabel: "Centimeters",
+    toLabel: "Inches",
+    fromUnit: "cm",
+    toUnit: "in",
+    defaultValue: "2.54",
+    decimals: 4,
+    converterKey: "cmToInches",
+    emptyHint: "Enter centimeters to convert to inches.",
+  },
+  {
+    slug: "meters-to-feet-calculator",
+    title: "Meters to Feet Converter",
+    description:
+      "Convert length from meters (m) to feet (ft) for height, distance, and construction.",
+    breadcrumbLabel: "meters to feet",
+    fromLabel: "Meters",
+    toLabel: "Feet",
+    fromUnit: "m",
+    toUnit: "ft",
+    defaultValue: "1",
+    decimals: 4,
+    converterKey: "metersToFeet",
+    emptyHint: "Enter meters to convert to feet.",
+  },
+  {
+    slug: "meters-to-miles-calculator",
+    title: "Meters to Miles Converter",
+    description:
+      "Convert distance from meters (m) to miles (mi) for running, travel, and mapping.",
+    breadcrumbLabel: "meters to miles",
+    fromLabel: "Meters",
+    toLabel: "Miles",
+    fromUnit: "m",
+    toUnit: "mi",
+    defaultValue: "1609",
+    decimals: 6,
+    converterKey: "metersToMiles",
+    emptyHint: "Enter meters to convert to miles.",
+  },
+  {
+    slug: "kelvin-to-fahrenheit-calculator",
+    title: "Kelvin to Fahrenheit Converter",
+    description:
+      "Convert temperature from kelvin (K) to degrees Fahrenheit (°F).",
+    breadcrumbLabel: "kelvin to fahrenheit",
+    fromLabel: "Kelvin",
+    toLabel: "Fahrenheit",
+    fromUnit: "K",
+    toUnit: "°F",
+    defaultValue: "273.15",
+    decimals: 2,
+    converterKey: "kelvinToFahrenheit",
+    emptyHint: "Enter K to convert to °F.",
+  },
+  {
+    slug: "fahrenheit-to-kelvin-calculator",
+    title: "Fahrenheit to Kelvin Converter",
+    description:
+      "Convert temperature from degrees Fahrenheit (°F) to kelvin (K).",
+    breadcrumbLabel: "fahrenheit to kelvin",
+    fromLabel: "Fahrenheit",
+    toLabel: "Kelvin",
+    fromUnit: "°F",
+    toUnit: "K",
+    defaultValue: "32",
+    decimals: 2,
+    converterKey: "fahrenheitToKelvin",
+    emptyHint: "Enter °F to convert to K.",
   },
 ];
 

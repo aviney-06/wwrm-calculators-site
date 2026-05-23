@@ -1,7 +1,10 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { btnCalculate, fieldBase } from "@/components/Health-Fitness/shared/calculatorStyles";
+import {
+  btnCalculate,
+  numberFieldClass,
+} from "@/components/Health-Fitness/shared/calculatorStyles";
 import {
   CalculatorTwoPanel,
   scrollResultIntoViewMobile,
@@ -36,7 +39,7 @@ function TireFields({
 }) {
   const labelClass =
     "mb-1 text-[12px] font-medium text-[#334155] sm:text-[13px]";
-  const inputClass = `${fieldBase} w-full min-w-0 font-mono`;
+  const inputClass = `${numberFieldClass("w-full min-w-0 font-mono")}`;
 
   return (
     <fieldset className="rounded-md border border-[#E8ECF0] bg-[#fafbfc] p-3 sm:p-4">

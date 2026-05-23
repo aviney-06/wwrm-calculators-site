@@ -1,6 +1,10 @@
 /** Full calculator lists per category — same as each category index page (`/health-fitness`, `/finance`, etc.). */
 
 import { CONVERSION_CALCULATOR_LINKS } from "@/data/conversionCalculators";
+import { FINANCE_EXTRA_CALCULATORS } from "@/data/financeExtraCalculators";
+import { MATHS_EXTRA_CALCULATORS } from "@/data/mathsExtraCalculators";
+import { OTHER_EXTRA_CALCULATORS } from "@/data/otherExtraCalculators";
+import { TECHNOLOGY_EXTRA_CALCULATORS } from "@/data/technologyExtraCalculators";
 
 export type CalculatorLink = { href: string; label: string };
 
@@ -60,6 +64,10 @@ export const FINANCE_CALCULATOR_LINKS: CalculatorLink[] = [
   { href: "/finance/salary", label: "Salary Calculator" },
   { href: "/finance/interest-rate", label: "Interest Rate Calculator" },
   { href: "/finance/sales-tax", label: "Sales Tax Calculator" },
+  ...FINANCE_EXTRA_CALCULATORS.map((c) => ({
+    href: `/finance/${c.slug}`,
+    label: c.title,
+  })),
 ];
 
 export const MATHS_CALCULATOR_LINKS: CalculatorLink[] = [
@@ -143,6 +151,10 @@ export const MATHS_CALCULATOR_LINKS: CalculatorLink[] = [
   { href: "/maths/fraction-equivalent-calculator", label: "Equivalent Fraction Calculator" },
   { href: "/maths/long-multiplication-calculator", label: "Long Multiplication Calculator" },
   { href: "/maths/surface-area-of-cylinder-calculator", label: "Surface Area of a Cylinder Calculator" },
+  ...MATHS_EXTRA_CALCULATORS.map((c) => ({
+    href: `/maths/${c.slug}`,
+    label: c.title,
+  })),
 ];
 
 export const VEHICLES_CALCULATOR_LINKS: CalculatorLink[] = [
@@ -154,6 +166,10 @@ export const VEHICLES_CALCULATOR_LINKS: CalculatorLink[] = [
     href: "/vehicles/mileage-calculator",
     label: "Mileage Calculator",
   },
+  {
+    href: "/vehicles/fuel-cost-calculator",
+    label: "Fuel Cost Calculator",
+  },
 ];
 
 export const TECHNOLOGY_CALCULATOR_LINKS: CalculatorLink[] = [
@@ -161,6 +177,10 @@ export const TECHNOLOGY_CALCULATOR_LINKS: CalculatorLink[] = [
     href: "/technology/ip-subnet-calculator",
     label: "IP Subnet Calculator",
   },
+  ...TECHNOLOGY_EXTRA_CALCULATORS.map((c) => ({
+    href: `/technology/${c.slug}`,
+    label: c.title,
+  })),
 ];
 
 export const EDUCATION_CALCULATOR_LINKS: CalculatorLink[] = [
@@ -186,6 +206,63 @@ export const OTHER_CALCULATOR_LINKS: CalculatorLink[] = [
   {
     href: "/other/random-card-picker-calculator",
     label: "Random Card Picker",
+  },
+  ...OTHER_EXTRA_CALCULATORS.map((c) => ({
+    href: `/other/${c.slug}`,
+    label: c.title,
+  })),
+];
+
+export type FooterCalculatorCategory = {
+  id: string;
+  label: string;
+  exploreHref: string;
+  links: CalculatorLink[];
+};
+
+/** Footer category tabs — only categories with published calculator lists. */
+export const FOOTER_CALCULATOR_CATEGORIES: FooterCalculatorCategory[] = [
+  {
+    id: "health-fitness",
+    label: "Health & Fitness",
+    exploreHref: "/health-fitness",
+    links: HEALTH_FITNESS_CALCULATOR_LINKS,
+  },
+  {
+    id: "maths",
+    label: "Maths",
+    exploreHref: "/maths",
+    links: MATHS_CALCULATOR_LINKS,
+  },
+  {
+    id: "conversion",
+    label: "Conversion",
+    exploreHref: "/conversion",
+    links: CONVERSION_CALCULATOR_LINKS,
+  },
+  {
+    id: "technology",
+    label: "Technology",
+    exploreHref: "/technology",
+    links: TECHNOLOGY_CALCULATOR_LINKS,
+  },
+  {
+    id: "vehicles",
+    label: "Vehicles",
+    exploreHref: "/vehicles",
+    links: VEHICLES_CALCULATOR_LINKS,
+  },
+  {
+    id: "education",
+    label: "Education",
+    exploreHref: "/education",
+    links: EDUCATION_CALCULATOR_LINKS,
+  },
+  {
+    id: "other",
+    label: "Other",
+    exploreHref: "/other",
+    links: OTHER_CALCULATOR_LINKS,
   },
 ];
 
