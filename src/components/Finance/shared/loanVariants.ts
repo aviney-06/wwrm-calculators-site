@@ -1,0 +1,62 @@
+import type { LoanPaymentVariant } from "./LoanPayment_Calculator";
+
+export const LOAN_VARIANTS: Record<string, LoanPaymentVariant> = {
+  mortgage: {
+    idPrefix: "mortgage",
+    hint: "Principal & interest only — excludes taxes, insurance, and HOA.",
+    principalLabel: "Loan amount",
+    defaultPrincipal: "300000",
+    defaultRate: "6.5",
+    defaultYears: "30",
+    buttonLabel: "Calculate mortgage payment",
+  },
+  "auto-loan": {
+    idPrefix: "auto",
+    principalLabel: "Vehicle price / loan amount",
+    defaultPrincipal: "35000",
+    defaultRate: "6.9",
+    defaultYears: "5",
+    buttonLabel: "Calculate auto payment",
+  },
+  loan: {
+    idPrefix: "loan",
+    principalLabel: "Loan amount",
+    defaultPrincipal: "15000",
+    defaultRate: "8.5",
+    defaultYears: "5",
+  },
+  payment: {
+    idPrefix: "payment",
+    principalLabel: "Loan amount",
+    defaultPrincipal: "10000",
+    defaultRate: "7",
+    defaultYears: "3",
+    buttonLabel: "Calculate payment",
+  },
+  "personal-loan": {
+    idPrefix: "personal",
+    principalLabel: "Loan amount",
+    defaultPrincipal: "10000",
+    defaultRate: "11.5",
+    defaultYears: "5",
+  },
+  "home-equity-loan": {
+    idPrefix: "hel",
+    principalLabel: "Loan amount",
+    defaultPrincipal: "50000",
+    defaultRate: "8",
+    defaultYears: "15",
+    hint: "Fixed-rate home equity installment loan.",
+  },
+  fha: {
+    idPrefix: "fha",
+    principalLabel: "Base loan amount",
+    defaultPrincipal: "280000",
+    defaultRate: "6.25",
+    defaultYears: "30",
+    includeFhaMip: true,
+    buttonLabel: "Calculate FHA payment",
+    disclaimer:
+      "Includes estimated monthly MIP (simplified). Actual FHA MIP varies by LTV and term.",
+  },
+};
