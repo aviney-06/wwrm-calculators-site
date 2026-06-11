@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import type {
+  CmsRichField,
   CmsSection,
   RichTextElementNode,
   RichTextNode,
@@ -11,6 +12,7 @@ export type { RichTextNode } from "@/types/calculator-cms";
 
 export type CalculatorContentElement =
   | { type: "richtext"; blocks: RichTextNode[] }
+  | { type: "html"; html: string }
   | {
       type: "table";
       headers: string[];
@@ -175,6 +177,44 @@ function RichTextRenderer({ blocks }: { blocks: RichTextNode[] }) {
   return <div className="space-y-4">{blocks.map((b, i) => renderBlockNode(b, `block-${i}`))}</div>;
 }
 
+/** Tailwind styles applied to TipTap-authored HTML rendered via dangerouslySetInnerHTML. */
+const HTML_PROSE_CLASS = [
+  "space-y-4 text-[1.1rem] leading-relaxed text-[#1f2937]",
+  "[&_p]:leading-relaxed [&_p]:text-[#1f2937]",
+  "[&_strong]:font-semibold [&_em]:italic",
+  "[&_a]:text-[#2374ac] [&_a]:underline [&_a]:decoration-[#2374ac]/40 [&_a]:underline-offset-2 hover:[&_a]:decoration-[#2374ac]",
+  "[&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:mb-1 [&_li]:leading-relaxed",
+  "[&_h2]:text-[1.6rem] [&_h2]:font-bold [&_h2]:leading-snug [&_h2]:text-[#419c2f]",
+  "[&_h3]:text-[1.3rem] [&_h3]:font-semibold [&_h3]:leading-snug [&_h3]:text-[#2c7f1f]",
+  "[&_h4]:text-[1.15rem] [&_h4]:font-semibold [&_h4]:text-[#1f2937]",
+  "[&_blockquote]:border-l-4 [&_blockquote]:border-[#9ecf8f] [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-[#334155]",
+  "[&_table]:block [&_table]:w-full [&_table]:overflow-x-auto [&_table]:border-collapse [&_table]:text-left",
+  "[&_th]:border [&_th]:border-[#c8ced8] [&_th]:bg-[#2374ac] [&_th]:px-4 [&_th]:py-2 [&_th]:text-center [&_th]:font-medium [&_th]:text-white",
+  "[&_td]:border [&_td]:border-[#d7dee8] [&_td]:px-4 [&_td]:py-2 [&_td]:text-center [&_td]:text-[#1f2937]",
+  "[&_pre]:overflow-x-auto [&_pre]:rounded-md [&_pre]:bg-[#0f172a] [&_pre]:p-4 [&_pre]:text-[#e2e8f0]",
+  "[&_code]:rounded [&_code]:bg-[#eef2f7] [&_code]:px-1",
+].join(" ");
+
+/** Plain text from a heading field, accepting either an HTML/plain string or Blocks. */
+function headingToText(value?: CmsRichField): string {
+  if (typeof value === "string") {
+    return value.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+  }
+  return textFromBlocks(value);
+}
+
+/** Turn a rich field (HTML string or Blocks array) into a renderable element. */
+function richFieldToElement(value?: CmsRichField): CalculatorContentElement | null {
+  if (typeof value === "string") {
+    const html = value.trim();
+    return html ? { type: "html", html } : null;
+  }
+  if (Array.isArray(value) && value.length > 0) {
+    return { type: "richtext", blocks: value };
+  }
+  return null;
+}
+
 type BoxHeadingLevel = 2 | 3 | 4 | 5 | 6;
 
 function BoxSectionHeading({
@@ -196,6 +236,16 @@ function BoxSectionHeading({
 function renderElement(element: CalculatorContentElement, key: string): ReactNode {
   if (element.type === "richtext") {
     return <RichTextRenderer key={key} blocks={element.blocks} />;
+  }
+
+  if (element.type === "html") {
+    return (
+      <div
+        key={key}
+        className={HTML_PROSE_CLASS}
+        dangerouslySetInnerHTML={{ __html: element.html }}
+      />
+    );
   }
 
   if (element.type === "table") {
@@ -266,26 +316,31 @@ export function mapCmsSectionsToDynamicSections(
 
   return sections.map((section, idx) => {
     const sectionElements: CalculatorContentElement[] = [];
-    if (Array.isArray(section.content) && section.content.length > 0) {
-      sectionElements.push({ type: "richtext", blocks: section.content });
+    const contentElement = richFieldToElement(section.content);
+    if (contentElement) {
+      sectionElements.push(contentElement);
     }
 
     if (Array.isArray(section.subSection)) {
       for (const sub of section.subSection) {
-        const title = textFromBlocks(sub.heading);
-        const contentBlocks = Array.isArray(sub.content) ? sub.content : [];
+        const title = headingToText(sub.heading);
+        const subContent = richFieldToElement(sub.content);
         sectionElements.push({
           type: "box",
           title: title || undefined,
-          headingLevel: headingLevelFromBlocks(sub.heading),
-          content: [{ type: "richtext", blocks: contentBlocks }],
+          // A subSection is an H3 in the H1->H2->H3 hierarchy. Plain-string headings
+          // carry no level, so default to 3 (legacy Blocks may specify otherwise).
+          headingLevel: (Array.isArray(sub.heading)
+            ? headingLevelFromBlocks(sub.heading)
+            : undefined) ?? 3,
+          content: subContent ? [subContent] : [],
         });
       }
     }
 
     return {
       id: section.id ?? idx,
-      title: textFromBlocks(section.heading) || `Section ${idx + 1}`,
+      title: headingToText(section.heading) || `Section ${idx + 1}`,
       elements: sectionElements,
     };
   });

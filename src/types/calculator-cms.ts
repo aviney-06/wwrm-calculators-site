@@ -24,14 +24,21 @@ export type RichTextElementNode = {
 
 export type RichTextNode = RichTextTextNode | RichTextElementNode;
 
+/**
+ * A CMS rich field. The current schema (TipTap) returns an HTML `string` for
+ * rich content and a plain `string` for headings. Older entries may still be
+ * Strapi Blocks (`RichTextNode[]`), so both shapes are accepted.
+ */
+export type CmsRichField = string | RichTextNode[];
+
 export type CmsSubSection = {
-  heading?: RichTextNode[];
-  content?: RichTextNode[];
+  heading?: CmsRichField;
+  content?: CmsRichField;
 };
 
 export type CmsSection = {
   id?: string | number;
-  heading?: RichTextNode[];
-  content?: RichTextNode[];
+  heading?: CmsRichField;
+  content?: CmsRichField;
   subSection?: CmsSubSection[];
 };
