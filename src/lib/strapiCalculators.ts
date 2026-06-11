@@ -3,11 +3,11 @@ import {
   mapCmsSectionsToDynamicSections,
   type CalculatorDynamicSection,
 } from "@/components/Health-Fitness/shared/CalculatorDynamicSections";
-import type { CmsSection, RichTextNode } from "@/types/calculator-cms";
+import type { CmsRichField, CmsSection, RichTextNode } from "@/types/calculator-cms";
 
 type StrapiCalculatorAttributes = {
   title?: string;
-  subTitle?: RichTextNode[];
+  subTitle?: CmsRichField;
   metaTitle?: string;
   metaDescription?: string;
   sections?: CmsSection[];
@@ -17,7 +17,7 @@ type StrapiResponse = {
   data?: Array<{
     id: number;
     title?: string;
-    subTitle?: RichTextNode[];
+    subTitle?: CmsRichField;
     metaTitle?: string;
     metaDescription?: string;
     sections?: CmsSection[];
@@ -58,6 +58,18 @@ function textFromRichTextNodes(nodes?: RichTextNode[]): string {
     .join(" ")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+/** Plain-text summary from a rich field (HTML string or legacy Blocks array). */
+function plainTextFromRichField(value?: CmsRichField): string {
+  if (typeof value === "string") {
+    return value
+      .replace(/<[^>]*>/g, " ")
+      .replace(/&nbsp;/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+  return textFromRichTextNodes(value);
 }
 
 /**
@@ -119,7 +131,7 @@ async function fetchCalculatorPageContentBySlug(
 
     return {
       title: attrs.title ?? "",
-      description: textFromRichTextNodes(attrs.subTitle),
+      description: plainTextFromRichField(attrs.subTitle),
       dynamicSections: mapCmsSectionsToDynamicSections(attrs.sections),
       metaTitle: attrs.metaTitle,
       metaDescription: attrs.metaDescription,
