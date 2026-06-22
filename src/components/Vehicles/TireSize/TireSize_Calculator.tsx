@@ -54,6 +54,7 @@ function TireFields({
           <input
             id={`${idPrefix}-width`}
             type="number"
+            inputMode="numeric"
             value={width}
             onChange={(e) => onWidth(e.target.value)}
             placeholder="265"
@@ -67,6 +68,7 @@ function TireFields({
           <input
             id={`${idPrefix}-aspect`}
             type="number"
+            inputMode="numeric"
             value={aspect}
             onChange={(e) => onAspect(e.target.value)}
             placeholder="70"
@@ -80,6 +82,7 @@ function TireFields({
           <input
             id={`${idPrefix}-rim`}
             type="number"
+            inputMode="numeric"
             value={rim}
             onChange={(e) => onRim(e.target.value)}
             placeholder="17"

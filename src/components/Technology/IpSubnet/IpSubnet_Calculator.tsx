@@ -79,6 +79,7 @@ export function IpSubnet_Calculator() {
           <input
             id="ip-subnet-cidr"
             type="number"
+            inputMode="numeric"
             min={0}
             max={32}
             value={cidr}

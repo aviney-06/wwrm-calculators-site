@@ -46,7 +46,8 @@ export function HomeExploreSection() {
     <>
       <div className="mx-auto mt-6 max-w-5xl md:mt-7">
         <h1 className="text-2xl font-bold tracking-tight text-center text-neutral-1 mb-2 md:text-4xl md:mb-4 md:text-left">Free Online Calculators</h1>
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+        <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#94a3b8]">Get all the calculators you need in one place.</p>
+        {/* <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
           <div className="min-w-0 flex-1 text-center sm:text-left">
             <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#94a3b8]">
               Explore by category
@@ -73,23 +74,21 @@ export function HomeExploreSection() {
               className="h-11 w-full rounded-md border border-[#E0E0E0] bg-white py-2 pl-9 pr-3 text-[14px] text-[#334155] outline-none transition-shadow placeholder:text-[#94a3b8] focus:border-[#2374ac] focus:ring-2 focus:ring-[#2374ac]/25 sm:h-10"
             />
           </div>
-        </div>
+        </div> */}
       </div>
 
-      <div className="mt-6 flex flex-col gap-12 md:mt-7">
+      <div className="mt-6 md:mt-7">
         {filtered.length === 0 ? (
           <p className="text-center text-[14px] text-[#64748b]">
             No calculators match &ldquo;{query.trim()}&rdquo;. Try another
             term.
           </p>
         ) : (
-          filtered.map((section, index) => (
-            <HomeCategorySection
-              key={section.title}
-              {...section}
-              imagePriority={index === 0}
-            />
-          ))
+          <div className="grid items-start gap-4 sm:gap-5 md:grid-cols-2">
+            {filtered.map((section) => (
+              <HomeCategorySection key={section.title} {...section} />
+            ))}
+          </div>
         )}
       </div>
     </>

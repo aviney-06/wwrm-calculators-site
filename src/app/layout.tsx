@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
-import { AdsSidebar } from "@/components/globals/AdsSidebar";
 import { Footer } from "@/components/globals/Footer";
 import { Navbar } from "@/components/globals/Navbar";
+import { SearchSidebar } from "@/components/globals/SearchSidebar";
+import { SimilarCalculators } from "@/components/globals/SimilarCalculators";
 import { SITE_NAME } from "@/lib/metadata";
 import { getSiteUrl } from "@/lib/siteUrl";
+import { getTopCalculators } from "@/lib/strapiCalculators";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -28,11 +30,13 @@ export const metadata: Metadata = {
   description: "Free online calculators for finance, health, and more.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const topCalculators = await getTopCalculators();
+
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full bg-neutral-2 antialiased`}>
       <head>
@@ -53,8 +57,9 @@ export default function RootLayout({
         <Navbar />
         <div className="mx-auto flex w-full max-w-[1600px] flex-1 flex-col gap-4 px-4 py-4 md:gap-20 md:py-6 md:flex-row md:px-[100px]">
           <main className="min-w-0 flex-1">{children}</main>
-          <AdsSidebar />
+          <SearchSidebar topCalculators={topCalculators} />
         </div>
+        <SimilarCalculators />
         <Footer />
       </body>
     </html>

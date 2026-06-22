@@ -29,7 +29,7 @@ const sortOptions: {
 ];
 
 const searchInputClass =
-  "h-11 w-full rounded-md border border-[#E0E0E0] bg-white py-2 pl-9 pr-9 text-[14px] text-[#334155] outline-none transition-shadow placeholder:text-[#94a3b8] focus:border-[#2374ac] focus:ring-2 focus:ring-[#2374ac]/25 sm:h-10";
+  "h-11 w-full rounded-md border border-[#E0E0E0] bg-white py-2 pl-9 pr-9 text-[14px] text-[#334155] outline-none transition-shadow placeholder:text-[#94a3b8] focus:border-[#2374ac] focus:ring-2 focus:ring-[#2374ac]/25 sm:h-10 [&::-webkit-search-cancel-button]:appearance-none";
 
 function filterAndSortLinks(
   links: LinkItem[],

@@ -36,8 +36,12 @@ export function CalculatorNumberField({
   optional,
   wrapperClassName = "",
   type = "number",
+  inputMode,
   ...inputProps
 }: NumberFieldProps) {
+  // On mobile, surface the numeric keypad by default for number fields.
+  const resolvedInputMode =
+    inputMode ?? (type === "number" ? "decimal" : undefined);
   return (
     <div className={wrapperClassName}>
       <label htmlFor={id} className={calcLabelClass}>
@@ -51,6 +55,7 @@ export function CalculatorNumberField({
         <InputWithSuffix
           id={id}
           type={type}
+          inputMode={resolvedInputMode}
           suffix={suffix}
           className="w-full min-w-0"
           inputClassName="w-full"
@@ -60,6 +65,7 @@ export function CalculatorNumberField({
         <input
           id={id}
           type={type}
+          inputMode={resolvedInputMode}
           className={[
             fieldBase,
             "w-full",

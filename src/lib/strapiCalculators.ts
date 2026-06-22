@@ -148,3 +148,96 @@ async function fetchCalculatorPageContentBySlug(
 
 /** Per-request dedupe: safe to call from both `generateMetadata` and a server layout. */
 export const getCalculatorPageContentBySlug = cache(fetchCalculatorPageContentBySlug);
+
+export type TopCalculator = {
+  slug: string;
+  title: string;
+  /** Category id matching the route prefix, e.g. "maths", "health-fitness". */
+  category: string;
+};
+
+type StrapiTopRow = {
+  slug?: string;
+  title?: string;
+  category?: string;
+  attributes?: { slug?: string; title?: string; category?: string };
+};
+
+async function requestTopCalculators(
+  endpoint: string,
+  strapiToken: string,
+  revalidate: false | number,
+): Promise<TopCalculator[]> {
+  // No AbortController/signal here: under Next's patched fetch the signal can both
+  // (a) opt the request out of the Data Cache (causing one network call per page during
+  // export) and (b) fail to actually interrupt a hung request. The hard Promise.race
+  // timeout in fetchTopCalculators() bounds the wait instead.
+  const response = await fetch(endpoint, {
+    headers: { Authorization: `Bearer ${strapiToken}` },
+    next: { revalidate },
+  });
+  if (!response.ok) return [];
+
+  const json = (await response.json()) as { data?: StrapiTopRow[] };
+  const rows = json.data ?? [];
+  const out: TopCalculator[] = [];
+  for (const row of rows) {
+    // Strapi v4 nests under attributes; v5 returns fields directly.
+    const attrs = row.attributes ?? row;
+    if (attrs.slug && attrs.title && attrs.category) {
+      out.push({ slug: attrs.slug, title: attrs.title, category: attrs.category });
+    }
+  }
+  return out;
+}
+
+async function fetchTopCalculators(): Promise<TopCalculator[]> {
+  const strapiUrl = process.env.STRAPI_URL;
+  const strapiToken = process.env.STRAPI_TOKEN;
+  if (!strapiUrl || !strapiToken) return [];
+
+  const baseUrl = normalizeStrapiBaseUrl(strapiUrl);
+  const endpoint = new URL("/api/calculators", baseUrl);
+  endpoint.searchParams.set("filters[isTopCalculator][$eq]", "true");
+  endpoint.searchParams.set("fields[0]", "slug");
+  endpoint.searchParams.set("fields[1]", "title");
+  endpoint.searchParams.set("fields[2]", "category");
+  endpoint.searchParams.set("pagination[pageSize]", "100");
+
+  const revalidate = strapiFetchRevalidate();
+  const timeoutMs = strapiFetchTimeoutMs();
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    const response = await fetch(endpoint.toString(), {
+      headers: { Authorization: `Bearer ${strapiToken}` },
+      next: { revalidate },
+      signal: controller.signal,
+    });
+    if (!response.ok) return [];
+
+    const json = (await response.json()) as { data?: StrapiTopRow[] };
+    const rows = json.data ?? [];
+    const out: TopCalculator[] = [];
+    for (const row of rows) {
+      // Strapi v4 nests under attributes; v5 returns fields directly.
+      const attrs = row.attributes ?? row;
+      if (attrs.slug && attrs.title && attrs.category) {
+        out.push({ slug: attrs.slug, title: attrs.title, category: attrs.category });
+      }
+    }
+    return out;
+  } catch (e) {
+    const name = e instanceof Error ? e.name : "";
+    if (name !== "AbortError") {
+      console.warn("[strapi] top calculators fetch failed:", e);
+    }
+    return [];
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
+/** Per-request dedupe for the top-calculators sidebar (rendered in the root layout). */
+export const getTopCalculators = cache(fetchTopCalculators);

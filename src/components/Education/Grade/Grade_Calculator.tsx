@@ -76,6 +76,7 @@ export function Grade_Calculator() {
           <div key={i} className="grid grid-cols-2 gap-2">
             <input
               type="number"
+              inputMode="decimal"
               min={0}
               max={100}
               value={row.score}
@@ -85,6 +86,7 @@ export function Grade_Calculator() {
             />
             <input
               type="number"
+              inputMode="decimal"
               min={0}
               value={row.weight}
               onChange={(e) => updateRow(i, "weight", e.target.value)}

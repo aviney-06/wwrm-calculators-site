@@ -84,6 +84,7 @@ export function Ovulation_Calculator() {
         <input
           id="ov-cycle"
           type="number"
+          inputMode="numeric"
           min={21}
           max={45}
           value={cycle}

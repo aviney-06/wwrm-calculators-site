@@ -81,6 +81,7 @@ export function Period_Calculator() {
         <input
           id="per-cycle"
           type="number"
+          inputMode="numeric"
           min={21}
           max={45}
           value={cycle}

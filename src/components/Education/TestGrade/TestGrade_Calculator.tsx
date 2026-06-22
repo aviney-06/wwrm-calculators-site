@@ -174,6 +174,7 @@ export function TestGrade_Calculator() {
             <input
               id="tg-correct"
               type="number"
+              inputMode="numeric"
               min={0}
               value={correct}
               onChange={(e) => setCorrect(e.target.value)}
@@ -190,6 +191,7 @@ export function TestGrade_Calculator() {
             <input
               id="tg-total"
               type="number"
+              inputMode="numeric"
               min={1}
               value={total}
               onChange={(e) => setTotal(e.target.value)}

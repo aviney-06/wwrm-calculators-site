@@ -42,6 +42,7 @@ export function RandomCardPicker_Calculator() {
         <input
           id="card-count"
           type="number"
+          inputMode="numeric"
           min={1}
           max={52}
           value={count}

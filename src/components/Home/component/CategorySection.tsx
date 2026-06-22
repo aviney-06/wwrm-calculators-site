@@ -1,48 +1,59 @@
-import Image from "next/image";
 import Link from "next/link";
+import { HiArrowRight } from "react-icons/hi";
 import type { HomeCategorySectionData } from "../types";
 
 type Props = HomeCategorySectionData & {
-  /** First section image should load with priority for LCP */
+  /** Kept for API compatibility with the home explore section; no longer used. */
   imagePriority?: boolean;
 };
 
 export function HomeCategorySection({
   title,
-  imageSrc,
-  imageAlt,
   links,
   exploreHref,
-  exploreLabel = "Explore All",
-  imagePriority = false,
+  exploreLabel = "Explore all",
   disabled = false,
 }: Props) {
   const linkClass = disabled
-    ? "cursor-not-allowed text-[15px] text-neutral-1/45 no-underline"
-    : "text-[15px] text-secondary underline-offset-2 hover:underline";
-  const bulletClass = disabled ? "text-neutral-1/35" : "text-secondary";
+    ? "cursor-not-allowed text-[14px] text-neutral-1/45 no-underline"
+    : "text-[14px] text-secondary underline-offset-2 hover:underline";
+  const bulletClass = disabled ? "text-neutral-1/35" : "text-primary";
 
   return (
-    <section className={`flex flex-col gap-5 ${disabled ? "opacity-[0.92]" : ""}`}>
-      <div className="relative aspect-[21/9] w-full overflow-hidden rounded-lg bg-neutral-3">
-        <Image
-          src={imageSrc}
-          alt={imageAlt}
-          fill
-          className="object-cover object-center"
-          sizes="(max-width: 768px) 100vw, min(900px, 70vw)"
-          priority={imagePriority}
-        />
+    <section
+      className={`flex h-full flex-col gap-3 rounded-lg border border-[#E8ECF0] bg-white p-4 transition-colors hover:border-primary/40 sm:p-5 ${
+        disabled ? "opacity-[0.92]" : ""
+      }`}
+    >
+      <div className="flex items-center justify-between gap-3 border-b border-primary/15 pb-2.5">
+        <h2 className="text-lg font-bold tracking-tight text-neutral-1">
+          {title}
+        </h2>
+        {disabled ? (
+          <span
+            aria-disabled
+            className="inline-flex shrink-0 cursor-not-allowed select-none items-center gap-1 text-[13px] font-medium text-neutral-1/40"
+          >
+            {exploreLabel}
+          </span>
+        ) : (
+          <Link
+            href={exploreHref}
+            className="group inline-flex shrink-0 items-center gap-1 text-[13px] font-medium text-primary transition-opacity hover:opacity-80"
+          >
+            {exploreLabel}
+            <HiArrowRight
+              className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
+              aria-hidden
+            />
+          </Link>
+        )}
       </div>
 
-      <h2 className="text-2xl font-bold tracking-tight text-neutral-1 md:text-[28px]">
-        {title}
-      </h2>
-
-      <ul className="grid grid-cols-1 gap-x-10 gap-y-2 sm:grid-cols-2">
+      <ul className="grid grid-cols-1 gap-x-8 gap-y-1.5 sm:grid-cols-2">
         {links.map(({ label, href }) => (
           <li key={href} className="flex min-w-0 items-start gap-2">
-            <span className={`mt-0.5 shrink-0 ${bulletClass}`} aria-hidden>
+            <span className={`mt-1 shrink-0 text-[10px] ${bulletClass}`} aria-hidden>
               •
             </span>
             {disabled ? (
@@ -55,22 +66,6 @@ export function HomeCategorySection({
           </li>
         ))}
       </ul>
-
-      {disabled ? (
-        <span
-          aria-disabled
-          className="flex w-full cursor-not-allowed select-none items-center justify-center rounded-md bg-neutral-3 px-4 py-3 text-center text-sm font-medium text-neutral-1/45"
-        >
-          {exploreLabel}
-        </span>
-      ) : (
-        <Link
-          href={exploreHref}
-          className="flex w-full items-center justify-center rounded-md bg-primary px-4 py-3 text-center text-sm font-medium text-neutral-2 transition-opacity hover:opacity-95"
-        >
-          {exploreLabel}
-        </Link>
-      )}
     </section>
   );
 }

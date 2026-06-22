@@ -54,6 +54,7 @@ export function DiceRoller_Calculator() {
         <input
           id="dice-count"
           type="number"
+          inputMode="numeric"
           min={1}
           max={20}
           value={diceCount}

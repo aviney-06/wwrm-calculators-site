@@ -10,6 +10,7 @@ export function InputWithSuffix({
   className = "",
   inputClassName = "",
   type,
+  inputMode,
   ...inputProps
 }: ComponentProps<"input"> & {
   suffix: string;
@@ -17,12 +18,15 @@ export function InputWithSuffix({
 }) {
   const hasSuffix = suffix.trim().length > 0;
   const isNumber = type === "number";
+  // On mobile, surface the numeric keypad by default for number fields.
+  const resolvedInputMode = inputMode ?? (isNumber ? "decimal" : undefined);
 
   return (
     <div className={`relative inline-flex ${className}`}>
       <input
         {...inputProps}
         type={type}
+        inputMode={resolvedInputMode}
         className={[
           fieldBase,
           !hasSuffix && "!pr-2 sm:!pr-2.5",
