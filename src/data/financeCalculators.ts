@@ -21,7 +21,8 @@ export type FinanceToolKey =
   | "interest"
   | "profit-margin"
   | "annuity"
-  | "rental-property";
+  | "rental-property"
+  | "overtime";
 
 export type FinanceCalculator = {
   slug: string;
@@ -369,6 +370,14 @@ export const FINANCE_CALCULATORS: FinanceCalculator[] = [
       "Monthly cash flow and cap rate from purchase price, rent, and expenses.",
     breadcrumbLabel: "rental property calculator",
     toolKey: "rental-property",
+  },
+  {
+    slug: "overtime-calculator",
+    title: "Overtime Calculator",
+    description:
+      "Calculate overtime pay and total earnings from your hourly rate, regular hours, and overtime hours.",
+    breadcrumbLabel: "overtime calculator",
+    toolKey: "overtime",
   },
 ];
 

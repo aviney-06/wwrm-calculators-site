@@ -58,6 +58,50 @@ export type TbspToGramsConfig = BaseConfig & {
   variant: "tbspToGrams";
 };
 
+export type NumberToWordsConfig = BaseConfig & {
+  variant: "numberToWords";
+};
+
+export type GramsToMolesConfig = BaseConfig & {
+  variant: "gramsToMoles";
+};
+
+export type GeneralConverterConfig = BaseConfig & {
+  variant: "general";
+};
+
+export type RomanNumeralDateConfig = BaseConfig & {
+  variant: "romanNumeralDate";
+};
+
+export type ShoeSizeConfig = BaseConfig & {
+  variant: "shoeSize";
+};
+
+export type McgToIuConfig = BaseConfig & {
+  variant: "mcgToIu";
+};
+
+export type DecimalToTimeConfig = BaseConfig & {
+  variant: "decimalToTime";
+};
+
+export type CupsToPoundsConfig = BaseConfig & {
+  variant: "cupsToPounds";
+};
+
+export type GramsToMlConfig = BaseConfig & {
+  variant: "gramsToMl";
+};
+
+export type MmolToMgdlConfig = BaseConfig & {
+  variant: "mmolToMgdl";
+};
+
+export type MilitaryTimeConfig = BaseConfig & {
+  variant: "militaryTime";
+};
+
 export type ConversionCalculatorConfig =
   | UnitConversionConfig
   | HeightCmFtInConfig
@@ -68,7 +112,18 @@ export type ConversionCalculatorConfig =
   | TimeToDecimalConfig
   | MlToGramsConfig
   | GramsToCupsConfig
-  | TbspToGramsConfig;
+  | TbspToGramsConfig
+  | NumberToWordsConfig
+  | GramsToMolesConfig
+  | GeneralConverterConfig
+  | RomanNumeralDateConfig
+  | ShoeSizeConfig
+  | McgToIuConfig
+  | DecimalToTimeConfig
+  | CupsToPoundsConfig
+  | GramsToMlConfig
+  | MmolToMgdlConfig
+  | MilitaryTimeConfig;
 
 export function isHeightCmToFtInConversion(
   config: ConversionCalculatorConfig,
@@ -131,6 +186,72 @@ export function isTbspToGramsConversion(
   config: ConversionCalculatorConfig,
 ): config is TbspToGramsConfig {
   return config.variant === "tbspToGrams";
+}
+
+export function isNumberToWordsConversion(
+  config: ConversionCalculatorConfig,
+): config is NumberToWordsConfig {
+  return config.variant === "numberToWords";
+}
+
+export function isGramsToMolesConversion(
+  config: ConversionCalculatorConfig,
+): config is GramsToMolesConfig {
+  return config.variant === "gramsToMoles";
+}
+
+export function isGeneralConversion(
+  config: ConversionCalculatorConfig,
+): config is GeneralConverterConfig {
+  return config.variant === "general";
+}
+
+export function isRomanNumeralDateConversion(
+  config: ConversionCalculatorConfig,
+): config is RomanNumeralDateConfig {
+  return config.variant === "romanNumeralDate";
+}
+
+export function isShoeSizeConversion(
+  config: ConversionCalculatorConfig,
+): config is ShoeSizeConfig {
+  return config.variant === "shoeSize";
+}
+
+export function isMcgToIuConversion(
+  config: ConversionCalculatorConfig,
+): config is McgToIuConfig {
+  return config.variant === "mcgToIu";
+}
+
+export function isDecimalToTimeConversion(
+  config: ConversionCalculatorConfig,
+): config is DecimalToTimeConfig {
+  return config.variant === "decimalToTime";
+}
+
+export function isCupsToPoundsConversion(
+  config: ConversionCalculatorConfig,
+): config is CupsToPoundsConfig {
+  return config.variant === "cupsToPounds";
+}
+
+export function isGramsToMlConversion(
+  config: ConversionCalculatorConfig,
+): config is GramsToMlConfig {
+  return config.variant === "gramsToMl";
+}
+
+export function isMmolToMgdlConversion(
+  config: ConversionCalculatorConfig,
+): config is MmolToMgdlConfig {
+  return config.variant === "mmolToMgdl";
+}
+
+export function isMilitaryTimeConversion(
+  config: ConversionCalculatorConfig,
+): config is MilitaryTimeConfig {
+  return config.variant === "militaryTime";
 }
 
 export const CONVERSION_CALCULATORS: ConversionCalculatorConfig[] = [
@@ -787,6 +908,460 @@ export const CONVERSION_CALCULATORS: ConversionCalculatorConfig[] = [
     decimals: 2,
     converterKey: "fahrenheitToKelvin",
     emptyHint: "Enter °F to convert to K.",
+  },
+  {
+    slug: "conversion-calculator",
+    title: "Conversion Calculator",
+    description:
+      "Free all-in-one unit converter for length, weight, temperature, volume, time, area, and speed.",
+    breadcrumbLabel: "conversion calculator",
+    variant: "general",
+    emptyHint: "Choose a measurement and units, then enter a value to convert.",
+  },
+  {
+    slug: "convertidor-de-lbs-a-kg",
+    title: "Convertidor de Lbs a Kg",
+    description:
+      "Convierte el peso de libras (lb) a kilogramos (kg) con el factor de conversión estándar.",
+    breadcrumbLabel: "convertidor de lbs a kg",
+    fromLabel: "Libras",
+    toLabel: "Kilogramos",
+    fromUnit: "lb",
+    toUnit: "kg",
+    defaultValue: "1",
+    decimals: 4,
+    converterKey: "poundsToKilograms",
+    emptyHint: "Ingresa libras para convertir a kilogramos.",
+  },
+  {
+    slug: "numbers-to-words-calculator",
+    title: "Numbers to Words Converter",
+    description:
+      "Convert numbers into written English words for checks, invoices, and documents.",
+    breadcrumbLabel: "numbers to words",
+    variant: "numberToWords",
+    emptyHint: "Enter a number to convert to words.",
+  },
+  {
+    slug: "hours-to-minutes-calculator",
+    title: "Hours to Minutes Converter",
+    description:
+      "Convert time from hours to minutes. One hour equals 60 minutes.",
+    breadcrumbLabel: "hours to minutes",
+    fromLabel: "Hours",
+    toLabel: "Minutes",
+    fromUnit: "hr",
+    toUnit: "min",
+    defaultValue: "1",
+    decimals: 2,
+    converterKey: "hoursToMinutes",
+    emptyHint: "Enter hours to convert to minutes.",
+  },
+  {
+    slug: "ml-to-cups-calculator",
+    title: "Ml to Cups Converter",
+    description:
+      "Convert volume from milliliters (ml) to US cups for cooking and baking.",
+    breadcrumbLabel: "ml to cups",
+    fromLabel: "Milliliters",
+    toLabel: "Cups",
+    fromUnit: "ml",
+    toUnit: "cups",
+    defaultValue: "240",
+    decimals: 4,
+    converterKey: "mlToCups",
+    emptyHint: "Enter milliliters to convert to cups.",
+  },
+  {
+    slug: "feet-to-inches-calculator",
+    title: "Feet to Inches Converter",
+    description:
+      "Convert length from feet (ft) to inches (in). One foot equals 12 inches.",
+    breadcrumbLabel: "feet to inches",
+    fromLabel: "Feet",
+    toLabel: "Inches",
+    fromUnit: "ft",
+    toUnit: "in",
+    defaultValue: "1",
+    decimals: 4,
+    converterKey: "feetToInches",
+    emptyHint: "Enter feet to convert to inches.",
+  },
+  {
+    slug: "grams-to-moles-calculator",
+    title: "Grams to Moles Converter",
+    description:
+      "Convert mass in grams to moles using a substance's molar mass (g/mol).",
+    breadcrumbLabel: "grams to moles",
+    variant: "gramsToMoles",
+    emptyHint: "Enter grams and molar mass to estimate moles.",
+  },
+  {
+    slug: "l-to-gal-calculator",
+    title: "Liters to Gallons Converter",
+    description:
+      "Convert volume from liters (L) to US gallons (gal) for fuel and liquids.",
+    breadcrumbLabel: "liters to gallons",
+    fromLabel: "Liters",
+    toLabel: "US gallons",
+    fromUnit: "L",
+    toUnit: "gal",
+    defaultValue: "1",
+    decimals: 4,
+    converterKey: "litersToGallons",
+    emptyHint: "Enter liters to convert to gallons.",
+  },
+  {
+    slug: "months-to-years-calculator",
+    title: "Months to Years Converter",
+    description:
+      "Convert time from months to years. Twelve months equal one year.",
+    breadcrumbLabel: "months to years",
+    fromLabel: "Months",
+    toLabel: "Years",
+    fromUnit: "months",
+    toUnit: "years",
+    defaultValue: "12",
+    decimals: 4,
+    converterKey: "monthsToYears",
+    emptyHint: "Enter months to convert to years.",
+  },
+  {
+    slug: "ft-to-m-calculator",
+    title: "Feet to Meters Converter",
+    description:
+      "Convert length from feet (ft) to meters (m) for height, distance, and construction.",
+    breadcrumbLabel: "feet to meters",
+    fromLabel: "Feet",
+    toLabel: "Meters",
+    fromUnit: "ft",
+    toUnit: "m",
+    defaultValue: "1",
+    decimals: 4,
+    converterKey: "feetToMeters",
+    emptyHint: "Enter feet to convert to meters.",
+  },
+  {
+    slug: "roman-numeral-date-converter",
+    title: "Roman Numeral Date Converter",
+    description:
+      "Convert a calendar date into Roman numerals for tattoos, anniversaries, and engravings.",
+    breadcrumbLabel: "roman numeral date",
+    variant: "romanNumeralDate",
+    emptyHint: "Pick a date to convert to Roman numerals.",
+  },
+  {
+    slug: "minutes-to-decimal-calculator",
+    title: "Minutes to Decimal Converter",
+    description:
+      "Convert minutes into decimal hours for payroll, billing, and time tracking.",
+    breadcrumbLabel: "minutes to decimal",
+    fromLabel: "Minutes",
+    toLabel: "Decimal hours",
+    fromUnit: "min",
+    toUnit: "hr",
+    defaultValue: "30",
+    decimals: 4,
+    converterKey: "minutesToHours",
+    emptyHint: "Enter minutes to convert to decimal hours.",
+  },
+  {
+    slug: "ms-to-seconds-calculator",
+    title: "Ms to Seconds Converter",
+    description:
+      "Convert time from milliseconds (ms) to seconds (s). One second equals 1,000 ms.",
+    breadcrumbLabel: "ms to seconds",
+    fromLabel: "Milliseconds",
+    toLabel: "Seconds",
+    fromUnit: "ms",
+    toUnit: "s",
+    defaultValue: "1000",
+    decimals: 4,
+    converterKey: "msToSeconds",
+    emptyHint: "Enter milliseconds to convert to seconds.",
+  },
+  {
+    slug: "shoe-size-converter",
+    title: "Shoe Size Converter",
+    description:
+      "Convert shoe sizes between US, UK, EU, and centimeters for men and women.",
+    breadcrumbLabel: "shoe size",
+    variant: "shoeSize",
+    emptyHint: "Enter a shoe size to convert across systems.",
+  },
+  {
+    slug: "mcg-to-iu-calculator",
+    title: "Mcg to IU Converter",
+    description:
+      "Convert micrograms (mcg) to international units (IU) for vitamins A, D, and E.",
+    breadcrumbLabel: "mcg to iu",
+    variant: "mcgToIu",
+    emptyHint: "Choose a vitamin and enter mcg to get IU.",
+  },
+  {
+    slug: "lbs-to-newton-calculator",
+    title: "Lbs to Newton Converter",
+    description:
+      "Convert force from pounds-force (lbf) to newtons (N) for physics and engineering.",
+    breadcrumbLabel: "lbs to newton",
+    fromLabel: "Pounds-force",
+    toLabel: "Newtons",
+    fromUnit: "lbf",
+    toUnit: "N",
+    defaultValue: "1",
+    decimals: 4,
+    converterKey: "poundsToNewtons",
+    emptyHint: "Enter pounds-force to convert to newtons.",
+  },
+  {
+    slug: "feet-to-miles-calculator",
+    title: "Feet to Miles Converter",
+    description:
+      "Convert distance from feet (ft) to miles (mi). One mile equals 5,280 feet.",
+    breadcrumbLabel: "feet to miles",
+    fromLabel: "Feet",
+    toLabel: "Miles",
+    fromUnit: "ft",
+    toUnit: "mi",
+    defaultValue: "5280",
+    decimals: 6,
+    converterKey: "feetToMiles",
+    emptyHint: "Enter feet to convert to miles.",
+  },
+  {
+    slug: "hours-to-days-calculator",
+    title: "Hours to Days Converter",
+    description:
+      "Convert time from hours to days. One day equals 24 hours.",
+    breadcrumbLabel: "hours to days",
+    fromLabel: "Hours",
+    toLabel: "Days",
+    fromUnit: "hr",
+    toUnit: "days",
+    defaultValue: "24",
+    decimals: 4,
+    converterKey: "hoursToDays",
+    emptyHint: "Enter hours to convert to days.",
+  },
+  {
+    slug: "decimal-to-time-calculator",
+    title: "Decimal to Time Converter",
+    description:
+      "Convert decimal hours into hours, minutes, and seconds for timesheets and scheduling.",
+    breadcrumbLabel: "decimal to time",
+    variant: "decimalToTime",
+    emptyHint: "Enter decimal hours to get hours, minutes, and seconds.",
+  },
+  {
+    slug: "cubic-yards-to-cubic-feet-calculator",
+    title: "Cubic Yards to Cubic Feet Converter",
+    description:
+      "Convert volume from cubic yards (yd³) to cubic feet (ft³). One cubic yard equals 27 cubic feet.",
+    breadcrumbLabel: "cubic yards to cubic feet",
+    fromLabel: "Cubic yards",
+    toLabel: "Cubic feet",
+    fromUnit: "yd³",
+    toUnit: "ft³",
+    defaultValue: "1",
+    decimals: 4,
+    converterKey: "cubicYardsToCubicFeet",
+    emptyHint: "Enter cubic yards to convert to cubic feet.",
+  },
+  {
+    slug: "lbs-to-g-calculator",
+    title: "Lbs to G Converter",
+    description:
+      "Convert weight from pounds (lb) to grams (g) using the standard conversion factor.",
+    breadcrumbLabel: "lbs to g",
+    fromLabel: "Pounds",
+    toLabel: "Grams",
+    fromUnit: "lb",
+    toUnit: "g",
+    defaultValue: "1",
+    decimals: 4,
+    converterKey: "poundsToGrams",
+    emptyHint: "Enter pounds to convert to grams.",
+  },
+  {
+    slug: "cups-to-pounds-calculator",
+    title: "Cups to Pounds Converter",
+    description:
+      "Convert US cups to pounds using ingredient density (g/ml). Default assumes water.",
+    breadcrumbLabel: "cups to pounds",
+    variant: "cupsToPounds",
+    emptyHint: "Enter cups and density to estimate pounds.",
+  },
+  {
+    slug: "quarts-to-gallons-calculator",
+    title: "Quarts to Gallons Converter",
+    description:
+      "Convert US liquid quarts to gallons. Four quarts equal one US gallon.",
+    breadcrumbLabel: "quarts to gallons",
+    fromLabel: "Quarts",
+    toLabel: "Gallons",
+    fromUnit: "qt",
+    toUnit: "gal",
+    defaultValue: "4",
+    decimals: 4,
+    converterKey: "quartsToGallons",
+    emptyHint: "Enter quarts to convert to gallons.",
+  },
+  {
+    slug: "cubic-feet-to-cubic-yards-calculator",
+    title: "Cubic Feet to Cubic Yards Converter",
+    description:
+      "Convert volume from cubic feet (ft³) to cubic yards (yd³). Twenty-seven cubic feet equal one cubic yard.",
+    breadcrumbLabel: "cubic feet to cubic yards",
+    fromLabel: "Cubic feet",
+    toLabel: "Cubic yards",
+    fromUnit: "ft³",
+    toUnit: "yd³",
+    defaultValue: "27",
+    decimals: 6,
+    converterKey: "cubicFeetToCubicYards",
+    emptyHint: "Enter cubic feet to convert to cubic yards.",
+  },
+  {
+    slug: "grams-in-ml-calculator",
+    title: "Grams in Ml Converter",
+    description:
+      "Convert grams (g) to milliliters (ml) using density (g/ml). Default assumes water.",
+    breadcrumbLabel: "grams in ml",
+    variant: "gramsToMl",
+    emptyHint: "Enter grams and density to estimate milliliters.",
+  },
+  {
+    slug: "kilobytes-to-megabytes-calculator",
+    title: "Kilobytes to Megabytes Converter",
+    description:
+      "Convert digital storage from kilobytes (KB) to megabytes (MB) using 1 MB = 1024 KB.",
+    breadcrumbLabel: "kilobytes to megabytes",
+    fromLabel: "Kilobytes",
+    toLabel: "Megabytes",
+    fromUnit: "KB",
+    toUnit: "MB",
+    defaultValue: "1024",
+    decimals: 6,
+    converterKey: "kilobytesToMegabytes",
+    emptyHint: "Enter kilobytes to convert to megabytes.",
+  },
+  {
+    slug: "cubic-feet-to-gallons-calculator",
+    title: "Cubic Feet to Gallons Converter",
+    description:
+      "Convert volume from cubic feet (ft³) to US gallons. One cubic foot ≈ 7.48 gallons.",
+    breadcrumbLabel: "cubic feet to gallons",
+    fromLabel: "Cubic feet",
+    toLabel: "US gallons",
+    fromUnit: "ft³",
+    toUnit: "gal",
+    defaultValue: "1",
+    decimals: 4,
+    converterKey: "cubicFeetToGallons",
+    emptyHint: "Enter cubic feet to convert to gallons.",
+  },
+  {
+    slug: "ml-to-tbsp-calculator",
+    title: "Ml to Tbsp Converter",
+    description:
+      "Convert volume from milliliters (ml) to US tablespoons (tbsp) for cooking and baking.",
+    breadcrumbLabel: "ml to tbsp",
+    fromLabel: "Milliliters",
+    toLabel: "Tablespoons",
+    fromUnit: "ml",
+    toUnit: "tbsp",
+    defaultValue: "15",
+    decimals: 4,
+    converterKey: "mlToTbsp",
+    emptyHint: "Enter milliliters to convert to tablespoons.",
+  },
+  {
+    slug: "pints-to-cups-calculator",
+    title: "Pints to Cups Converter",
+    description:
+      "Convert US liquid pints to cups. One US pint equals 2 cups.",
+    breadcrumbLabel: "pints to cups",
+    fromLabel: "Pints",
+    toLabel: "Cups",
+    fromUnit: "pt",
+    toUnit: "cups",
+    defaultValue: "1",
+    decimals: 4,
+    converterKey: "pintsToCups",
+    emptyHint: "Enter pints to convert to cups.",
+  },
+  {
+    slug: "cm-to-ft-in-calculator",
+    title: "Cm to Ft In Converter",
+    description:
+      "Convert length from centimeters (cm) to feet (ft) and inches (in).",
+    breadcrumbLabel: "cm to ft in",
+    variant: "heightCmFtIn",
+    defaultValue: "170",
+    emptyHint: "Enter centimeters to convert to feet and inches.",
+  },
+  {
+    slug: "pounds-to-grams-calculator",
+    title: "Pounds to Grams Converter",
+    description:
+      "Convert weight from pounds (lb) to grams (g) using the standard conversion factor.",
+    breadcrumbLabel: "pounds to grams",
+    fromLabel: "Pounds",
+    toLabel: "Grams",
+    fromUnit: "lb",
+    toUnit: "g",
+    defaultValue: "1",
+    decimals: 4,
+    converterKey: "poundsToGrams",
+    emptyHint: "Enter pounds to convert to grams.",
+  },
+  {
+    slug: "nm-to-m-calculator",
+    title: "Nm to M Converter",
+    description:
+      "Convert length from nanometers (nm) to meters (m). One meter equals one billion nanometers.",
+    breadcrumbLabel: "nm to m",
+    fromLabel: "Nanometers",
+    toLabel: "Meters",
+    fromUnit: "nm",
+    toUnit: "m",
+    defaultValue: "500",
+    decimals: 12,
+    converterKey: "nanometersToMeters",
+    emptyHint: "Enter nanometers to convert to meters.",
+  },
+  {
+    slug: "gallons-to-quarts-calculator",
+    title: "Gallons to Quarts Converter",
+    description:
+      "Convert US liquid gallons to quarts. One US gallon equals 4 quarts.",
+    breadcrumbLabel: "gallons to quarts",
+    fromLabel: "Gallons",
+    toLabel: "Quarts",
+    fromUnit: "gal",
+    toUnit: "qt",
+    defaultValue: "1",
+    decimals: 4,
+    converterKey: "gallonsToQuarts",
+    emptyHint: "Enter gallons to convert to quarts.",
+  },
+  {
+    slug: "mmol-l-to-mg-dl-calculator",
+    title: "Mmol/L to Mg/dL Converter",
+    description:
+      "Convert blood concentrations from mmol/L to mg/dL for glucose, cholesterol, and triglycerides.",
+    breadcrumbLabel: "mmol/l to mg/dl",
+    variant: "mmolToMgdl",
+    emptyHint: "Choose a substance and enter mmol/L to get mg/dL.",
+  },
+  {
+    slug: "military-time-converter",
+    title: "Military Time Converter",
+    description:
+      "Convert between 12-hour clock time (AM/PM) and 24-hour military time, and back again.",
+    breadcrumbLabel: "military time converter",
+    variant: "militaryTime",
+    emptyHint: "Enter a time to convert between 12-hour and 24-hour formats.",
   },
 ];
 

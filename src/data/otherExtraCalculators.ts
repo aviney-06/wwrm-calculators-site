@@ -8,7 +8,29 @@ export type OtherExtraToolKey =
   | "minecraft-circle"
   | "btu"
   | "birth-year"
-  | "electricity";
+  | "electricity"
+  | "age"
+  | "time-add"
+  | "date-shift"
+  | "time-duration"
+  | "work-hours"
+  | "day-counter"
+  | "square-footage"
+  | "time-card"
+  | "hours"
+  | "day-of-week"
+  | "hours-minutes"
+  | "days-between"
+  | "time-zone"
+  | "sunrise-sunset"
+  | "feet-inches"
+  | "gravel"
+  | "cubic-yards"
+  | "tank-volume"
+  | "stair"
+  | "board-foot"
+  | "roof-pitch"
+  | "cubic-feet";
 
 export type OtherExtraCalculator = {
   slug: string;
@@ -136,6 +158,182 @@ export const OTHER_EXTRA_CALCULATORS: OtherExtraCalculator[] = [
       "Estimate daily kWh usage and electricity cost from watts, hours, and $/kWh rate.",
     breadcrumbLabel: "electricity calculator",
     toolKey: "electricity",
+  },
+  {
+    slug: "age-calculator",
+    title: "Age Calculator",
+    description:
+      "Calculate your exact age in years, months, and days from your date of birth.",
+    breadcrumbLabel: "age calculator",
+    toolKey: "age",
+  },
+  {
+    slug: "time-calculator",
+    title: "Time Calculator",
+    description:
+      "Add or subtract two amounts of time in hours, minutes, and seconds.",
+    breadcrumbLabel: "time calculator",
+    toolKey: "time-add",
+  },
+  {
+    slug: "date-calculator",
+    title: "Date Calculator",
+    description:
+      "Add or subtract days, weeks, months, or years from any date to find a new date.",
+    breadcrumbLabel: "date calculator",
+    toolKey: "date-shift",
+  },
+  {
+    slug: "time-duration-calculator",
+    title: "Time Duration Calculator",
+    description:
+      "Find the duration between two dates and times in days, hours, and minutes.",
+    breadcrumbLabel: "time duration calculator",
+    toolKey: "time-duration",
+  },
+  {
+    slug: "work-hours-calculator",
+    title: "Work Hours Calculator",
+    description:
+      "Calculate hours worked in a shift from clock in/out times, breaks, and an optional pay rate.",
+    breadcrumbLabel: "work hours calculator",
+    toolKey: "work-hours",
+  },
+  {
+    slug: "day-counter",
+    title: "Day Counter",
+    description:
+      "Count the total days, weekdays, and weekend days between two dates.",
+    breadcrumbLabel: "day counter",
+    toolKey: "day-counter",
+  },
+  {
+    slug: "square-footage-calculator",
+    title: "Square Footage Calculator",
+    description:
+      "Calculate the area of a room or space in square feet, yards, and meters, with optional cost.",
+    breadcrumbLabel: "square footage calculator",
+    toolKey: "square-footage",
+  },
+  {
+    slug: "time-card-calculator",
+    title: "Time Card Calculator",
+    description:
+      "Add up a weekly time card from daily clock in/out times and breaks, with total pay.",
+    breadcrumbLabel: "time card calculator",
+    toolKey: "time-card",
+  },
+  {
+    slug: "hours-calculator",
+    title: "Hours Calculator",
+    description:
+      "Calculate the number of hours and minutes between a start time and an end time.",
+    breadcrumbLabel: "hours calculator",
+    toolKey: "hours",
+  },
+  {
+    slug: "day-of-the-week-calculator",
+    title: "Day of the Week Calculator",
+    description:
+      "Find out what day of the week any date falls on, plus the day and week of the year.",
+    breadcrumbLabel: "day of the week calculator",
+    toolKey: "day-of-week",
+  },
+  {
+    slug: "hours-and-minutes-calculator",
+    title: "Hours and Minutes Calculator",
+    description:
+      "Add up multiple hours and minutes entries to get a total time and decimal hours.",
+    breadcrumbLabel: "hours and minutes calculator",
+    toolKey: "hours-minutes",
+  },
+  {
+    slug: "days-between-dates-calculator",
+    title: "Days Between Dates",
+    description:
+      "Calculate the number of days, weeks, months, and years between two dates.",
+    breadcrumbLabel: "days between dates",
+    toolKey: "days-between",
+  },
+  {
+    slug: "time-zone-calculator",
+    title: "Time Zone Calculator",
+    description:
+      "Convert a date and time from one time zone to another, with daylight saving applied.",
+    breadcrumbLabel: "time zone calculator",
+    toolKey: "time-zone",
+  },
+  {
+    slug: "sunrise-sunset-calculator",
+    title: "Sunrise Sunset Calculator",
+    description:
+      "Estimate sunrise, sunset, and day length for any latitude, longitude, and date.",
+    breadcrumbLabel: "sunrise sunset calculator",
+    toolKey: "sunrise-sunset",
+  },
+  {
+    slug: "feet-and-inches-calculator",
+    title: "Feet and Inches Calculator",
+    description:
+      "Add or subtract measurements in feet and inches, with total inches and decimal feet.",
+    breadcrumbLabel: "feet and inches calculator",
+    toolKey: "feet-inches",
+  },
+  {
+    slug: "gravel-calculator",
+    title: "Gravel Calculator",
+    description:
+      "Estimate how much gravel you need in cubic yards and tons from an area and depth.",
+    breadcrumbLabel: "gravel calculator",
+    toolKey: "gravel",
+  },
+  {
+    slug: "cubic-yards-calculator",
+    title: "Cubic Yards Calculator",
+    description:
+      "Calculate the volume of a space in cubic yards from length, width, and depth.",
+    breadcrumbLabel: "cubic yards calculator",
+    toolKey: "cubic-yards",
+  },
+  {
+    slug: "tank-volume-calculator",
+    title: "Tank Volume Calculator",
+    description:
+      "Calculate the capacity of a cylindrical or rectangular tank in gallons, liters, and cubic feet.",
+    breadcrumbLabel: "tank volume calculator",
+    toolKey: "tank-volume",
+  },
+  {
+    slug: "stair-calculator",
+    title: "Stair Calculator",
+    description:
+      "Work out riser height, total run, stringer length, and stair angle from total rise and steps.",
+    breadcrumbLabel: "stair calculator",
+    toolKey: "stair",
+  },
+  {
+    slug: "board-foot-calculator",
+    title: "Board Foot Calculator",
+    description:
+      "Calculate board feet of lumber from thickness, width, length, and quantity, with optional cost.",
+    breadcrumbLabel: "board foot calculator",
+    toolKey: "board-foot",
+  },
+  {
+    slug: "roof-pitch-calculator",
+    title: "Roof Pitch Calculator",
+    description:
+      "Find roof pitch as an x:12 ratio, angle in degrees, grade percentage, and slope factor.",
+    breadcrumbLabel: "roof pitch calculator",
+    toolKey: "roof-pitch",
+  },
+  {
+    slug: "cubic-feet-calculator",
+    title: "Cubic Feet Calculator",
+    description:
+      "Calculate the volume of a space in cubic feet, cubic yards, and gallons from its dimensions.",
+    breadcrumbLabel: "cubic feet calculator",
+    toolKey: "cubic-feet",
   },
 ];
 

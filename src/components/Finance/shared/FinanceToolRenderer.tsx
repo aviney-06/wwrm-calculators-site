@@ -1,4 +1,5 @@
 import { Annuity_Calculator } from "@/components/Finance/Annuity/Annuity_Calculator";
+import { Overtime_Calculator } from "@/components/Finance/Overtime/Overtime_Calculator";
 import { ProfitMargin_Calculator } from "@/components/Finance/ProfitMargin/ProfitMargin_Calculator";
 import { RentalProperty_Calculator } from "@/components/Finance/RentalProperty/RentalProperty_Calculator";
 import type { FinanceCalculator } from "@/data/financeCalculators";
@@ -81,6 +82,8 @@ export function FinanceToolRenderer({ config }: { config: FinanceCalculator }) {
       return <Annuity_Calculator />;
     case "rental-property":
       return <RentalProperty_Calculator />;
+    case "overtime":
+      return <Overtime_Calculator />;
     default:
       return null;
   }
