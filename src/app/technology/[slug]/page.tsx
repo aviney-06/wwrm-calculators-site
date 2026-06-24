@@ -1,4 +1,6 @@
 import { notFound } from "next/navigation";
+import { AspectRatio_Calculator } from "@/components/Technology/AspectRatio/AspectRatio_Calculator";
+import { DownloadTime_Calculator } from "@/components/Technology/DownloadTime/DownloadTime_Calculator";
 import { Hex_Calculator } from "@/components/Technology/Hex/Hex_Calculator";
 import { OhmsLaw_Calculator } from "@/components/Technology/OhmsLaw/OhmsLaw_Calculator";
 import { Resistor_Calculator } from "@/components/Technology/Resistor/Resistor_Calculator";
@@ -39,6 +41,10 @@ function TechnologyTool({ config }: { config: TechnologyExtraCalculator }) {
       return <Hex_Calculator />;
     case "resistor":
       return <Resistor_Calculator />;
+    case "aspect-ratio":
+      return <AspectRatio_Calculator />;
+    case "download-time":
+      return <DownloadTime_Calculator />;
     default:
       return null;
   }

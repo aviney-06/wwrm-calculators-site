@@ -30,7 +30,11 @@ export type OtherExtraToolKey =
   | "stair"
   | "board-foot"
   | "roof-pitch"
-  | "cubic-feet";
+  | "cubic-feet"
+  | "mulch"
+  | "tile"
+  | "dog-size"
+  | "dew-point";
 
 export type OtherExtraCalculator = {
   slug: string;
@@ -334,6 +338,38 @@ export const OTHER_EXTRA_CALCULATORS: OtherExtraCalculator[] = [
       "Calculate the volume of a space in cubic feet, cubic yards, and gallons from its dimensions.",
     breadcrumbLabel: "cubic feet calculator",
     toolKey: "cubic-feet",
+  },
+  {
+    slug: "mulch-calculator",
+    title: "Mulch Calculator",
+    description:
+      "Estimate how much mulch you need in cubic yards and 2 cubic foot bags from an area and depth.",
+    breadcrumbLabel: "mulch calculator",
+    toolKey: "mulch",
+  },
+  {
+    slug: "tile-calculator",
+    title: "Tile Calculator",
+    description:
+      "Calculate how many tiles you need to cover an area, including a waste allowance.",
+    breadcrumbLabel: "tile calculator",
+    toolKey: "tile",
+  },
+  {
+    slug: "dog-size-calculator",
+    title: "Dog Size Calculator",
+    description:
+      "Estimate a puppy's adult weight from its current weight and age.",
+    breadcrumbLabel: "dog size calculator",
+    toolKey: "dog-size",
+  },
+  {
+    slug: "dew-point-calculator",
+    title: "Dew Point Calculator",
+    description:
+      "Calculate the dew point from air temperature and relative humidity using the Magnus formula.",
+    breadcrumbLabel: "dew point calculator",
+    toolKey: "dew-point",
   },
 ];
 

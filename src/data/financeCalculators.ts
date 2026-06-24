@@ -22,7 +22,25 @@ export type FinanceToolKey =
   | "profit-margin"
   | "annuity"
   | "rental-property"
-  | "overtime";
+  | "overtime"
+  | "debt-payoff"
+  | "lottery-tax"
+  | "credit-card"
+  | "roi"
+  | "apr"
+  | "va-mortgage"
+  | "take-home-pay"
+  | "debt-ratio"
+  | "down-payment"
+  | "monthly-income"
+  | "cagr"
+  | "apy"
+  | "cpm"
+  | "markup"
+  | "present-value"
+  | "budget"
+  | "rent-vs-buy"
+  | "price-per-sqft";
 
 export type FinanceCalculator = {
   slug: string;
@@ -378,6 +396,186 @@ export const FINANCE_CALCULATORS: FinanceCalculator[] = [
       "Calculate overtime pay and total earnings from your hourly rate, regular hours, and overtime hours.",
     breadcrumbLabel: "overtime calculator",
     toolKey: "overtime",
+  },
+  {
+    slug: "student-loan-calculator",
+    title: "Student Loan Calculator",
+    description:
+      "Estimate monthly student loan payments and total interest from amount, rate, and term.",
+    breadcrumbLabel: "student loan calculator",
+    toolKey: "loan-payment",
+    variant: "student-loan",
+  },
+  {
+    slug: "boat-loan-calculator",
+    title: "Boat Loan Calculator",
+    description:
+      "Calculate monthly boat loan payments and total interest using standard amortization.",
+    breadcrumbLabel: "boat loan calculator",
+    toolKey: "loan-payment",
+    variant: "boat-loan",
+  },
+  {
+    slug: "business-loan-calculator",
+    title: "Business Loan Calculator",
+    description:
+      "Estimate monthly business loan payments and total interest from amount, rate, and term.",
+    breadcrumbLabel: "business loan calculator",
+    toolKey: "loan-payment",
+    variant: "business-loan",
+  },
+  {
+    slug: "repayment-calculator",
+    title: "Repayment Calculator",
+    description:
+      "Calculate the monthly repayment and total interest on a fixed-rate loan.",
+    breadcrumbLabel: "repayment calculator",
+    toolKey: "loan-payment",
+    variant: "repayment",
+  },
+  {
+    slug: "debt-payoff-calculator",
+    title: "Debt Payoff Calculator",
+    description:
+      "Find how long it takes to pay off a debt and the total interest from your monthly payment.",
+    breadcrumbLabel: "debt payoff calculator",
+    toolKey: "debt-payoff",
+  },
+  {
+    slug: "lottery-tax-calculator",
+    title: "Lottery Tax Calculator",
+    description:
+      "Estimate your take-home lottery winnings after federal and state taxes.",
+    breadcrumbLabel: "lottery tax calculator",
+    toolKey: "lottery-tax",
+  },
+  {
+    slug: "credit-card-calculator",
+    title: "Credit Card Calculator",
+    description:
+      "Find the monthly payment needed to pay off a credit card balance in a set number of months.",
+    breadcrumbLabel: "credit card calculator",
+    toolKey: "credit-card",
+  },
+  {
+    slug: "roi-calculator",
+    title: "ROI Calculator",
+    description:
+      "Calculate return on investment (ROI), net profit, and annualized ROI from cost and final value.",
+    breadcrumbLabel: "roi calculator",
+    toolKey: "roi",
+  },
+  {
+    slug: "apr-calculator",
+    title: "APR Calculator",
+    description:
+      "Calculate the effective annual percentage rate (APR) of a loan including up-front fees.",
+    breadcrumbLabel: "apr calculator",
+    toolKey: "apr",
+  },
+  {
+    slug: "va-mortgage-calculator",
+    title: "VA Mortgage Calculator",
+    description:
+      "Estimate a VA home loan payment with the funding fee financed, plus taxes and insurance.",
+    breadcrumbLabel: "va mortgage calculator",
+    toolKey: "va-mortgage",
+  },
+  {
+    slug: "take-home-pay-calculator",
+    title: "Take Home Pay Calculator",
+    description:
+      "Estimate your net pay after federal, state, and FICA taxes from your gross income.",
+    breadcrumbLabel: "take home pay calculator",
+    toolKey: "take-home-pay",
+  },
+  {
+    slug: "debt-ratio-calculator",
+    title: "Debt Ratio Calculator",
+    description:
+      "Calculate your debt-to-income (DTI) ratio from monthly debt payments and gross income.",
+    breadcrumbLabel: "debt ratio calculator",
+    toolKey: "debt-ratio",
+  },
+  {
+    slug: "down-payment-calculator",
+    title: "Down Payment Calculator",
+    description:
+      "Calculate your down payment amount and resulting loan from a home price and percentage.",
+    breadcrumbLabel: "down payment calculator",
+    toolKey: "down-payment",
+  },
+  {
+    slug: "monthly-income-calculator",
+    title: "Monthly Income Calculator",
+    description:
+      "Convert hourly, weekly, biweekly, or annual pay into gross monthly and annual income.",
+    breadcrumbLabel: "monthly income calculator",
+    toolKey: "monthly-income",
+  },
+  {
+    slug: "cagr-calculator",
+    title: "CAGR Calculator",
+    description:
+      "Calculate the compound annual growth rate (CAGR) of an investment between two values over time.",
+    breadcrumbLabel: "cagr calculator",
+    toolKey: "cagr",
+  },
+  {
+    slug: "apy-calculator",
+    title: "APY Calculator",
+    description:
+      "Convert a nominal annual interest rate into annual percentage yield (APY) for any compounding frequency.",
+    breadcrumbLabel: "apy calculator",
+    toolKey: "apy",
+  },
+  {
+    slug: "cpm-calculator",
+    title: "CPM Calculator",
+    description:
+      "Calculate cost per thousand impressions (CPM), total campaign cost, or impressions for advertising.",
+    breadcrumbLabel: "cpm calculator",
+    toolKey: "cpm",
+  },
+  {
+    slug: "markup-calculator",
+    title: "Markup Calculator",
+    description:
+      "Calculate selling price, markup percentage, and profit margin from cost and markup.",
+    breadcrumbLabel: "markup calculator",
+    toolKey: "markup",
+  },
+  {
+    slug: "present-value-calculator",
+    title: "Present Value Calculator",
+    description:
+      "Calculate the present value of a future sum of money discounted at a given rate of return.",
+    breadcrumbLabel: "present value calculator",
+    toolKey: "present-value",
+  },
+  {
+    slug: "budget-calculator",
+    title: "Budget Calculator",
+    description:
+      "Split your monthly take-home income into needs, wants, and savings using the 50/30/20 rule.",
+    breadcrumbLabel: "budget calculator",
+    toolKey: "budget",
+  },
+  {
+    slug: "rent-vs-buy-calculator",
+    title: "Rent vs Buy Calculator",
+    description:
+      "Compare the total cost of renting versus buying a home over a set number of years.",
+    breadcrumbLabel: "rent vs buy calculator",
+    toolKey: "rent-vs-buy",
+  },
+  {
+    slug: "price-per-square-foot-calculator",
+    title: "Price Per Square Foot Calculator",
+    description:
+      "Calculate price per square foot, total price, or square footage for real estate.",
+    breadcrumbLabel: "price per square foot calculator",
+    toolKey: "price-per-sqft",
   },
 ];
 

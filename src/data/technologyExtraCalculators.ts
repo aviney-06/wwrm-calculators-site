@@ -1,4 +1,9 @@
-export type TechnologyExtraToolKey = "ohms-law" | "hex" | "resistor";
+export type TechnologyExtraToolKey =
+  | "ohms-law"
+  | "hex"
+  | "resistor"
+  | "aspect-ratio"
+  | "download-time";
 
 export type TechnologyExtraCalculator = {
   slug: string;
@@ -30,6 +35,22 @@ export const TECHNOLOGY_EXTRA_CALCULATORS: TechnologyExtraCalculator[] = [
       "Equivalent resistance for resistors in series or parallel (comma-separated values in Ω).",
     breadcrumbLabel: "resistor calculator",
     toolKey: "resistor",
+  },
+  {
+    slug: "aspect-ratio-calculator",
+    title: "Aspect Ratio Calculator",
+    description:
+      "Simplify a width and height to an aspect ratio, or resize while keeping the same ratio.",
+    breadcrumbLabel: "aspect ratio calculator",
+    toolKey: "aspect-ratio",
+  },
+  {
+    slug: "download-time-calculator",
+    title: "Download Time Calculator",
+    description:
+      "Estimate how long a file takes to download at a given internet speed.",
+    breadcrumbLabel: "download time calculator",
+    toolKey: "download-time",
   },
 ];
 

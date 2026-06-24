@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-    //   disallow: '/private/',
+      disallow: '/*?_rsc=*',
     },
     sitemap: 'https://www.all1calculators.com/sitemap.xml',
   }

@@ -24,8 +24,12 @@ import { TimeCard_Calculator } from "@/components/Other/DateTime/TimeCard_Calcul
 import { TimeDuration_Calculator } from "@/components/Other/DateTime/TimeDuration_Calculator";
 import { TimeZone_Calculator } from "@/components/Other/DateTime/TimeZone_Calculator";
 import { WorkHours_Calculator } from "@/components/Other/DateTime/WorkHours_Calculator";
+import { DewPoint_Calculator } from "@/components/Other/DewPoint/DewPoint_Calculator";
+import { DogSize_Calculator } from "@/components/Other/DogSize/DogSize_Calculator";
 import { Electricity_Calculator } from "@/components/Other/Electricity/Electricity_Calculator";
 import { Love_Calculator } from "@/components/Other/Love/Love_Calculator";
+import { Mulch_Calculator } from "@/components/Other/Mulch/Mulch_Calculator";
+import { Tile_Calculator } from "@/components/Other/Tile/Tile_Calculator";
 import { MinecraftCircle_Calculator } from "@/components/Other/MinecraftCircle/MinecraftCircle_Calculator";
 import { Powerball_Calculator } from "@/components/Other/Powerball/Powerball_Calculator";
 import { SquareFootage_Calculator } from "@/components/Other/SquareFootage/SquareFootage_Calculator";
@@ -131,6 +135,14 @@ function OtherTool({ config }: { config: OtherExtraCalculator }) {
       return <RoofPitch_Calculator />;
     case "cubic-feet":
       return <CubicFeet_Calculator />;
+    case "mulch":
+      return <Mulch_Calculator />;
+    case "tile":
+      return <Tile_Calculator />;
+    case "dog-size":
+      return <DogSize_Calculator />;
+    case "dew-point":
+      return <DewPoint_Calculator />;
     default:
       return null;
   }

@@ -59,4 +59,36 @@ export const LOAN_VARIANTS: Record<string, LoanPaymentVariant> = {
     disclaimer:
       "Includes estimated monthly MIP (simplified). Actual FHA MIP varies by LTV and term.",
   },
+  "student-loan": {
+    idPrefix: "student",
+    principalLabel: "Loan amount",
+    defaultPrincipal: "25000",
+    defaultRate: "6.5",
+    defaultYears: "10",
+    buttonLabel: "Calculate student loan payment",
+  },
+  "boat-loan": {
+    idPrefix: "boat",
+    principalLabel: "Boat price / loan amount",
+    defaultPrincipal: "40000",
+    defaultRate: "7.5",
+    defaultYears: "15",
+    buttonLabel: "Calculate boat payment",
+  },
+  "business-loan": {
+    idPrefix: "business",
+    principalLabel: "Loan amount",
+    defaultPrincipal: "100000",
+    defaultRate: "9",
+    defaultYears: "7",
+    buttonLabel: "Calculate business loan payment",
+  },
+  repayment: {
+    idPrefix: "repayment",
+    principalLabel: "Loan amount",
+    defaultPrincipal: "15000",
+    defaultRate: "8",
+    defaultYears: "5",
+    buttonLabel: "Calculate repayment",
+  },
 };

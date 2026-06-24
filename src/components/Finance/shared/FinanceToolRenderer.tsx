@@ -1,6 +1,28 @@
 import { Annuity_Calculator } from "@/components/Finance/Annuity/Annuity_Calculator";
 import { Overtime_Calculator } from "@/components/Finance/Overtime/Overtime_Calculator";
 import { ProfitMargin_Calculator } from "@/components/Finance/ProfitMargin/ProfitMargin_Calculator";
+import {
+  Apr_Calculator,
+  CreditCard_Calculator,
+  DebtPayoff_Calculator,
+  DebtRatio_Calculator,
+  DownPayment_Calculator,
+  LotteryTax_Calculator,
+  MonthlyIncome_Calculator,
+  Roi_Calculator,
+  TakeHomePay_Calculator,
+  VaMortgage_Calculator,
+} from "./FinanceBatchCalculators";
+import {
+  Apy_Calculator,
+  Budget_Calculator,
+  Cagr_Calculator,
+  Cpm_Calculator,
+  Markup_Calculator,
+  PresentValue_Calculator,
+  PricePerSqft_Calculator,
+  RentVsBuy_Calculator,
+} from "./FinanceBatchCalculators2";
 import { RentalProperty_Calculator } from "@/components/Finance/RentalProperty/RentalProperty_Calculator";
 import type { FinanceCalculator } from "@/data/financeCalculators";
 import { COMPOUND_VARIANTS } from "./compoundVariants";
@@ -84,6 +106,42 @@ export function FinanceToolRenderer({ config }: { config: FinanceCalculator }) {
       return <RentalProperty_Calculator />;
     case "overtime":
       return <Overtime_Calculator />;
+    case "debt-payoff":
+      return <DebtPayoff_Calculator />;
+    case "lottery-tax":
+      return <LotteryTax_Calculator />;
+    case "credit-card":
+      return <CreditCard_Calculator />;
+    case "roi":
+      return <Roi_Calculator />;
+    case "apr":
+      return <Apr_Calculator />;
+    case "va-mortgage":
+      return <VaMortgage_Calculator />;
+    case "take-home-pay":
+      return <TakeHomePay_Calculator />;
+    case "debt-ratio":
+      return <DebtRatio_Calculator />;
+    case "down-payment":
+      return <DownPayment_Calculator />;
+    case "monthly-income":
+      return <MonthlyIncome_Calculator />;
+    case "cagr":
+      return <Cagr_Calculator />;
+    case "apy":
+      return <Apy_Calculator />;
+    case "cpm":
+      return <Cpm_Calculator />;
+    case "markup":
+      return <Markup_Calculator />;
+    case "present-value":
+      return <PresentValue_Calculator />;
+    case "budget":
+      return <Budget_Calculator />;
+    case "rent-vs-buy":
+      return <RentVsBuy_Calculator />;
+    case "price-per-sqft":
+      return <PricePerSqft_Calculator />;
     default:
       return null;
   }
